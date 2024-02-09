@@ -7,4 +7,8 @@
         <RootNamespace>Models</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="UserDraw\" />
+    </ItemGroup>
+
 </Project>
