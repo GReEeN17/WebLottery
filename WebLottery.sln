@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{F28277D7-CBF0-4D40-B094-D4B66C5402C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{A5623753-CA18-4367-BC90-80AF046B400D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{4A33315B-CE4E-4E71-A276-D593AE1831F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLottery.Application.Entities", "WebLottery.Application.Entities\WebLottery.Application.Entities.csproj", "{E8A6807A-3FFA-4B02-92DF-9069CE3D8BEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8A6807A-3FFA-4B02-92DF-9069CE3D8BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8A6807A-3FFA-4B02-92DF-9069CE3D8BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8A6807A-3FFA-4B02-92DF-9069CE3D8BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8A6807A-3FFA-4B02-92DF-9069CE3D8BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E8A6807A-3FFA-4B02-92DF-9069CE3D8BEF} = {F28277D7-CBF0-4D40-B094-D4B66C5402C4}
+	EndGlobalSection
+EndGlobal
