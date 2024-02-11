@@ -7,7 +7,7 @@ public interface IUserService
 {
     UserLoginResult LoginWithUsername(string username, string password);
     UserLoginResult LoginWithEmail(string email, string password);
-    Dictionary<Currency, int> ShowWallet();
+    IEnumerable<Models.WalletCurrency.WalletCurrency> ShowWallet();
     IEnumerable<Draw> ShowJoinedDraws();
     UserCreateGameResult CreateGame();
     UserCreateUserResult CreateUser(string username, string email, string password);

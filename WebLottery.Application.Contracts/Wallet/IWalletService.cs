@@ -1,9 +1,10 @@
 using Models;
+using Models.Currencies;
 
 namespace WebLottery.Application.Contracts.Wallets;
 
 public interface IWalletService
 {
-    Task CreateWallet();
-    Wallet GetUserWallet(Guid userId);
+    void CreateWallet(Guid userId);
+    IEnumerable<Models.WalletCurrency.WalletCurrency> GetUserWalletCurrency(Guid userId);
 }

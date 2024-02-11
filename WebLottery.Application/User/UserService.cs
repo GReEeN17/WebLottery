@@ -3,6 +3,7 @@ using Models.Draws;
 using Models.Users;
 using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Pockets;
+using WebLottery.Application.Contracts.UserDraw;
 using WebLottery.Application.Contracts.Users;
 using WebLottery.Application.Contracts.Wallets;
 
@@ -14,16 +15,20 @@ public class UserService : IUserService
     private readonly IWalletService _walletService;
     private readonly IPocketService _pocketService;
     private readonly CurrentUserManager _currentUserManager;
+    private readonly IUserDrawService _userDrawService;
+    
     public UserService(
         IUserRepository userRepository,
         IWalletService walletService,
         IPocketService pocketService,
-        CurrentUserManager currentUserManager)
+        CurrentUserManager currentUserManager,
+        IUserDrawService userDrawService)
     {
         _userRepository = userRepository;
         _walletService = walletService;
         _pocketService = pocketService;
         _currentUserManager = currentUserManager;
+        _userDrawService = userDrawService;
     }
 
 
@@ -61,14 +66,24 @@ public class UserService : IUserService
         return new UserLoginResult.Success();
     }
 
-    public Dictionary<Currency, int> ShowWallet()
+    public IEnumerable<Models.WalletCurrency.WalletCurrency> ShowWallet()
     {
-        
+        if (_currentUserManager.User is null)
+        {
+            return new List<Models.WalletCurrency.WalletCurrency>();
+        }
+
+        return _walletService.GetUserWalletCurrency(_currentUserManager.User.Id);
     }
 
     public IEnumerable<Draw> ShowJoinedDraws()
     {
-        throw new NotImplementedException();
+        if (_currentUserManager.User is null)
+        {
+            return new List<Draw>();
+        }
+
+        return _userDrawService.GetUserDraws(_currentUserManager.User.Id);
     }
 
     public UserCreateGameResult CreateGame()

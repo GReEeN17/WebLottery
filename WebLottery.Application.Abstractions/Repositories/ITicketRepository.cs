@@ -4,6 +4,6 @@ namespace WebLottery.Application.Abstractions.Repositories;
 
 public interface ITicketRepository
 {
-    Ticket CreateTicket(int luckyNumber);
-    IEnumerable<Ticket> GetUserTickets(Guid userId);
+    Task CreateTicket(int luckyNumber);
+    IAsyncEnumerable<Ticket> GetUserTickets(Guid userId);
 }
