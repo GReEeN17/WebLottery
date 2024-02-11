@@ -61,7 +61,7 @@ public class UserService : IUserService
         return new UserLoginResult.Success();
     }
 
-    public Dictionary<Currency, int> ShowBudget()
+    public Dictionary<Currency, int> ShowWallet()
     {
         
     }
