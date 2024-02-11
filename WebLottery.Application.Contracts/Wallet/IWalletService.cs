@@ -5,6 +5,7 @@ namespace WebLottery.Application.Contracts.Wallets;
 
 public interface IWalletService
 {
-    void CreateWallet(Guid userId);
-    IEnumerable<Models.WalletCurrency.WalletCurrency> GetUserWalletCurrency(Guid userId);
+    void CreateWallet(int userId);
+    Models.WalletCurrency.WalletCurrency GetUserWalletCurrency(int userId, int currencyId);
+    IEnumerable<Models.WalletCurrency.WalletCurrency> GetAllUserWalletCurrency(int userId);
 }

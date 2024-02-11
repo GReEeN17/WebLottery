@@ -4,6 +4,6 @@ namespace WebLottery.Application.Abstractions.Repositories;
 
 public interface IWalletRepository
 {
-    Task CreateWallet(Guid userId);
-    Task<Guid> GetUserWallet(Guid userId);
+    Task CreateWallet(int userId);
+    Task<int> GetUserWallet(int userId);
 }

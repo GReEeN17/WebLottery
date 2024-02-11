@@ -6,5 +6,5 @@ public interface IDrawRepository
 {
     Task CreateDraw(int ticketPrice, int maxAmountPlayers);
     IAsyncEnumerable<Draw> GetRangeActiveDraws();
-    IAsyncEnumerable<Draw> GetUserDraws(Guid userId);
+    IAsyncEnumerable<Draw> GetUserDraws(int userId);
 }

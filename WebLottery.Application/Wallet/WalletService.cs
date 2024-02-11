@@ -18,14 +18,20 @@ public class WalletService : IWalletService
     }
 
 
-    public void CreateWallet(Guid userId)
+    public void CreateWallet(int userId)
     {
         _walletRepository.CreateWallet(userId);
     }
 
-    public IEnumerable<Models.WalletCurrency.WalletCurrency> GetUserWalletCurrency(Guid userId)
-    { 
-        Guid walletId = _walletRepository.GetUserWallet(userId).Result;
-        return _walletCurrencyService.GetUserWalletCurrency(walletId);
+    public Models.WalletCurrency.WalletCurrency GetUserWalletCurrency(int userId, int currencyId)
+    {
+        int walletId = _walletRepository.GetUserWallet(userId).Result;
+        return _walletCurrencyService.GetUserWalletCurrency(walletId, currencyId);
+    }
+
+    public IEnumerable<Models.WalletCurrency.WalletCurrency> GetAllUserWalletCurrency(int userId)
+    {
+        int walletId = _walletRepository.GetUserWallet(userId).Result;
+        return _walletCurrencyService.GetAllUserWalletCurrency(walletId);    
     }
 }

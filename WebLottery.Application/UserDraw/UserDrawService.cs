@@ -14,12 +14,12 @@ public class UserDrawService : IUserDrawService
         _userDrawRepository = userDrawRepository;
     }
     
-    public void CreateUserDraw(Guid userId, Guid drawId)
+    public void CreateUserDraw(int userId, int drawId)
     {
         _userDrawRepository.CreateUserDraw(userId, drawId);
     }
 
-    public IEnumerable<Draw> GetUserDraws(Guid userId)
+    public IEnumerable<Draw> GetUserDraws(int userId)
     {
         return _userDrawRepository.GetUserDraws(userId).ToBlockingEnumerable();
     }

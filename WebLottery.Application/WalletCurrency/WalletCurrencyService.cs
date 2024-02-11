@@ -14,13 +14,18 @@ public class WalletCurrencyService : IWalletCurrencyService
         _walletCurrencyRepository = walletCurrencyRepository;
     }
 
-    public void CreateWalletCurrency(Guid walletId, Guid currencyId)
+    public void CreateWalletCurrency(int walletId, int currencyId)
     {
         _walletCurrencyRepository.CreateWalletCurrency(walletId, currencyId);
     }
 
-    public IEnumerable<Models.WalletCurrency.WalletCurrency> GetUserWalletCurrency(Guid walletId)
+    public Models.WalletCurrency.WalletCurrency GetUserWalletCurrency(int walletId, int currencyId)
     {
-        return _walletCurrencyRepository.GetWalletCurrency(walletId).ToBlockingEnumerable();
+        return _walletCurrencyRepository.GetUserWalletCurrency(walletId, currencyId);
+    }
+
+    public IEnumerable<Models.WalletCurrency.WalletCurrency> GetAllUserWalletCurrency(int walletId)
+    {
+        return _walletCurrencyRepository.GetAllUserWalletCurrency(walletId).ToBlockingEnumerable();
     }
 }

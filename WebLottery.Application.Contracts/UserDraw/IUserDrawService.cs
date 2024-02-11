@@ -4,6 +4,6 @@ namespace WebLottery.Application.Contracts.UserDraw;
 
 public interface IUserDrawService
 {
-    void CreateUserDraw(Guid userId, Guid drawId);
-    IEnumerable<Draw> GetUserDraws(Guid userId);
+    void CreateUserDraw(int userId, int drawId);
+    IEnumerable<Draw> GetUserDraws(int userId);
 }

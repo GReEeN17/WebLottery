@@ -4,6 +4,6 @@ namespace WebLottery.Application.Abstractions.Repositories;
 
 public interface IUserDrawRepository
 {
-    Task CreateUserDraw(Guid userId, Guid drawId);
-    IAsyncEnumerable<Draw> GetUserDraws(Guid userId);
+    Task CreateUserDraw(int userId, int drawId);
+    IAsyncEnumerable<Draw> GetUserDraws(int userId);
 }

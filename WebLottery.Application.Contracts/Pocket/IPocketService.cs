@@ -5,5 +5,5 @@ namespace WebLottery.Application.Contracts.Pockets;
 public interface IPocketService
 {
     void CreatePocket();
-    Pocket GetUserPocket(Guid userId);
+    Pocket GetUserPocket(int userId);
 }

@@ -7,4 +7,8 @@ public record UserCreateGameResult
     public sealed record Success : UserCreateGameResult;
 
     public sealed record NotEnoughMoney : UserCreateGameResult;
+
+    public sealed record NotEnoughRights : UserCreateGameResult;
+
+    public sealed record NotAuthorized : UserCreateGameResult;
 }

@@ -73,7 +73,7 @@ public class UserService : IUserService
             return new List<Models.WalletCurrency.WalletCurrency>();
         }
 
-        return _walletService.GetUserWalletCurrency(_currentUserManager.User.Id);
+        return _walletService.GetAllUserWalletCurrency(_currentUserManager.User.Id);
     }
 
     public IEnumerable<Draw> ShowJoinedDraws()
@@ -88,7 +88,13 @@ public class UserService : IUserService
 
     public UserCreateGameResult CreateGame()
     {
-        throw new NotImplementedException();
+        if (_currentUserManager.User is null)
+        {
+            return new UserCreateGameResult.NotAuthorized();
+        }
+        
+        
+        if (_currentUserManager.User)
     }
 
     public UserCreateUserResult CreateUser(string username, string email, string password)
