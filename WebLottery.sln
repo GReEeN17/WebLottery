@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLottery.Infrastructure.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLottery.Application.Contracts", "WebLottery.Application.Contracts\WebLottery.Application.Contracts.csproj", "{AAB4006D-0B29-435C-9E3A-DE92624A5790}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLottery.Application", "WebLottery.Application\WebLottery.Application.csproj", "{34421C28-8423-42D1-8610-E8144276F315}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,11 +38,16 @@ Global
 		{AAB4006D-0B29-435C-9E3A-DE92624A5790}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAB4006D-0B29-435C-9E3A-DE92624A5790}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAB4006D-0B29-435C-9E3A-DE92624A5790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34421C28-8423-42D1-8610-E8144276F315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34421C28-8423-42D1-8610-E8144276F315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34421C28-8423-42D1-8610-E8144276F315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34421C28-8423-42D1-8610-E8144276F315}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E8A6807A-3FFA-4B02-92DF-9069CE3D8BEF} = {F28277D7-CBF0-4D40-B094-D4B66C5402C4}
 		{AEB0ED19-093A-4168-8AF7-443D694D7E2D} = {F28277D7-CBF0-4D40-B094-D4B66C5402C4}
 		{0D7B2414-EDF9-49C4-AFA9-2EE1B4463B10} = {A5623753-CA18-4367-BC90-80AF046B400D}
 		{AAB4006D-0B29-435C-9E3A-DE92624A5790} = {F28277D7-CBF0-4D40-B094-D4B66C5402C4}
+		{34421C28-8423-42D1-8610-E8144276F315} = {F28277D7-CBF0-4D40-B094-D4B66C5402C4}
 	EndGlobalSection
 EndGlobal
