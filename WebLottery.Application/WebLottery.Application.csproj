@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\WebLottery.Application.Abstractions\WebLottery.Application.Abstractions.csproj" />
+      <ProjectReference Include="..\WebLottery.Application.Contracts\WebLottery.Application.Contracts.csproj" />
+    </ItemGroup>
+
 </Project>

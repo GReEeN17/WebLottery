@@ -1,10 +1,11 @@
 using Models.Abstractions;
 using Models.Tickets;
+using Models.Users;
 
 namespace Models.Pockets;
 
 public class Pocket : Entity
 {
-    public Guid PocketId { get; set; }
-    public Ticket Ticket { get; set; }
+    public User User { get; set; }
+    public List<PocketTicket.PocketTicket> PocketTickets { get; set; }
 }

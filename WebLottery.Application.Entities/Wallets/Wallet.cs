@@ -1,11 +1,11 @@
 using Models.Abstractions;
 using Models.Currencies;
+using Models.Users;
 
 namespace Models;
 
 public class Wallet : Entity
 {
-    public Guid WalletId { get; set; }
-    public int Amount { get; set; }
-    public Currency Currency { get; set; }
+    public User User { get; set; }
+    public List<WalletCurrency.WalletCurrency> WalletCurrencies { get; set; }
 }

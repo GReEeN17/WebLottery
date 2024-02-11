@@ -4,6 +4,6 @@ namespace WebLottery.Application.Contracts.Wallets;
 
 public interface IWalletService
 {
-    void CreateWallet();
+    Task CreateWallet();
     Wallet GetUserWallet(Guid userId);
 }
