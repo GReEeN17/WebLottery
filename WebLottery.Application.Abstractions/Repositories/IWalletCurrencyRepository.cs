@@ -1,4 +1,3 @@
-using Models.Currencies;
 using Models.WalletCurrency;
 
 namespace WebLottery.Application.Abstractions.Repositories;

@@ -1,6 +1,3 @@
-using Models;
-using Models.Currencies;
-
 namespace WebLottery.Application.Contracts.Wallets;
 
 public interface IWalletService

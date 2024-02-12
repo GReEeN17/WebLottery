@@ -1,5 +1,4 @@
 using Models.Abstractions;
-using Models.Tickets;
 using Models.Users;
 
 namespace Models.Pockets;

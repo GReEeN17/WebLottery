@@ -1,4 +1,3 @@
-using Models.Draws;
 using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.UserDraw;
 

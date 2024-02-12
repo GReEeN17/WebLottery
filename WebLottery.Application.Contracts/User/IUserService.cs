@@ -1,4 +1,3 @@
-using Models.Currencies;
 using Models.Draws;
 using Models.Prizes;
 

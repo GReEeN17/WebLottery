@@ -1,5 +1,4 @@
 using Models.Abstractions;
-using Models.Currencies;
 using Models.Users;
 
 namespace Models;
