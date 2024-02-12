@@ -1,7 +1,9 @@
 using Models.Users;
 using WebLottery.Application.Abstractions.Repositories;
+using WebLottery.Application.Contracts.Currencies;
 using WebLottery.Application.Contracts.Draws;
 using WebLottery.Application.Contracts.Pockets;
+using WebLottery.Application.Contracts.Prizes;
 using WebLottery.Application.Contracts.UserDraw;
 using WebLottery.Application.Contracts.Users;
 using WebLottery.Application.Contracts.Wallets;
@@ -16,6 +18,8 @@ public class UserService : IUserService
     private readonly CurrentUserManager _currentUserManager;
     private readonly IUserDrawService _userDrawService;
     private readonly IDrawService _drawService;
+    private readonly ICurrencyService _currencyService;
+    private readonly IPrizeService _prizeService;
     
     public UserService(
         IUserRepository userRepository,
@@ -23,7 +27,9 @@ public class UserService : IUserService
         IPocketService pocketService,
         CurrentUserManager currentUserManager,
         IUserDrawService userDrawService,
-        IDrawService drawService)
+        IDrawService drawService,
+        ICurrencyService currencyService,
+        IPrizeService prizeService)
     {
         _userRepository = userRepository;
         _walletService = walletService;
@@ -31,6 +37,8 @@ public class UserService : IUserService
         _currentUserManager = currentUserManager;
         _userDrawService = userDrawService;
         _drawService = drawService;
+        _currencyService = currencyService;
+        _prizeService = prizeService;
     }
 
 
@@ -144,5 +152,47 @@ public class UserService : IUserService
         _pocketService.BuyTicket(_currentUserManager.User.Id, luckyNumber, drawId);
         _userDrawService.CreateUserDraw(_currentUserManager.User.Id, drawId);
         return new UserBuyTicketResult.Success();
+    }
+
+    public UserCreateCurrencyResult CreateCurrency(string name, string abbreviation)
+    {
+        if (_currentUserManager.User is null)
+        {
+            return new UserCreateCurrencyResult.NotAuthorized();
+        }
+
+        if (_currentUserManager.User.UserRole is not UserRole.Admin)
+        {
+            return new UserCreateCurrencyResult.NotEnoughRights();
+        }
+        
+        _currencyService.CreateCurrency(name, abbreviation);
+        return new UserCreateCurrencyResult.Success();
+    }
+
+    public UserCreatePrizeResult CreatePrize(string name, string? description, int? currencyId)
+    {
+        if (_currentUserManager.User is null)
+        {
+            return new UserCreatePrizeResult.NotAuthorized();
+        }
+
+        if (_currentUserManager.User.UserRole is not UserRole.Admin)
+        {
+            return new UserCreatePrizeResult.NotEnoughRights();
+        }
+        
+        _prizeService.CreatePrize(name, description, currencyId);
+        return new UserCreatePrizeResult.Success();
+    }
+
+    public IEnumerable<Models.Prizes.Prize> ShowClaimedPrizes()
+    {
+        if (_currentUserManager.User is null)
+        {
+            return new List<Models.Prizes.Prize>();
+        }
+
+        return _prizeService.GetUserPrizes(_currentUserManager.User.Id);
     }
 }
