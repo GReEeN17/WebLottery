@@ -20,7 +20,7 @@ public class WalletCurrencyService : IWalletCurrencyService
 
     public Models.WalletCurrency.WalletCurrency GetUserWalletCurrency(int walletId, int currencyId)
     {
-        return _walletCurrencyRepository.GetUserWalletCurrency(walletId, currencyId);
+        return _walletCurrencyRepository.GetUserWalletCurrency(walletId, currencyId).Result;
     }
 
     public IEnumerable<Models.WalletCurrency.WalletCurrency> GetAllUserWalletCurrency(int walletId)

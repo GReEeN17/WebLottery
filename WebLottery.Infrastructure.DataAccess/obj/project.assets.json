@@ -1,11 +1,48 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "WebLottery.Application.Abstractions/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "WebLottery.Application.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WebLottery.Application.Abstractions.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebLottery.Application.Abstractions.dll": {}
+        }
+      },
+      "WebLottery.Application.Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/WebLottery.Application.Entities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebLottery.Application.Entities.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "WebLottery.Application.Abstractions/1.0.0": {
+      "type": "project",
+      "path": "../WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj",
+      "msbuildProject": "../WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj"
+    },
+    "WebLottery.Application.Entities/1.0.0": {
+      "type": "project",
+      "path": "../WebLottery.Application.Entities/WebLottery.Application.Entities.csproj",
+      "msbuildProject": "../WebLottery.Application.Entities/WebLottery.Application.Entities.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "WebLottery.Application.Abstractions >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/azelen/.nuget/packages/": {}
@@ -31,7 +68,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj": {
+              "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
