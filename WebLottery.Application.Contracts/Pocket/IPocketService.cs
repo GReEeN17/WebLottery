@@ -1,9 +1,9 @@
-using Models.Pockets;
-
 namespace WebLottery.Application.Contracts.Pockets;
 
 public interface IPocketService
 {
-    void CreatePocket();
-    Pocket GetUserPocket(int userId);
+    void CreatePocket(int userId);
+    int GetUserPocket(int userId);
+    void BuyTicket(int userId, int luckyNumber, int drawId);
+    IEnumerable<Models.PocketTicket.PocketTicket> GetAllUserPocketTickets(int userId);
 }

@@ -9,7 +9,7 @@ public interface IUserService
     UserLoginResult LoginWithEmail(string email, string password);
     IEnumerable<Models.WalletCurrency.WalletCurrency> ShowWallet();
     IEnumerable<Draw> ShowJoinedDraws();
-    UserCreateGameResult CreateGame();
+    UserCreateGameResult CreateGame(int ticketPrice, int maxAmountPlayers);
     UserCreateUserResult CreateUser(string username, string email, string password);
-    UserBuyTicketResult BuyTicket(int amount);
+    UserBuyTicketResult BuyTicket(int drawId, int amount, int luckyNumber);
 }

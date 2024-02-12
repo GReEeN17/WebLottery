@@ -1,6 +1,8 @@
+using Models.Tickets;
+
 namespace WebLottery.Application.Contracts.Tcikets;
 
 public interface ITicketService
 {
-    void CreateTicket(int luckyNumber);
+    Ticket CreateTicket(int drawId, int luckyNumber);
 }
