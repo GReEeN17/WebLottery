@@ -3,11 +3,11 @@ using WebLottery.Application.Contracts.Prize;
 
 namespace WebLottery.Application.Prize;
 
-public class Prize : IPrizeService
+public class PrizeService : IPrizeService
 {
     private readonly IPrizeRepository _prizeRepository;
 
-    public Prize(
+    public PrizeService(
         IPrizeRepository prizeRepository)
     {
         _prizeRepository = prizeRepository;

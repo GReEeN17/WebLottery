@@ -11,7 +11,5 @@ public class UserModel
     public string EMail { get; set; }
     public string Password { get; set; }
     public UserRole UserRole { get; set; }
-    public WalletModel Wallet { get; set; }
-    public PocketModel Pocket { get; set; }
     public List<UserDraw.UserDrawModel> UserDraws { get; set; }
 }

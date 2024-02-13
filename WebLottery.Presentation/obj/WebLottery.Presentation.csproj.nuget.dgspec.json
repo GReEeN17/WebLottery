@@ -1,0 +1,451 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Presentation/WebLottery.Presentation.csproj": {}
+  },
+  "projects": {
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj",
+        "projectName": "WebLottery.Application.Abstractions",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj",
+        "packagesPath": "/Users/azelen/.nuget/packages/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/azelen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj",
+        "projectName": "WebLottery.Application.Contracts",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj",
+        "packagesPath": "/Users/azelen/.nuget/packages/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Contracts/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/azelen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj",
+        "projectName": "WebLottery.Application.Models",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj",
+        "packagesPath": "/Users/azelen/.nuget/packages/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/azelen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application/WebLottery.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application/WebLottery.Application.csproj",
+        "projectName": "WebLottery.Application",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application/WebLottery.Application.csproj",
+        "packagesPath": "/Users/azelen/.nuget/packages/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/azelen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj"
+              },
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj",
+        "projectName": "WebLottery.Infrastructure.Entities",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj",
+        "packagesPath": "/Users/azelen/.nuget/packages/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/azelen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Implementations/WebLottery.Infrastructure.Implementations.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Implementations/WebLottery.Infrastructure.Implementations.csproj",
+        "projectName": "WebLottery.Infrastructure.Implementations",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Implementations/WebLottery.Infrastructure.Implementations.csproj",
+        "packagesPath": "/Users/azelen/.nuget/packages/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Implementations/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/azelen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Presentation/WebLottery.Presentation.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Presentation/WebLottery.Presentation.csproj",
+        "projectName": "WebLottery.Presentation",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Presentation/WebLottery.Presentation.csproj",
+        "packagesPath": "/Users/azelen/.nuget/packages/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Presentation/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/azelen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj"
+              },
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application/WebLottery.Application.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application/WebLottery.Application.csproj"
+              },
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Implementations/WebLottery.Infrastructure.Implementations.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Implementations/WebLottery.Infrastructure.Implementations.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
