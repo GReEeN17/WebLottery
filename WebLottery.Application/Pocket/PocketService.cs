@@ -32,12 +32,12 @@ public class PocketService : IPocketService
 
     public void BuyTicket(int userId, int luckyNumber, int drawId)
     {
-        Models.Tickets.Ticket newTicket = _ticketService.CreateTicket(drawId, luckyNumber);
+        Models.Ticket.TicketModel newTicketEntity = _ticketService.CreateTicket(drawId, luckyNumber);
         int pocketId = _pocketRepository.GetUserPocket(userId).Result;
-        _pocketTicketService.CreatePocketTicket(pocketId, newTicket.Id);
+        _pocketTicketService.CreatePocketTicket(pocketId, newTicketEntity.Id);
     }
 
-    public IEnumerable<Models.PocketTicket.PocketTicket> GetAllUserPocketTickets(int userId)
+    public IEnumerable<Models.PocketTicket.PocketTicketModel> GetAllUserPocketTickets(int userId)
     {
         int pocketId = _pocketRepository.GetUserPocket(userId).Result;
         return _pocketTicketService.GetAllUserPocketTickets(pocketId);

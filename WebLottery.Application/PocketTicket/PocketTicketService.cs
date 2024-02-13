@@ -18,7 +18,7 @@ public class PocketTicketService : IPocketTicketService
         _pocketTicketRepository.CreatePocketTicket(pocketId, ticketId);
     }
 
-    public IEnumerable<Models.PocketTicket.PocketTicket> GetAllUserPocketTickets(int pocketId)
+    public IEnumerable<Models.PocketTicket.PocketTicketModel> GetAllUserPocketTickets(int pocketId)
     {
         return _pocketTicketRepository.GetAllUserPocketTickets(pocketId).ToBlockingEnumerable();
     }

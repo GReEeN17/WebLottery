@@ -1,4 +1,4 @@
-using Models.Users;
+using Models.User;
 using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Currencies;
 using WebLottery.Application.Contracts.Draws;
@@ -7,6 +7,7 @@ using WebLottery.Application.Contracts.Prizes;
 using WebLottery.Application.Contracts.UserDraw;
 using WebLottery.Application.Contracts.Users;
 using WebLottery.Application.Contracts.Wallets;
+using WebLottery.Application.Models.User;
 
 namespace WebLottery.Application.Users;
 
@@ -44,7 +45,7 @@ public class UserService : IUserService
 
     public UserLoginResult LoginWithUsername(string username, string password)
     {
-        User? user = _userRepository.FindUserByUsername(username).Result;
+        UserModel? user = _userRepository.FindUserByUsername(username).Result;
 
         if (user is null)
         {
@@ -61,7 +62,7 @@ public class UserService : IUserService
 
     public UserLoginResult LoginWithEmail(string email, string password)
     {
-        User? user = _userRepository.FindUserByEmail(email).Result;
+        UserModel? user = _userRepository.FindUserByEmail(email).Result;
 
         if (user is null)
         {
@@ -76,21 +77,21 @@ public class UserService : IUserService
         return new UserLoginResult.Success();
     }
 
-    public IEnumerable<Models.WalletCurrency.WalletCurrency> ShowWallet()
+    public IEnumerable<Models.WalletCurrency.WalletCurrencyModel> ShowWallet()
     {
         if (_currentUserManager.User is null)
         {
-            return new List<Models.WalletCurrency.WalletCurrency>();
+            return new List<Models.WalletCurrency.WalletCurrencyModel>();
         }
 
         return _walletService.GetAllUserWalletCurrency(_currentUserManager.User.Id);
     }
 
-    public IEnumerable<Models.Draws.Draw> ShowJoinedDraws()
+    public IEnumerable<Models.Draw.DrawModel> ShowJoinedDraws()
     {
         if (_currentUserManager.User is null)
         {
-            return new List<Models.Draws.Draw>();
+            return new List<Models.Draw.DrawModel>();
         }
 
         return _userDrawService.GetUserDraws(_currentUserManager.User.Id);
@@ -103,7 +104,7 @@ public class UserService : IUserService
             return new UserCreateGameResult.NotAuthorized();
         }
 
-        Models.WalletCurrency.WalletCurrency walletToken =
+        Models.WalletCurrency.WalletCurrencyModel walletToken =
             _walletService.GetUserWalletCurrency(_currentUserManager.User.Id, CurrencyIndex.Tokens.GetCurrencyIndex());
 
         if (_currentUserManager.User.UserRole is UserRole.Player && walletToken.Amount < 1)
@@ -127,7 +128,7 @@ public class UserService : IUserService
             return new UserCreateUserResult.NotEnoughRights();
         }
 
-        User newUser = _userRepository.CreateUser(username, email, password).Result;
+        UserModel newUser = _userRepository.CreateUser(username, email, password).Result;
         _walletService.CreateWallet(newUser.Id);
         _pocketService.CreatePocket(newUser.Id);
         return new UserCreateUserResult.Success();
@@ -140,7 +141,7 @@ public class UserService : IUserService
             return new UserBuyTicketResult.NotAuthorized();
         }
 
-        Models.WalletCurrency.WalletCurrency walletCoin =
+        Models.WalletCurrency.WalletCurrencyModel walletCoin =
             _walletService.GetUserWalletCurrency(_currentUserManager.User.Id, CurrencyIndex.Coins.GetCurrencyIndex());
 
         if (walletCoin.Amount < amount)
@@ -186,11 +187,11 @@ public class UserService : IUserService
         return new UserCreatePrizeResult.Success();
     }
 
-    public IEnumerable<Models.Prizes.Prize> ShowClaimedPrizes()
+    public IEnumerable<Models.Prize.PrizeModel> ShowClaimedPrizes()
     {
         if (_currentUserManager.User is null)
         {
-            return new List<Models.Prizes.Prize>();
+            return new List<Models.Prize.PrizeModel>();
         }
 
         return _prizeService.GetUserPrizes(_currentUserManager.User.Id);

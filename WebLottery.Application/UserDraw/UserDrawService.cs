@@ -18,7 +18,7 @@ public class UserDrawService : IUserDrawService
         _userDrawRepository.CreateUserDraw(userId, drawId);
     }
 
-    public IEnumerable<Models.Draws.Draw> GetUserDraws(int userId)
+    public IEnumerable<Models.Draw.DrawModel> GetUserDraws(int userId)
     {
         return _userDrawRepository.GetUserDraws(userId).ToBlockingEnumerable();
     }

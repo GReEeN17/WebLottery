@@ -18,12 +18,12 @@ public class CurrencyService : ICurrencyService
         _currencyRepository.CreateCurrency(name, abbreviation);
     }
 
-    public Models.Currencies.Currency GetCurrencyById(int currencyId)
+    public Models.Currency.CurrencyModel GetCurrencyById(int currencyId)
     {
         return _currencyRepository.GetCurrencyById(currencyId).Result;
     }
 
-    public IEnumerable<Models.Currencies.Currency> GetAllCurrencies()
+    public IEnumerable<Models.Currency.CurrencyModel> GetAllCurrencies()
     {
         return _currencyRepository.GetAllCurrencies().ToBlockingEnumerable();
     }

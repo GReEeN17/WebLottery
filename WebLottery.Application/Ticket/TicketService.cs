@@ -13,7 +13,7 @@ public class TicketService : ITicketService
         _ticketRepository = ticketRepository;
     }
     
-    public Models.Tickets.Ticket CreateTicket(int drawId, int luckyNumber)
+    public Models.Ticket.TicketModel CreateTicket(int drawId, int luckyNumber)
     {
         return _ticketRepository.CreateTicket(drawId, luckyNumber).Result;
     }

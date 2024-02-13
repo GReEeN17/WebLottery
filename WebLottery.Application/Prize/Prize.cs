@@ -18,12 +18,12 @@ public class Prize : IPrizeService
         _prizeRepository.CreatePrize(name, description, currencyId);
     }
 
-    public IEnumerable<Models.Prizes.Prize> GetAllPrizes()
+    public IEnumerable<Models.Prize.PrizeModel> GetAllPrizes()
     {
         return _prizeRepository.GetAllPrizes().ToBlockingEnumerable();
     }
 
-    public IEnumerable<Models.Prizes.Prize> GetUserPrizes(int userId)
+    public IEnumerable<Models.Prize.PrizeModel> GetUserPrizes(int userId)
     {
         return _prizeRepository.GetUserPrizes(userId).ToBlockingEnumerable();
     }

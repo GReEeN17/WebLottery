@@ -1,5 +1,6 @@
-using Models.Currencies;
+using Models.Currency;
 using WebLottery.Application.Abstractions.Repositories;
+using WebLottery.Application.Models.Currency;
 
 namespace WebLottery.Infrastructure.DataAccess.Repositories;
 
@@ -10,12 +11,12 @@ public class CurrencyRepository : ICurrencyRepository
         throw new NotImplementedException();
     }
 
-    public Task<Currency> GetCurrencyById(int currencyId)
+    public Task<CurrencyModel> GetCurrencyById(int currencyId)
     {
         throw new NotImplementedException();
     }
 
-    public IAsyncEnumerable<Currency> GetAllCurrencies()
+    public IAsyncEnumerable<CurrencyModel> GetAllCurrencies()
     {
         throw new NotImplementedException();
     }

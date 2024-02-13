@@ -1,4 +1,4 @@
-using Models.Draws;
+using WebLottery.Application.Models.Draw;
 
 namespace WebLottery.Application.Abstractions.Repositories;
 
@@ -6,6 +6,6 @@ public interface IDrawRepository
 {
     Task CreateDraw(int ticketPrice, int maxAmountPlayers);
     Task EndDraw(int drawId);
-    IAsyncEnumerable<Draw> GetRangeActiveDraws();
-    IAsyncEnumerable<Draw> GetUserDraws(int userId);
+    IAsyncEnumerable<DrawModel> GetRangeActiveDraws();
+    IAsyncEnumerable<DrawModel> GetUserDraws(int userId);
 }

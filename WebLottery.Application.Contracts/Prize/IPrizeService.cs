@@ -1,10 +1,11 @@
-using Models.Prizes;
+using Models.Prize;
+using WebLottery.Application.Models.Prize;
 
 namespace WebLottery.Application.Contracts.Prizes;
 
 public interface IPrizeService
 {
     void CreatePrize(string name, string? description, int? currencyId);
-    IEnumerable<Prize> GetAllPrizes();
-    IEnumerable<Prize> GetUserPrizes(int userId);
+    IEnumerable<PrizeModel> GetAllPrizes();
+    IEnumerable<PrizeModel> GetUserPrizes(int userId);
 }

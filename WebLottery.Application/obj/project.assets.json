@@ -6,7 +6,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "WebLottery.Application.Entities": "1.0.0"
+          "WebLottery.Application.Models": "1.0.0"
         },
         "compile": {
           "bin/placeholder/WebLottery.Application.Abstractions.dll": {}
@@ -19,7 +19,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "WebLottery.Application.Entities": "1.0.0"
+          "WebLottery.Application.Models": "1.0.0",
+          "WebLottery.Infrastructure.Entities": "1.0.0"
         },
         "compile": {
           "bin/placeholder/WebLottery.Application.Contracts.dll": {}
@@ -28,14 +29,27 @@
           "bin/placeholder/WebLottery.Application.Contracts.dll": {}
         }
       },
-      "WebLottery.Application.Entities/1.0.0": {
+      "WebLottery.Application.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "WebLottery.Infrastructure.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WebLottery.Application.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebLottery.Application.Models.dll": {}
+        }
+      },
+      "WebLottery.Infrastructure.Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "compile": {
-          "bin/placeholder/WebLottery.Application.Entities.dll": {}
+          "bin/placeholder/WebLottery.Infrastructure.Entities.dll": {}
         },
         "runtime": {
-          "bin/placeholder/WebLottery.Application.Entities.dll": {}
+          "bin/placeholder/WebLottery.Infrastructure.Entities.dll": {}
         }
       }
     }
@@ -51,10 +65,15 @@
       "path": "../WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj",
       "msbuildProject": "../WebLottery.Application.Contracts/WebLottery.Application.Contracts.csproj"
     },
-    "WebLottery.Application.Entities/1.0.0": {
+    "WebLottery.Application.Models/1.0.0": {
       "type": "project",
-      "path": "../WebLottery.Application.Entities/WebLottery.Application.Entities.csproj",
-      "msbuildProject": "../WebLottery.Application.Entities/WebLottery.Application.Entities.csproj"
+      "path": "../WebLottery.Application.Models/WebLottery.Application.Models.csproj",
+      "msbuildProject": "../WebLottery.Application.Models/WebLottery.Application.Models.csproj"
+    },
+    "WebLottery.Infrastructure.Entities/1.0.0": {
+      "type": "project",
+      "path": "../WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj",
+      "msbuildProject": "../WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj"
     }
   },
   "projectFileDependencyGroups": {

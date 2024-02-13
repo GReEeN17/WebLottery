@@ -26,8 +26,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Entities/WebLottery.Application.Entities.csproj": {
-                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Entities/WebLottery.Application.Entities.csproj"
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj"
+              },
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj"
               }
             }
           }
@@ -61,14 +64,71 @@
         }
       }
     },
-    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Entities/WebLottery.Application.Entities.csproj": {
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Entities/WebLottery.Application.Entities.csproj",
-        "projectName": "WebLottery.Application.Entities",
-        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Entities/WebLottery.Application.Entities.csproj",
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj",
+        "projectName": "WebLottery.Application.Models",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj",
         "packagesPath": "/Users/azelen/.nuget/packages/",
-        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Entities/obj/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/azelen/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj",
+        "projectName": "WebLottery.Infrastructure.Entities",
+        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj",
+        "packagesPath": "/Users/azelen/.nuget/packages/",
+        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/azelen/.nuget/NuGet/NuGet.Config"

@@ -23,13 +23,13 @@ public class WalletService : IWalletService
         _walletRepository.CreateWallet(userId);
     }
 
-    public Models.WalletCurrency.WalletCurrency GetUserWalletCurrency(int userId, int currencyId)
+    public Models.WalletCurrency.WalletCurrencyModel GetUserWalletCurrency(int userId, int currencyId)
     {
         int walletId = _walletRepository.GetUserWallet(userId).Result;
         return _walletCurrencyService.GetUserWalletCurrency(walletId, currencyId);
     }
 
-    public IEnumerable<Models.WalletCurrency.WalletCurrency> GetAllUserWalletCurrency(int userId)
+    public IEnumerable<Models.WalletCurrency.WalletCurrencyModel> GetAllUserWalletCurrency(int userId)
     {
         int walletId = _walletRepository.GetUserWallet(userId).Result;
         return _walletCurrencyService.GetAllUserWalletCurrency(walletId);    

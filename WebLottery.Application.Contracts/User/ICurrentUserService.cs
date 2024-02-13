@@ -1,8 +1,9 @@
-using Models.Users;
+using Models.User;
+using WebLottery.Application.Models.User;
 
 namespace WebLottery.Application.Contracts.Users;
 
 public interface ICurrentUserService
 {
-    User? User { get; }
+    UserModel? User { get; }
 }

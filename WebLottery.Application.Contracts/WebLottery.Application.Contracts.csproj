@@ -7,7 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WebLottery.Application.Entities\WebLottery.Application.Entities.csproj" />
+      <ProjectReference Include="..\WebLottery.Application.Models\WebLottery.Application.Models.csproj" />
+      <ProjectReference Include="..\WebLottery.Infrastructure.Entities\WebLottery.Infrastructure.Entities.csproj" />
     </ItemGroup>
 
 </Project>
