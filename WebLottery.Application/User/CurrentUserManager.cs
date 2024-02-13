@@ -1,8 +1,7 @@
-using Models.User;
-using WebLottery.Application.Contracts.Users;
+using WebLottery.Application.Contracts.User;
 using WebLottery.Application.Models.User;
 
-namespace WebLottery.Application.Users;
+namespace WebLottery.Application.User;
 
 public class CurrentUserManager : ICurrentUserService
 {

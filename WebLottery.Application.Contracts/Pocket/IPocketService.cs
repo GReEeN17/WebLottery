@@ -1,4 +1,4 @@
-namespace WebLottery.Application.Contracts.Pockets;
+namespace WebLottery.Application.Contracts.Pocket;
 
 public interface IPocketService
 {

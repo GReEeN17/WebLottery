@@ -1,4 +1,4 @@
-namespace WebLottery.Application.Users;
+namespace WebLottery.Application.User;
 
 public static class CurrencyIndexExtension
 {

@@ -6,6 +6,6 @@ namespace WebLottery.Application.Models.PocketTicket;
 public class PocketTicketModel
 {
     public int Id { get; set; }
-    public PocketModel PocketEntity { get; set; }
-    public TicketModel TicketEntity { get; set; }
+    public PocketModel Pocket { get; set; }
+    public TicketModel Ticket { get; set; }
 }

@@ -1,7 +1,6 @@
-using Models.Currency;
 using WebLottery.Application.Models.Currency;
 
-namespace WebLottery.Application.Contracts.Currencies;
+namespace WebLottery.Application.Contracts.Currency;
 
 public interface ICurrencyService
 {

@@ -6,6 +6,6 @@ namespace WebLottery.Application.Models.UserDraw;
 public class UserDrawModel
 {
     public int Id { get; set; }
-    public UserModel UserEntity { get; set; }
-    public DrawModel DrawEntity { get; set; }
+    public UserModel User { get; set; }
+    public DrawModel Draw { get; set; }
 }

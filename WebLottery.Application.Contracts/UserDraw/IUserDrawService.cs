@@ -1,4 +1,3 @@
-using Models.Draw;
 using WebLottery.Application.Models.Draw;
 
 namespace WebLottery.Application.Contracts.UserDraw;

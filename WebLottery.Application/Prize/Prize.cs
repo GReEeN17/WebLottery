@@ -1,5 +1,5 @@
 using WebLottery.Application.Abstractions.Repositories;
-using WebLottery.Application.Contracts.Prizes;
+using WebLottery.Application.Contracts.Prize;
 
 namespace WebLottery.Application.Prize;
 

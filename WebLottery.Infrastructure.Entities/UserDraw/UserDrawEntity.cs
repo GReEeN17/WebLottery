@@ -1,11 +1,12 @@
-using Models.Abstractions;
-using Models.Draw;
-using Models.User;
+using WebLottery.Infrastructure.Entities.Abstractions;
+using WebLottery.Infrastructure.Entities.Draw;
+using WebLottery.Infrastructure.Entities.User;
 
-namespace Models.UserDraw;
+namespace WebLottery.Infrastructure.Entities.UserDraw;
 
 public class UserDrawEntity : Entity
 {
-    public UserEntity UserEntity { get; set; }
-    public DrawEntity DrawEntity { get; set; }
+    public int Id { get; set; }
+    public UserEntity User { get; set; }
+    public DrawEntity Draw { get; set; }
 }

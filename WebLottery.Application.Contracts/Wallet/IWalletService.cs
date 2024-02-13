@@ -1,4 +1,4 @@
-namespace WebLottery.Application.Contracts.Wallets;
+namespace WebLottery.Application.Contracts.Wallet;
 
 public interface IWalletService
 {

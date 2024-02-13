@@ -1,7 +1,6 @@
-using Models.Prize;
 using WebLottery.Application.Models.Prize;
 
-namespace WebLottery.Application.Contracts.Prizes;
+namespace WebLottery.Application.Contracts.Prize;
 
 public interface IPrizeService
 {

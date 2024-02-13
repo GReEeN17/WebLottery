@@ -1,11 +1,12 @@
-using Models.Abstractions;
-using Models.Pocket;
-using Models.Ticket;
+using WebLottery.Infrastructure.Entities.Abstractions;
+using WebLottery.Infrastructure.Entities.Pocket;
+using WebLottery.Infrastructure.Entities.Ticket;
 
-namespace Models.PocketTicket;
+namespace WebLottery.Infrastructure.Entities.PocketTicket;
 
 public class PocketTicketEntity : Entity
 {
-    public PocketEntity PocketEntity { get; set; }
-    public TicketEntity TicketEntity { get; set; }
+    public int Id { get; set; }
+    public PocketEntity Pocket { get; set; }
+    public TicketEntity Ticket { get; set; }
 }

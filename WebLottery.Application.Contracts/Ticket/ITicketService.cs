@@ -1,7 +1,6 @@
-using Models.Ticket;
 using WebLottery.Application.Models.Ticket;
 
-namespace WebLottery.Application.Contracts.Tcikets;
+namespace WebLottery.Application.Contracts.Ticket;
 
 public interface ITicketService
 {

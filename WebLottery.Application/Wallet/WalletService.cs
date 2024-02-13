@@ -1,6 +1,6 @@
 using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.WalletCurrency;
-using WebLottery.Application.Contracts.Wallets;
+using WebLottery.Application.Contracts.Wallet;
 
 namespace WebLottery.Application.Wallet;
 

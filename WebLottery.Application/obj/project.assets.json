@@ -19,8 +19,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "WebLottery.Application.Models": "1.0.0",
-          "WebLottery.Infrastructure.Entities": "1.0.0"
+          "WebLottery.Application.Models": "1.0.0"
         },
         "compile": {
           "bin/placeholder/WebLottery.Application.Contracts.dll": {}

@@ -1,11 +1,13 @@
-using Models.Abstractions;
-using Models.Currency;
+using WebLottery.Infrastructure.Entities.Abstractions;
+using WebLottery.Infrastructure.Entities.Currency;
+using WebLottery.Infrastructure.Entities.Wallet;
 
-namespace Models.WalletCurrency;
+namespace WebLottery.Infrastructure.Entities.WalletCurrency;
 
 public class WalletCurrencyEntity : Entity
 {
-    public WalletEntity WalletEntity { get; set; }
-    public CurrencyEntity CurrencyEntity { get; set; }
+    public int Id { get; set; }
+    public WalletEntity Wallet { get; set; }
+    public CurrencyEntity Currency { get; set; }
     public int Amount { get; set; }
 }

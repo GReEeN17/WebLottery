@@ -1,4 +1,4 @@
-namespace WebLottery.Application.Contracts.Draws;
+namespace WebLottery.Application.Contracts.Draw;
 
 public interface IDrawService
 {

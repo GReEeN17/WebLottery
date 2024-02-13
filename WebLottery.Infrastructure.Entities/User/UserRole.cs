@@ -1,7 +1,7 @@
-namespace Models.User;
+namespace WebLottery.Infrastructure.Entities.User;
 
 public enum UserRole
 {
-    Admin,
-    Player
+    Player,
+    Admin
 }

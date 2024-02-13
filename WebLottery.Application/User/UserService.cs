@@ -1,15 +1,15 @@
-using Models.User;
 using WebLottery.Application.Abstractions.Repositories;
-using WebLottery.Application.Contracts.Currencies;
-using WebLottery.Application.Contracts.Draws;
-using WebLottery.Application.Contracts.Pockets;
-using WebLottery.Application.Contracts.Prizes;
+using WebLottery.Application.Contracts.Currency;
+using WebLottery.Application.Contracts.Draw;
+using WebLottery.Application.Contracts.Pocket;
+using WebLottery.Application.Contracts.Prize;
 using WebLottery.Application.Contracts.UserDraw;
-using WebLottery.Application.Contracts.Users;
-using WebLottery.Application.Contracts.Wallets;
+using WebLottery.Application.Contracts.User;
+using WebLottery.Application.Contracts.Wallet;
 using WebLottery.Application.Models.User;
+using WebLottery.Infrastructure.Entities.User;
 
-namespace WebLottery.Application.Users;
+namespace WebLottery.Application.User;
 
 public class UserService : IUserService
 {

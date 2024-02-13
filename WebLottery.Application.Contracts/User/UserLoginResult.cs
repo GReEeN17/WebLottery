@@ -1,4 +1,4 @@
-namespace WebLottery.Application.Contracts.Users;
+namespace WebLottery.Application.Contracts.User;
 
 public abstract record UserLoginResult
 {

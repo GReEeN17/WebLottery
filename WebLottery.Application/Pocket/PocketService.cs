@@ -1,7 +1,7 @@
 using WebLottery.Application.Abstractions.Repositories;
-using WebLottery.Application.Contracts.Pockets;
+using WebLottery.Application.Contracts.Pocket;
 using WebLottery.Application.Contracts.PocketTicket;
-using WebLottery.Application.Contracts.Tcikets;
+using WebLottery.Application.Contracts.Ticket;
 
 namespace WebLottery.Application.Pocket;
 

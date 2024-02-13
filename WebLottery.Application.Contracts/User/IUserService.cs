@@ -1,9 +1,7 @@
-using Models.Draw;
-using Models.Prize;
 using WebLottery.Application.Models.Draw;
 using WebLottery.Application.Models.Prize;
 
-namespace WebLottery.Application.Contracts.Users;
+namespace WebLottery.Application.Contracts.User;
 
 public interface IUserService
 {

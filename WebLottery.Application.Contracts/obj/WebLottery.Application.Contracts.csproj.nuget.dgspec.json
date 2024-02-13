@@ -28,9 +28,6 @@
             "projectReferences": {
               "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
                 "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj"
-              },
-              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
-                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj"
               }
             }
           }

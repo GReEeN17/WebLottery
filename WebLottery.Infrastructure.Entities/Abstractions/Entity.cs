@@ -1,11 +1,11 @@
-namespace Models.Abstractions;
+namespace WebLottery.Infrastructure.Entities.Abstractions;
 
 public abstract class Entity : IEntity
 {
     public int Id { get; set; }
     public bool IsActive { get; set; }
-    public DateTime DateCreated { get; set; }
-    public DateTime DateUpdated { get; set; }
-    public Guid UserCreated { get; set; }
-    public Guid UserUpdated { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    public int UserCreated { get; set; }
+    public int UserUpdated { get; set; }
 }

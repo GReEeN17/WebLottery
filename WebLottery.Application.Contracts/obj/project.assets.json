@@ -41,8 +41,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "WebLottery.Application.Models >= 1.0.0",
-      "WebLottery.Infrastructure.Entities >= 1.0.0"
+      "WebLottery.Application.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -72,9 +71,6 @@
           "projectReferences": {
             "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
               "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj"
-            },
-            "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
-              "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj"
             }
           }
         }
