@@ -3,7 +3,6 @@ using WebLottery.Application.Contracts.Currency;
 using WebLottery.Application.Contracts.Draw;
 using WebLottery.Application.Contracts.Pocket;
 using WebLottery.Application.Contracts.Prize;
-using WebLottery.Application.Contracts.UserDraw;
 using WebLottery.Application.Contracts.User;
 using WebLottery.Application.Contracts.Wallet;
 using WebLottery.Application.Models.User;
@@ -17,7 +16,6 @@ public class UserService : IUserService
     private readonly IWalletService _walletService;
     private readonly IPocketService _pocketService;
     private readonly CurrentUserManager _currentUserManager;
-    private readonly IUserDrawService _userDrawService;
     private readonly IDrawService _drawService;
     private readonly ICurrencyService _currencyService;
     private readonly IPrizeService _prizeService;
@@ -27,7 +25,6 @@ public class UserService : IUserService
         IWalletService walletService,
         IPocketService pocketService,
         CurrentUserManager currentUserManager,
-        IUserDrawService userDrawService,
         IDrawService drawService,
         ICurrencyService currencyService,
         IPrizeService prizeService)
@@ -36,7 +33,6 @@ public class UserService : IUserService
         _walletService = walletService;
         _pocketService = pocketService;
         _currentUserManager = currentUserManager;
-        _userDrawService = userDrawService;
         _drawService = drawService;
         _currencyService = currencyService;
         _prizeService = prizeService;
@@ -94,6 +90,7 @@ public class UserService : IUserService
             return new List<Models.Draw.DrawModel>();
         }
 
+        //TODO: show joined games through tickets
         return _userDrawService.GetUserDraws(_currentUserManager.User.Id);
     }
 
@@ -151,7 +148,6 @@ public class UserService : IUserService
 
         _userRepository.UserBudgetWithdraw(_currentUserManager.User.Id, walletCoin.Id, amount);
         _pocketService.BuyTicket(_currentUserManager.User.Id, luckyNumber, drawId);
-        _userDrawService.CreateUserDraw(_currentUserManager.User.Id, drawId);
         return new UserBuyTicketResult.Success();
     }
 

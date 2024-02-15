@@ -11,6 +11,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="EntityFrameworkCore.SqlServer.Seeding" Version="5.0.12" />
+      <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.2.2" />
+      <PackageReference Include="EntityFrameworkCore.Triggered.Abstractions" Version="3.2.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
         <PrivateAssets>all</PrivateAssets>

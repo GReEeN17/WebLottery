@@ -11,7 +11,7 @@ public interface IUserService
     IEnumerable<DrawModel> ShowJoinedDraws();
     UserCreateGameResult CreateGame(int ticketPrice, int maxAmountPlayers);
     UserCreateUserResult CreateUser(string username, string email, string password);
-    UserBuyTicketResult BuyTicket(int drawId, int amount, int luckyNumber);
+    UserBuyTicketResult BuyTicket(int drawId, int amount);
     UserCreateCurrencyResult CreateCurrency(string name, string abbreviation);
     UserCreatePrizeResult CreatePrize(string name, string? description, int? currencyId);
     IEnumerable<PrizeModel> ShowClaimedPrizes();

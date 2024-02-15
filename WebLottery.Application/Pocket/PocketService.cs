@@ -2,6 +2,7 @@ using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Pocket;
 using WebLottery.Application.Contracts.PocketTicket;
 using WebLottery.Application.Contracts.Ticket;
+using WebLottery.Application.Models.Draw;
 
 namespace WebLottery.Application.Pocket;
 
@@ -41,5 +42,11 @@ public class PocketService : IPocketService
     {
         int pocketId = _pocketRepository.GetUserPocket(userId).Result;
         return _pocketTicketService.GetAllUserPocketTickets(pocketId);
+    }
+
+    public IEnumerable<DrawModel> GetAllUserDraws(int userId)
+    {
+        int pocketId = _pocketRepository.GetUserPocket(userId).Result;
+        
     }
 }

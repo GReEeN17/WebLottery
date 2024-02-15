@@ -6,7 +6,6 @@ using WebLottery.Infrastructure.Entities.PocketTicket;
 using WebLottery.Infrastructure.Entities.Prize;
 using WebLottery.Infrastructure.Entities.Ticket;
 using WebLottery.Infrastructure.Entities.User;
-using WebLottery.Infrastructure.Entities.UserDraw;
 using WebLottery.Infrastructure.Entities.Wallet;
 using WebLottery.Infrastructure.Entities.WalletCurrency;
 
@@ -21,7 +20,6 @@ public class DataContext : DbContext
     public DbSet<PrizeEntity> Prizes { get; set; }
     public DbSet<TicketEntity> Tickets { get; set; }
     public DbSet<UserEntity> Users { get; set; }
-    public DbSet<UserDrawEntity> UserDraws { get; set; }
     public DbSet<WalletEntity> Wallets { get; set; }
     public DbSet<WalletCurrencyEntity> WalletCurrencies { get; set; }
 
@@ -94,49 +92,56 @@ public class DataContext : DbContext
 
         #region DrawEntity config
 
-        modelBuilder.Entity<DrawEntity>().Property(pm => pm.Id)
+        modelBuilder.Entity<DrawEntity>()
+            .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"draw_sequence\"')");
 
         #endregion
 
         #region PocketEntity config
 
-        modelBuilder.Entity<PocketEntity>().Property(pm => pm.Id)
+        modelBuilder.Entity<PocketEntity>()
+            .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"pocket_sequence\"')");
 
         #endregion
 
         #region PocketTicketEntity config
 
-        modelBuilder.Entity<PocketTicketEntity>().Property(pm => pm.Id)
+        modelBuilder.Entity<PocketTicketEntity>()
+            .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"pocket_ticket_sequence\"')");
 
         #endregion
 
         #region PrizeEntity config
 
-        modelBuilder.Entity<PrizeEntity>().Property(pm => pm.Id)
+        modelBuilder.Entity<PrizeEntity>()
+            .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"prize_sequence\"')");
 
         #endregion
 
         #region TicketEntity config
 
-        modelBuilder.Entity<TicketEntity>().Property(pm => pm.Id)
+        modelBuilder.Entity<TicketEntity>()
+            .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"ticket_sequence\"')");
 
         #endregion
 
         #region UserEntity config
 
-        modelBuilder.Entity<UserEntity>().Property(pm => pm.Id)
+        modelBuilder.Entity<UserEntity>()
+            .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"user_sequence\"')");
 
         #endregion
 
         #region WalletEntity config
 
-        modelBuilder.Entity<WalletEntity>().Property(pm => pm.Id)
+        modelBuilder.Entity<WalletEntity>()
+            .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"wallet_sequence\"')");
 
         #endregion

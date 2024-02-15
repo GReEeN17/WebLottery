@@ -6,6 +6,5 @@ public class TicketModel
 {
     public int Id { get; set; }
     public int LuckyNumber { get; set; }
-    public DrawModel Draw { get; set; }
     public DateTime PurchaseTime { get; set; }
 }

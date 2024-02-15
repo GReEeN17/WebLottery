@@ -26,6 +26,7 @@ using WebLottery.Application.UserDraw;
 using WebLottery.Application.Wallet;
 using WebLottery.Application.WalletCurrency;
 using WebLottery.Infrastructure.Entities.User;
+using WebLottery.Infrastructure.Implementations.AbstractionTrigger;
 using WebLottery.Infrastructure.Implementations.DataContext;
 
 namespace WebLottery.Presentation;
@@ -58,6 +59,10 @@ public class StartUp
         {
             options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"),
                 assembly => assembly.MigrationsAssembly("WebLottery.Infrastructure.Migrations"));
+            options.UseTriggers(triggerOptions =>
+            {
+                triggerOptions.AddTrigger<EntityTrigger>();
+            });
         });
 
         services.AddAutoMapper(typeof(StartUp));
