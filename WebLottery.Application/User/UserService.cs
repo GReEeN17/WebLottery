@@ -131,7 +131,7 @@ public class UserService : IUserService
         return new UserCreateUserResult.Success();
     }
 
-    public UserBuyTicketResult BuyTicket(int drawId, int amount, int luckyNumber)
+    public UserBuyTicketResult BuyTicket(int drawId, int amount)
     {
         if (_currentUserManager.User is null)
         {

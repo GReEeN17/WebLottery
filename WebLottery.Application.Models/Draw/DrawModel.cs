@@ -9,4 +9,5 @@ public class DrawModel
     public int CurrentAmountPlayers { get; set; }
     public int MaxAmountPlayers { get; set; }
     public bool IsEnded { get; set; }
+    public PrizeModel Prize { get; set; }
 }

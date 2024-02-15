@@ -18,7 +18,7 @@ public class CurrencyService : ICurrencyService
         _currencyRepository.CreateCurrency(name, abbreviation);
     }
 
-    public Models.Currency.CurrencyModel GetCurrencyById(int currencyId)
+    public Models.Currency.CurrencyModel GetCurrency(int currencyId)
     {
         return _currencyRepository.GetCurrencyById(currencyId).Result;
     }

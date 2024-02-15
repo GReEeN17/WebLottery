@@ -1,16 +1,22 @@
 using WebLottery.Application.Abstractions.Repositories;
+using WebLottery.Application.Contracts.Currency;
 using WebLottery.Application.Contracts.WalletCurrency;
+using WebLottery.Application.Models.Currency;
+using WebLottery.Application.Models.WalletCurrency;
 
 namespace WebLottery.Application.WalletCurrency;
 
 public class WalletCurrencyService : IWalletCurrencyService
 {
     private readonly IWalletCurrencyRepository _walletCurrencyRepository;
+    private readonly ICurrencyService _currencyService;
 
     public WalletCurrencyService(
-        IWalletCurrencyRepository walletCurrencyRepository)
+        IWalletCurrencyRepository walletCurrencyRepository,
+        ICurrencyService currencyService)
     {
         _walletCurrencyRepository = walletCurrencyRepository;
+        _currencyService = currencyService;
     }
     
     public void CreateWalletCurrency(int walletId, int currencyId)
@@ -18,13 +24,22 @@ public class WalletCurrencyService : IWalletCurrencyService
         _walletCurrencyRepository.CreateWalletCurrency(walletId, currencyId);
     }
 
-    public Models.WalletCurrency.WalletCurrencyModel GetUserWalletCurrency(int walletId, int currencyId)
+    public Tuple<CurrencyModel, int> GetUserCurrency(int walletId, int currencyId)
     {
-        return _walletCurrencyRepository.GetUserWalletCurrency(walletId, currencyId).Result;
+        int amount = _walletCurrencyRepository.GetUserWalletCurrency(walletId, currencyId).Result.Amount;
+        CurrencyModel currencyModel = _currencyService.GetCurrency(currencyId);
+        
+        return new Tuple<CurrencyModel, int>(currencyModel, amount);
     }
 
-    public IEnumerable<Models.WalletCurrency.WalletCurrencyModel> GetAllUserWalletCurrency(int walletId)
+    public IEnumerable<Tuple<CurrencyModel, int>> GetAllUserCurrencies(int walletId)
     {
-        return _walletCurrencyRepository.GetAllUserWalletCurrency(walletId).ToBlockingEnumerable();
+        IEnumerable<WalletCurrencyModel> walletCurrencyModels =
+            _walletCurrencyRepository.GetAllUserWalletCurrency(walletId).ToBlockingEnumerable();
+
+        foreach (WalletCurrencyModel walletCurrencyModel in walletCurrencyModels)
+        {
+            walletCurrencyModel.
+        }
     }
 }

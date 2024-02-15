@@ -4,7 +4,8 @@ namespace WebLottery.Application.Abstractions.Repositories;
 
 public interface IPrizeRepository
 {
-    Task CreatePrize(string name, string? description, int? currencyId);
+    Task<PrizeModel> CreatePrize(string name, string? description, int? currencyId);
+    Task<PrizeModel> GetPrize(int prizeId);
     IAsyncEnumerable<PrizeModel> GetAllPrizes();
     IAsyncEnumerable<PrizeModel> GetUserPrizes(int userId);
 }
