@@ -1,5 +1,3 @@
-using WebLottery.Application.Models.Pocket;
-using WebLottery.Application.Models.Wallet;
 using WebLottery.Infrastructure.Entities.User;
 
 namespace WebLottery.Application.Models.User;

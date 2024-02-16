@@ -6,4 +6,5 @@ public interface ICurrencyRepository
 {
     Task<CurrencyModel> CreateCurrency(string name, string abbreviation);
     Task<CurrencyModel> GetCurrency(int currencyId);
+    IAsyncEnumerable<CurrencyModel> GetAllCurrencies();
 }
