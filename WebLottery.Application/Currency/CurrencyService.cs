@@ -20,11 +20,6 @@ public class CurrencyService : ICurrencyService
 
     public Models.Currency.CurrencyModel GetCurrency(int currencyId)
     {
-        return _currencyRepository.GetCurrencyById(currencyId).Result;
-    }
-
-    public IEnumerable<Models.Currency.CurrencyModel> GetAllCurrencies()
-    {
-        return _currencyRepository.GetAllCurrencies().ToBlockingEnumerable();
+        return _currencyRepository.GetCurrency(currencyId).Result;
     }
 }
