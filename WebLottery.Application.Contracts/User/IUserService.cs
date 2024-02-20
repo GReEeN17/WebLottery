@@ -7,12 +7,12 @@ public interface IUserService
 {
     UserLoginResult LoginWithUsername(string username, string password);
     UserLoginResult LoginWithEmail(string email, string password);
+    UserUpdateResult UpdateUser(string? email, string? username, string? password);
     IEnumerable<Models.WalletCurrency.WalletCurrencyModel> ShowWallet();
     IEnumerable<DrawModel> ShowJoinedDraws();
-    UserCreateGameResult CreateGame(int ticketPrice, int maxAmountPlayers);
+    UserCreateGameResult CreateDraw(int ticketPrice, int maxAmountPlayers);
     UserCreateUserResult CreateUser(string username, string email, string password);
-    UserBuyTicketResult BuyTicket(int drawId, int amount);
+    UserBuyTicketResult BuyTicket(int drawId);
     UserCreateCurrencyResult CreateCurrency(string name, string abbreviation);
     UserCreatePrizeResult CreatePrize(string name, string? description, int? currencyId);
-    IEnumerable<PrizeModel> ShowClaimedPrizes();
 }

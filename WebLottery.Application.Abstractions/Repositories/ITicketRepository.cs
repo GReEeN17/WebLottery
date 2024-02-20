@@ -6,4 +6,5 @@ public interface ITicketRepository
 {
     Task<TicketModel> CreateTicket(int drawId, int luckyNumber);
     Task<TicketModel> GetTicket(int ticketId);
+    Task<TicketModel> UpdateTicket(int ticketId);
 }

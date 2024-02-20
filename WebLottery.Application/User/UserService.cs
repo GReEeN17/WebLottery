@@ -73,6 +73,17 @@ public class UserService : IUserService
         return new UserLoginResult.Success();
     }
 
+    public UserUpdateResult UpdateUser(string? email, string? username, string? password)
+    {
+        if (_currentUserManager.User is null)
+        {
+            return new UserUpdateResult.NotAuthorized();
+        }
+
+        _userRepository.UpdateUser(_currentUserManager.User.Id, email, username, password);
+        return new UserUpdateResult.Success();
+    }
+
     public IEnumerable<Models.WalletCurrency.WalletCurrencyModel> ShowWallet()
     {
         if (_currentUserManager.User is null)
@@ -80,7 +91,7 @@ public class UserService : IUserService
             return new List<Models.WalletCurrency.WalletCurrencyModel>();
         }
 
-        return _walletService.GetAllUserWalletCurrency(_currentUserManager.User.Id);
+        return _walletService.GetAllUserCurrencies(_currentUserManager.User.Id);
     }
 
     public IEnumerable<Models.Draw.DrawModel> ShowJoinedDraws()
@@ -90,11 +101,10 @@ public class UserService : IUserService
             return new List<Models.Draw.DrawModel>();
         }
 
-        //TODO: show joined games through tickets
-        return _userDrawService.GetUserDraws(_currentUserManager.User.Id);
+        return _pocketService.GetAllUserDraws(_currentUserManager.User.Id);
     }
 
-    public UserCreateGameResult CreateGame(int ticketPrice, int maxAmountPlayers)
+    public UserCreateGameResult CreateDraw(int ticketPrice, int maxAmountPlayers)
     {
         if (_currentUserManager.User is null)
         {
@@ -102,7 +112,7 @@ public class UserService : IUserService
         }
 
         Models.WalletCurrency.WalletCurrencyModel walletToken =
-            _walletService.GetUserWalletCurrency(_currentUserManager.User.Id, CurrencyIndex.Tokens.GetCurrencyIndex());
+            _walletService.GetUserCurrency(_currentUserManager.User.Id, CurrencyIndex.Tokens.GetCurrencyIndex());
 
         if (_currentUserManager.User.UserRole is UserRole.Player && walletToken.Amount < 1)
         {
@@ -131,23 +141,25 @@ public class UserService : IUserService
         return new UserCreateUserResult.Success();
     }
 
-    public UserBuyTicketResult BuyTicket(int drawId, int amount)
+    public UserBuyTicketResult BuyTicket(int drawId)
     {
         if (_currentUserManager.User is null)
         {
             return new UserBuyTicketResult.NotAuthorized();
         }
 
-        Models.WalletCurrency.WalletCurrencyModel walletCoin =
-            _walletService.GetUserWalletCurrency(_currentUserManager.User.Id, CurrencyIndex.Coins.GetCurrencyIndex());
+        int ticketPrice = _drawService.GetDraw(drawId).TicketPrice;
 
-        if (walletCoin.Amount < amount)
+        Models.WalletCurrency.WalletCurrencyModel walletCoin =
+            _walletService.GetUserCurrency(_currentUserManager.User.Id, CurrencyIndex.Coins.GetCurrencyIndex());
+
+        if (walletCoin.Amount < ticketPrice)
         {
             return new UserBuyTicketResult.NotEnoughMoney();
         }
 
-        _userRepository.UserBudgetWithdraw(_currentUserManager.User.Id, walletCoin.Id, amount);
-        _pocketService.BuyTicket(_currentUserManager.User.Id, luckyNumber, drawId);
+        _userRepository.UserBudgetWithdraw(_currentUserManager.User.Id, walletCoin.Id, ticketPrice);
+        _pocketService.BuyTicket(_currentUserManager.User.Id, drawId);
         return new UserBuyTicketResult.Success();
     }
 
@@ -181,15 +193,5 @@ public class UserService : IUserService
         
         _prizeService.CreatePrize(name, description, currencyId);
         return new UserCreatePrizeResult.Success();
-    }
-
-    public IEnumerable<Models.Prize.PrizeModel> ShowClaimedPrizes()
-    {
-        if (_currentUserManager.User is null)
-        {
-            return new List<Models.Prize.PrizeModel>();
-        }
-
-        return _prizeService.GetUserPrizes(_currentUserManager.User.Id);
     }
 }

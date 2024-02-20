@@ -5,6 +5,7 @@ namespace WebLottery.Application.Contracts.Ticket;
 
 public interface ITicketService
 {
-    TicketModel CreateTicket(int drawId, int luckyNumber);
+    void CreateTicket(int drawId, int luckyNumber);
+    TicketModel UpdateTicket(int ticketId);
     DrawModel GetUserDraw(int ticketId);
 }
