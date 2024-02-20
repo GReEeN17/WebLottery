@@ -1,10 +1,8 @@
-using System.Runtime.CompilerServices;
 using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.PocketTicket;
 using WebLottery.Application.Contracts.Ticket;
 using WebLottery.Application.Models.Draw;
 using WebLottery.Application.Models.PocketTicket;
-using WebLottery.Application.Models.Ticket;
 
 namespace WebLottery.Application.PocketTicket;
 

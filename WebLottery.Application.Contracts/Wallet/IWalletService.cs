@@ -1,4 +1,3 @@
-using WebLottery.Application.Models.Currency;
 using WebLottery.Application.Models.WalletCurrency;
 
 namespace WebLottery.Application.Contracts.Wallet;

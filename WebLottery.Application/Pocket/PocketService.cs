@@ -4,7 +4,6 @@ using WebLottery.Application.Contracts.Pocket;
 using WebLottery.Application.Contracts.PocketTicket;
 using WebLottery.Application.Contracts.Ticket;
 using WebLottery.Application.Models.Draw;
-using WebLottery.Application.Models.Pocket;
 using WebLottery.Application.Models.Ticket;
 
 namespace WebLottery.Application.Pocket;

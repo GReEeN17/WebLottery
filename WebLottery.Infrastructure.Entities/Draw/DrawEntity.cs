@@ -1,5 +1,6 @@
 using WebLottery.Infrastructure.Entities.Abstractions;
 using WebLottery.Infrastructure.Entities.Prize;
+using WebLottery.Infrastructure.Entities.Ticket;
 
 namespace WebLottery.Infrastructure.Entities.Draw;
 
@@ -11,4 +12,5 @@ public class DrawEntity : Entity
     public int MaxAmountPlayers { get; set; }
     public bool IsEnded { get; set; }
     public PrizeEntity Prize { get; set; }
+    public List<TicketEntity> Tickets { get; set; }
 }

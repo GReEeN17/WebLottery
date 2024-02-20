@@ -1,5 +1,4 @@
 using WebLottery.Application.Models.Draw;
-using WebLottery.Application.Models.Pocket;
 
 namespace WebLottery.Application.Contracts.Pocket;
 

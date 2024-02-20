@@ -5,19 +5,12 @@ namespace WebLottery.Infrastructure.Implementations.Repositories;
 
 public class CurrencyRepository : ICurrencyRepository
 {
-    private readonly DataContext.DataContext _context;
-
-    public CurrencyRepository(DataContext.DataContext context)
-    {
-        _context = context;
-    }
-    
-    public Task CreateCurrency(string name, string abbreviation)
+    public Task<CurrencyModel> CreateCurrency(string name, string abbreviation)
     {
         throw new NotImplementedException();
     }
 
-    public Task<CurrencyModel> GetCurrencyById(int currencyId)
+    public Task<CurrencyModel> GetCurrency(int currencyId)
     {
         throw new NotImplementedException();
     }
