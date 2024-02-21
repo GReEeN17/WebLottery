@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using WebLottery.Infrastructure.Entities.Pocket;
 using WebLottery.Infrastructure.Entities.User;
 using WebLottery.Infrastructure.Entities.Wallet;
 
@@ -9,11 +10,40 @@ public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
 {
     public void Configure(EntityTypeBuilder<UserEntity> builder)
     {
-        builder.ToTable("users").HasKey(u => u.Id);
-        builder.Property(u => u.EMail).IsRequired().HasMaxLength(256);
-        builder.Property(u => u.UserName).IsRequired().HasMaxLength(256);
-        builder.Property(u => u.Password).IsRequired().HasMaxLength(256);
         builder
-            .HasOne<WalletEntity>(user => user.Wallet).WithOne(wallet => wallet.User).H
+            .ToTable("user")
+            .HasKey(user => user.Id);
+        
+        builder
+            .Property(user => user.EMail)
+            .IsRequired()
+            .HasMaxLength(256)
+            .HasColumnName("email");
+        
+        builder
+            .Property(user => user.UserName)
+            .IsRequired()
+            .HasMaxLength(256)
+            .HasColumnName("username");
+        
+        builder
+            .Property(user => user.Password)
+            .IsRequired()
+            .HasMaxLength(256)
+            .HasColumnName("password");
+        
+        builder
+            .HasOne<WalletEntity>(user => user.Wallet).WithOne(wallet => wallet.User);
+        
+        builder
+            .HasOne<PocketEntity>(user => user.Pocket).WithOne(pocket => pocket.User);
+        
+        builder.Ignore(user => user.WalletId);
+        
+        builder.Ignore(user => user.Wallet);
+        
+        builder.Ignore(user => user.PocketId);
+        
+        builder.Ignore(user => user.Pocket);
     }
 }
