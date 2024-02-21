@@ -29,61 +29,13 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        #region CurrencyEntity config
+        
         modelBuilder.HasSequence<int>("currency_sequence")
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
             .HasMax(99999999999999999);
-        
-        modelBuilder.HasSequence<int>("draw_sequence")
-            .StartsAt(1)
-            .IncrementsBy(1)
-            .HasMin(1)
-            .HasMax(99999999999999999);
-        
-        modelBuilder.HasSequence<int>("pocket_sequence")
-            .StartsAt(1)
-            .IncrementsBy(1)
-            .HasMin(1)
-            .HasMax(99999999999999999);
-        
-        modelBuilder.HasSequence<int>("pocket_ticket_sequence")
-            .StartsAt(1)
-            .IncrementsBy(1)
-            .HasMin(1)
-            .HasMax(99999999999999999);
-        
-        modelBuilder.HasSequence<int>("prize_sequence")
-            .StartsAt(1)
-            .IncrementsBy(1)
-            .HasMin(1)
-            .HasMax(99999999999999999);
-        
-        modelBuilder.HasSequence<int>("ticket_sequence")
-            .StartsAt(1)
-            .IncrementsBy(1)
-            .HasMin(1)
-            .HasMax(99999999999999999);
-        
-        modelBuilder.HasSequence<int>("user_sequence")
-            .StartsAt(1)
-            .IncrementsBy(1)
-            .HasMin(1)
-            .HasMax(99999999999999999);
-        
-        modelBuilder.HasSequence<int>("wallet_sequence")
-            .StartsAt(1)
-            .IncrementsBy(1)
-            .HasMin(1)
-            .HasMax(99999999999999999);
-        
-        modelBuilder.HasSequence<int>("wallet_currency_sequence")
-            .StartsAt(1)
-            .IncrementsBy(1)
-            .HasMin(1)
-            .HasMax(99999999999999999);
-
-        #region CurrencyEntity config
 
         modelBuilder.Entity<CurrencyEntity>().Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"currency_sequence\"')");
@@ -91,6 +43,12 @@ public class DataContext : DbContext
         #endregion
 
         #region DrawEntity config
+        
+        modelBuilder.HasSequence<int>("draw_sequence")
+            .StartsAt(1)
+            .IncrementsBy(1)
+            .HasMin(1)
+            .HasMax(99999999999999999);
 
         modelBuilder.Entity<DrawEntity>()
             .Property(pm => pm.Id)
@@ -99,6 +57,12 @@ public class DataContext : DbContext
         #endregion
 
         #region PocketEntity config
+        
+        modelBuilder.HasSequence<int>("pocket_sequence")
+            .StartsAt(1)
+            .IncrementsBy(1)
+            .HasMin(1)
+            .HasMax(99999999999999999);
 
         modelBuilder.Entity<PocketEntity>()
             .Property(pm => pm.Id)
@@ -107,6 +71,12 @@ public class DataContext : DbContext
         #endregion
 
         #region PocketTicketEntity config
+        
+        modelBuilder.HasSequence<int>("pocket_ticket_sequence")
+            .StartsAt(1)
+            .IncrementsBy(1)
+            .HasMin(1)
+            .HasMax(99999999999999999);
 
         modelBuilder.Entity<PocketTicketEntity>()
             .Property(pm => pm.Id)
@@ -115,6 +85,12 @@ public class DataContext : DbContext
         #endregion
 
         #region PrizeEntity config
+        
+        modelBuilder.HasSequence<int>("prize_sequence")
+            .StartsAt(1)
+            .IncrementsBy(1)
+            .HasMin(1)
+            .HasMax(99999999999999999);
 
         modelBuilder.Entity<PrizeEntity>()
             .Property(pm => pm.Id)
@@ -123,6 +99,12 @@ public class DataContext : DbContext
         #endregion
 
         #region TicketEntity config
+        
+        modelBuilder.HasSequence<int>("ticket_sequence")
+            .StartsAt(1)
+            .IncrementsBy(1)
+            .HasMin(1)
+            .HasMax(99999999999999999);
 
         modelBuilder.Entity<TicketEntity>()
             .Property(pm => pm.Id)
@@ -131,6 +113,12 @@ public class DataContext : DbContext
         #endregion
 
         #region UserEntity config
+        
+        modelBuilder.HasSequence<int>("user_sequence")
+            .StartsAt(1)
+            .IncrementsBy(1)
+            .HasMin(1)
+            .HasMax(99999999999999999);
 
         modelBuilder.Entity<UserEntity>()
             .Property(pm => pm.Id)
@@ -139,6 +127,12 @@ public class DataContext : DbContext
         #endregion
 
         #region WalletEntity config
+        
+        modelBuilder.HasSequence<int>("wallet_sequence")
+            .StartsAt(1)
+            .IncrementsBy(1)
+            .HasMin(1)
+            .HasMax(99999999999999999);
 
         modelBuilder.Entity<WalletEntity>()
             .Property(pm => pm.Id)
@@ -147,6 +141,12 @@ public class DataContext : DbContext
         #endregion
 
         #region WalletCurrencyEntity config
+        
+        modelBuilder.HasSequence<int>("wallet_currency_sequence")
+            .StartsAt(1)
+            .IncrementsBy(1)
+            .HasMin(1)
+            .HasMax(99999999999999999);
 
         modelBuilder.Entity<WalletCurrencyEntity>().Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"wallet_currency_sequence\"')");
