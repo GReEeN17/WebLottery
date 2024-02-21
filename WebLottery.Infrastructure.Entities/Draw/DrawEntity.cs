@@ -11,6 +11,7 @@ public class DrawEntity : Entity
     public int CurrentAmountPlayers { get; set; }
     public int MaxAmountPlayers { get; set; }
     public bool IsEnded { get; set; }
+    public int PrizeId { get; set; }
     public PrizeEntity Prize { get; set; }
     public List<TicketEntity> Tickets { get; set; }
 }

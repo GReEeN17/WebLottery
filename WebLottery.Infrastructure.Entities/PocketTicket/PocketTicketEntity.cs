@@ -7,6 +7,8 @@ namespace WebLottery.Infrastructure.Entities.PocketTicket;
 public class PocketTicketEntity : Entity
 {
     public int Id { get; set; }
+    public int PocketId { get; set; }
     public PocketEntity Pocket { get; set; }
+    public int TicketId { get; set; }
     public TicketEntity Ticket { get; set; }
 }
