@@ -8,6 +8,7 @@ using WebLottery.Infrastructure.Entities.Ticket;
 using WebLottery.Infrastructure.Entities.User;
 using WebLottery.Infrastructure.Entities.Wallet;
 using WebLottery.Infrastructure.Entities.WalletCurrency;
+using WebLottery.Infrastructure.Implementations.Configuration;
 
 namespace WebLottery.Infrastructure.Implementations.DataContext;
 
@@ -40,6 +41,8 @@ public class DataContext : DbContext
         modelBuilder.Entity<CurrencyEntity>().Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"currency_sequence\"')");
 
+        modelBuilder.ApplyConfiguration(new CurrencyConfiguration());
+
         #endregion
 
         #region DrawEntity config
@@ -53,6 +56,8 @@ public class DataContext : DbContext
         modelBuilder.Entity<DrawEntity>()
             .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"draw_sequence\"')");
+
+        modelBuilder.ApplyConfiguration(new DrawConfiguration());
 
         #endregion
 
@@ -68,6 +73,8 @@ public class DataContext : DbContext
             .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"pocket_sequence\"')");
 
+        modelBuilder.ApplyConfiguration(new PocketConfiguration());
+
         #endregion
 
         #region PocketTicketEntity config
@@ -81,6 +88,8 @@ public class DataContext : DbContext
         modelBuilder.Entity<PocketTicketEntity>()
             .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"pocket_ticket_sequence\"')");
+
+        modelBuilder.ApplyConfiguration(new PocketTicketConfiguration());
 
         #endregion
 
@@ -96,6 +105,8 @@ public class DataContext : DbContext
             .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"prize_sequence\"')");
 
+        modelBuilder.ApplyConfiguration(new PrizeConfiguration());
+
         #endregion
 
         #region TicketEntity config
@@ -109,6 +120,8 @@ public class DataContext : DbContext
         modelBuilder.Entity<TicketEntity>()
             .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"ticket_sequence\"')");
+
+        modelBuilder.ApplyConfiguration(new TicketConfiguration());
 
         #endregion
 
@@ -124,6 +137,8 @@ public class DataContext : DbContext
             .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"user_sequence\"')");
 
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
+
         #endregion
 
         #region WalletEntity config
@@ -138,6 +153,8 @@ public class DataContext : DbContext
             .Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"wallet_sequence\"')");
 
+        modelBuilder.ApplyConfiguration(new WalletConfiguration());
+
         #endregion
 
         #region WalletCurrencyEntity config
@@ -150,6 +167,8 @@ public class DataContext : DbContext
 
         modelBuilder.Entity<WalletCurrencyEntity>().Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"wallet_currency_sequence\"')");
+
+        modelBuilder.ApplyConfiguration(new WalletCurrencyConfiguration());
 
         #endregion
     }
