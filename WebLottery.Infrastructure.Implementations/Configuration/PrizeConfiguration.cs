@@ -32,7 +32,7 @@ public class PrizeConfiguration : IEntityTypeConfiguration<PrizeEntity>
         builder
             .HasOne<CurrencyEntity>(prize => prize.Currency)
             .WithMany(currency => currency.Prizes)
-            .HasForeignKey(prize => prize.Currency);
+            .HasForeignKey(prize => prize.CurrencyId);
 
         builder.Ignore(prize => prize.Currency);
         
