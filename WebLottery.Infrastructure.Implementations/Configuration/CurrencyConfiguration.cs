@@ -26,16 +26,6 @@ public class CurrencyConfiguration : IEntityTypeConfiguration<CurrencyEntity>
             .HasMaxLength(20)
             .HasColumnName("name");
         
-        builder
-            .HasMany<WalletCurrencyEntity>(currency => currency.WalletCurrencies)
-            .WithOne(walletCurrency => walletCurrency.Currency)
-            .HasForeignKey(walletCurrency => walletCurrency.CurrencyId);
-        
-        builder
-            .HasMany<PrizeEntity>(currency => currency.Prizes)
-            .WithOne(prize => prize.Currency)
-            .HasForeignKey(prize => prize.Currency);
-        
         builder.Ignore(currency => currency.WalletCurrencies);
         
         builder.Ignore(currency => currency.Prizes);

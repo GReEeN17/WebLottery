@@ -33,10 +33,14 @@ public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
             .HasColumnName("password");
         
         builder
-            .HasOne<WalletEntity>(user => user.Wallet).WithOne(wallet => wallet.User);
+            .HasOne<WalletEntity>(user => user.Wallet)
+            .WithOne(wallet => wallet.User)
+            .HasForeignKey<WalletEntity>(wallet => wallet.UserId);
         
         builder
-            .HasOne<PocketEntity>(user => user.Pocket).WithOne(pocket => pocket.User);
+            .HasOne<PocketEntity>(user => user.Pocket)
+            .WithOne(pocket => pocket.User)
+            .HasForeignKey<PocketEntity>(pocket => pocket.UserId);
         
         builder.Ignore(user => user.WalletId);
         

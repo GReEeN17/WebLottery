@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Currency;
 using WebLottery.Application.Contracts.Draw;
 using WebLottery.Application.Contracts.Pocket;
@@ -26,14 +27,15 @@ using WebLottery.Application.WalletCurrency;
 using WebLottery.Infrastructure.Entities.User;
 using WebLottery.Infrastructure.Implementations.AbstractionTrigger;
 using WebLottery.Infrastructure.Implementations.DataContext;
+using WebLottery.Infrastructure.Implementations.Repositories;
 
 namespace WebLottery.Presentation;
 
-public class StartUp
+public class Startup
 {
     private readonly IConfiguration _configuration;
 
-    public StartUp(
+    public Startup(
         IConfiguration configuration)
     {
         _configuration = configuration;
@@ -55,15 +57,17 @@ public class StartUp
 
         services.AddDbContext<DataContext>(options =>
         {
-            options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"),
-                assembly => assembly.MigrationsAssembly("WebLottery.Infrastructure.Migrations"));
+            options
+                .UseNpgsql(_configuration.GetConnectionString("DefaultConnection"),
+                    assembly =>
+                        assembly.MigrationsAssembly("WebLottery.Infrastructure.Migrations"));
             options.UseTriggers(triggerOptions =>
             {
                 triggerOptions.AddTrigger<EntityTrigger>();
             });
         });
 
-        services.AddAutoMapper(typeof(StartUp));
+        services.AddAutoMapper(typeof(Startup));
 
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IDrawService, DrawService>();
@@ -74,7 +78,20 @@ public class StartUp
         services.AddTransient<ITicketService, TicketService>();
         services.AddTransient<IWalletService, WalletService>();
         services.AddTransient<IWalletCurrencyService, WalletCurrencyService>();
+        services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+        services.AddScoped<IDrawRepository, DrawRepository>();
+        services.AddScoped<IPocketRepository, PocketRepository>();
+        services.AddScoped<IPocketTicketRepository, PocketTicketRepository>();
+        services.AddScoped<IPrizeRepository, PrizeRepository>();
+        services.AddScoped<ITicketRepository, TicketRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IWalletRepository, WalletRepository>();
+        services.AddScoped<IWalletCurrencyRepository, WalletCurrencyRepository>();
+        services.AddScoped<CurrentUserManager>();
+        services.AddScoped<ICurrentUserService>(
+            p => p.GetRequiredService<CurrentUserManager>());
         services.AddSingleton(new UserEntity { Id = 0 });
+        //services.AddSingleton<IConfiguration>(_configuration);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)

@@ -20,10 +20,6 @@ public class WalletConfiguration : IEntityTypeConfiguration<WalletEntity>
             .HasColumnName("user_id");
 
         builder
-            .HasOne<UserEntity>(wallet => wallet.User)
-            .WithOne(user => user.Wallet);
-
-        builder
             .HasMany<WalletCurrencyEntity>(wallet => wallet.WalletCurrencies)
             .WithOne(walletCurrency => walletCurrency.Wallet)
             .HasForeignKey(walletCurrency => walletCurrency.WalletId);

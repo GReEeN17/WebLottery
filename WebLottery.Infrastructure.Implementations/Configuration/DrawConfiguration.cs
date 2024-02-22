@@ -35,11 +35,6 @@ public class DrawConfiguration : IEntityTypeConfiguration<DrawEntity>
             .HasColumnName("prize_id");
 
         builder
-            .HasMany<TicketEntity>(draw => draw.Tickets)
-            .WithOne(ticket => ticket.Draw)
-            .HasForeignKey(ticket => ticket.DrawId);
-
-        builder
             .HasOne<PrizeEntity>(draw => draw.Prize)
             .WithMany(prize => prize.Draws)
             .HasForeignKey(draw => draw.PrizeId);

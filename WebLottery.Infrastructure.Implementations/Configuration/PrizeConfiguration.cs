@@ -30,11 +30,6 @@ public class PrizeConfiguration : IEntityTypeConfiguration<PrizeEntity>
             .HasColumnName("currency_id");
 
         builder
-            .HasMany<DrawEntity>(prize => prize.Draws)
-            .WithOne(draw => draw.Prize)
-            .HasForeignKey(draw => draw.PrizeId);
-
-        builder
             .HasOne<CurrencyEntity>(prize => prize.Currency)
             .WithMany(currency => currency.Prizes)
             .HasForeignKey(prize => prize.Currency);

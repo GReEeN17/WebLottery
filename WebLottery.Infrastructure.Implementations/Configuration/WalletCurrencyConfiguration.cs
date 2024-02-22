@@ -28,11 +28,6 @@ public class WalletCurrencyConfiguration : IEntityTypeConfiguration<WalletCurren
             .HasColumnName("amount");
 
         builder
-            .HasOne<WalletEntity>(walletCurrency => walletCurrency.Wallet)
-            .WithMany(wallet => wallet.WalletCurrencies)
-            .HasForeignKey(walletCurrency => walletCurrency.WalletId);
-
-        builder
             .HasOne<CurrencyEntity>(walletCurrency => walletCurrency.Currency)
             .WithMany(currency => currency.WalletCurrencies)
             .HasForeignKey(walletCurrency => walletCurrency.CurrencyId);
