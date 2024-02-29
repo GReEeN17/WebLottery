@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using WebLottery.Infrastructure.Entities.Abstractions;
 using WebLottery.Infrastructure.Entities.Prize;
 using WebLottery.Infrastructure.Entities.Ticket;
@@ -11,6 +12,7 @@ public class DrawEntity : Entity
     public int CurrentAmountPlayers { get; set; }
     public int MaxAmountPlayers { get; set; }
     public bool IsEnded { get; set; }
+    [ForeignKey("Prize")]
     public int PrizeId { get; set; }
     public PrizeEntity Prize { get; set; }
     public List<TicketEntity> Tickets { get; set; }

@@ -5,14 +5,14 @@ namespace WebLottery.Application.Contracts.User;
 
 public interface IUserService
 {
-    UserLoginResult LoginWithUsername(string username, string password);
-    UserLoginResult LoginWithEmail(string email, string password);
-    UserUpdateResult UpdateUser(string? email, string? username, string? password);
-    IEnumerable<Models.WalletCurrency.WalletCurrencyModel> ShowWallet();
-    IEnumerable<DrawModel> ShowJoinedDraws();
-    UserCreateGameResult CreateDraw(int ticketPrice, int maxAmountPlayers);
-    UserCreateUserResult CreateUser(string username, string email, string password);
-    UserBuyTicketResult BuyTicket(int drawId);
-    UserCreateCurrencyResult CreateCurrency(string name, string abbreviation);
-    UserCreatePrizeResult CreatePrize(string name, string? description, int? currencyId);
+    Task<string> LoginWithUsername(string username, string password);
+    Task<string> LoginWithEmail(string email, string password);
+    Task<string> UpdateUser(string? email, string? username, string? password);
+    Task<string> ShowWallet();
+    Task<string> ShowJoinedDraws();
+    Task<string> CreateDraw(int ticketPrice, int maxAmountPlayers);
+    Task<string> CreateUser(string username, string email, string password);
+    Task<string> BuyTicket(int drawId);
+    Task<string> CreateCurrency(string name, string abbreviation);
+    Task<string> CreatePrize(string name, string? description, int? currencyId);
 }

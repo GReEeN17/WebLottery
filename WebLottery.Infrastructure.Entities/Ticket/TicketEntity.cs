@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using WebLottery.Infrastructure.Entities.Abstractions;
 using WebLottery.Infrastructure.Entities.Draw;
 using WebLottery.Infrastructure.Entities.PocketTicket;
@@ -8,6 +9,7 @@ public class TicketEntity : Entity
 {
     public int Id { get; set; }
     public int LuckyNumber { get; set; }
+    [ForeignKey("Draw")]
     public int DrawId { get; set; }
     public DrawEntity Draw { get; set; }
     public DateTime PurchaseTime { get; set; }

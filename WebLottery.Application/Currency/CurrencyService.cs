@@ -1,14 +1,15 @@
-using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Currency;
+using WebLottery.Infrastructure.Entities.Currency;
+using WebLottery.Infrastructure.Implementations.AbstractionTrigger;
 
 namespace WebLottery.Application.Currency;
 
 public class CurrencyService : ICurrencyService
 {
-    private readonly ICurrencyRepository _currencyRepository;
+    private readonly IDbRepository _currencyRepository;
     
     public CurrencyService(
-        ICurrencyRepository currencyRepository)
+        IDbRepository currencyRepository)
     {
         _currencyRepository = currencyRepository;
     }

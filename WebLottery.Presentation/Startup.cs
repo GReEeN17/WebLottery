@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Currency;
 using WebLottery.Application.Contracts.Draw;
 using WebLottery.Application.Contracts.Pocket;
@@ -25,9 +24,9 @@ using WebLottery.Application.User;
 using WebLottery.Application.Wallet;
 using WebLottery.Application.WalletCurrency;
 using WebLottery.Infrastructure.Entities.User;
-using WebLottery.Infrastructure.Implementations.AbstractionTrigger;
+using WebLottery.Infrastructure.Implementations.Abstractions;
 using WebLottery.Infrastructure.Implementations.DataContext;
-using WebLottery.Infrastructure.Implementations.Repositories;
+using WebLottery.Presentation.ProjectMapper;
 
 namespace WebLottery.Presentation;
 
@@ -67,7 +66,7 @@ public class Startup
             });
         });
 
-        services.AddAutoMapper(typeof(Startup));
+        services.AddAutoMapper(typeof(AppMappingProfile));
 
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IDrawService, DrawService>();
@@ -78,18 +77,8 @@ public class Startup
         services.AddTransient<ITicketService, TicketService>();
         services.AddTransient<IWalletService, WalletService>();
         services.AddTransient<IWalletCurrencyService, WalletCurrencyService>();
-        services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-        services.AddScoped<IDrawRepository, DrawRepository>();
-        services.AddScoped<IPocketRepository, PocketRepository>();
-        services.AddScoped<IPocketTicketRepository, PocketTicketRepository>();
-        services.AddScoped<IPrizeRepository, PrizeRepository>();
-        services.AddScoped<ITicketRepository, TicketRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IWalletRepository, WalletRepository>();
-        services.AddScoped<IWalletCurrencyRepository, WalletCurrencyRepository>();
+        services.AddScoped<IDbRepository, DbRepository>();
         services.AddScoped<CurrentUserManager>();
-        services.AddScoped<ICurrentUserService>(
-            p => p.GetRequiredService<CurrentUserManager>());
         services.AddSingleton(new UserEntity { Id = 0 });
         //services.AddSingleton<IConfiguration>(_configuration);
     }
@@ -102,7 +91,7 @@ public class Startup
         app.UseSwagger();
         app.UseSwaggerUI(x =>
         {
-            x.SwaggerEndpoint("/swagger/v1/swagger.json", "Social CRM API v1");
+            x.SwaggerEndpoint("/swagger/v1/swagger.json", "WebLottery API v1");
             x.RoutePrefix = "swagger";
         });
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

@@ -1,4 +1,3 @@
-using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Currency;
 using WebLottery.Application.Contracts.Draw;
 using WebLottery.Application.Contracts.Pocket;
@@ -7,12 +6,13 @@ using WebLottery.Application.Contracts.User;
 using WebLottery.Application.Contracts.Wallet;
 using WebLottery.Application.Models.User;
 using WebLottery.Infrastructure.Entities.User;
+using WebLottery.Infrastructure.Implementations.Abstractions;
 
 namespace WebLottery.Application.User;
 
 public class UserService : IUserService
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IDbRepository _userRepository;
     private readonly IWalletService _walletService;
     private readonly IPocketService _pocketService;
     private readonly CurrentUserManager _currentUserManager;
@@ -21,7 +21,7 @@ public class UserService : IUserService
     private readonly IPrizeService _prizeService;
     
     public UserService(
-        IUserRepository userRepository,
+        IDbRepository userRepository,
         IWalletService walletService,
         IPocketService pocketService,
         CurrentUserManager currentUserManager,
@@ -41,7 +41,7 @@ public class UserService : IUserService
 
     public UserLoginResult LoginWithUsername(string username, string password)
     {
-        UserModel? user = _userRepository.FindUserByUsername(username).Result;
+        UserModel? user = _userRepository;
 
         if (user is null)
         {

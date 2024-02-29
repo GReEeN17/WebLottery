@@ -5,9 +5,8 @@ namespace WebLottery.Application.Contracts.Draw;
 
 public interface IDrawService
 {
-    void CreateDraw(int ticketPrice, int maxAmountPlayers);
-    void EndDraw(int drawId);
-    DrawModel GetDraw(int drawId);
-    IEnumerable<TicketModel> GetNotBoughtTickets(int drawId);
-    IEnumerable<DrawModel> GetCurrentDraws();
+    Task<string> CreateDraw(int ticketPrice, int maxAmountPlayers);
+    Task<string> GetDraw(int drawId);
+    Task UpdateDraw(int drawId, int? ticketPrice, int? maxAmountPlayers);
+    Task DeleteDraw(int drawId);
 }

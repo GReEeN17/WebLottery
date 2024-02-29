@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "INr3AQaeqcPgEIjMsa1iFl6xXxDuPol3KwAqC8K/zrL6rCZeSV8+nYFt+g0SlRR33X96efinacB5qAgKH99kkw==",
+  "dgSpecHash": "mGolJmvq8yIMzlFKHNYahZoxVC0Acl/7pBcAlp5uYJIhYRYZA/hn607poqzln5Ig0TjfK/pV7Kfu4Tq5ai/r+w==",
   "success": true,
   "projectFilePath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Presentation/WebLottery.Presentation.csproj",
   "expectedPackageFiles": [
-    "/Users/azelen/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
+    "/Users/azelen/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/azelen/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "/Users/azelen/.nuget/packages/entityframeworkcore.sqlserver.seeding/5.0.12/entityframeworkcore.sqlserver.seeding.5.0.12.nupkg.sha512",
     "/Users/azelen/.nuget/packages/entityframeworkcore.triggered/3.2.2/entityframeworkcore.triggered.3.2.2.nupkg.sha512",
     "/Users/azelen/.nuget/packages/entityframeworkcore.triggered.abstractions/3.2.2/entityframeworkcore.triggered.abstractions.3.2.2.nupkg.sha512",
@@ -18,7 +19,7 @@
     "/Users/azelen/.nuget/packages/microsoft.codeanalysis.csharp/4.5.0/microsoft.codeanalysis.csharp.4.5.0.nupkg.sha512",
     "/Users/azelen/.nuget/packages/microsoft.codeanalysis.csharp.workspaces/4.5.0/microsoft.codeanalysis.csharp.workspaces.4.5.0.nupkg.sha512",
     "/Users/azelen/.nuget/packages/microsoft.codeanalysis.workspaces.common/4.5.0/microsoft.codeanalysis.workspaces.common.4.5.0.nupkg.sha512",
-    "/Users/azelen/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
+    "/Users/azelen/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/azelen/.nuget/packages/microsoft.data.sqlclient/2.0.1/microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "/Users/azelen/.nuget/packages/microsoft.data.sqlclient.sni.runtime/2.0.1/microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",
     "/Users/azelen/.nuget/packages/microsoft.entityframeworkcore/8.0.0/microsoft.entityframeworkcore.8.0.0.nupkg.sha512",

@@ -1,7 +1,7 @@
 using EntityFrameworkCore.Triggered;
 using WebLottery.Infrastructure.Entities.Abstractions;
 
-namespace WebLottery.Infrastructure.Implementations.AbstractionTrigger;
+namespace WebLottery.Infrastructure.Implementations.Abstractions;
 
 public class EntityTrigger : IBeforeSaveTrigger<Entity>
 {

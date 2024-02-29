@@ -4,130 +4,6 @@
     "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Migrations/WebLottery.Infrastructure.Migrations.csproj": {}
   },
   "projects": {
-    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj",
-        "projectName": "WebLottery.Application.Abstractions",
-        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj",
-        "packagesPath": "/Users/azelen/.nuget/packages/",
-        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/Users/azelen/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
-                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj",
-        "projectName": "WebLottery.Application.Models",
-        "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/WebLottery.Application.Models.csproj",
-        "packagesPath": "/Users/azelen/.nuget/packages/",
-        "outputPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Models/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/Users/azelen/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
-                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -156,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -208,8 +79,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj": {
-                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj"
+              "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj": {
+                "projectPath": "/Users/azelen/Desktop/OwnProjects/WebLottery/WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj"
               }
             }
           }
@@ -218,11 +89,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -322,11 +188,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {

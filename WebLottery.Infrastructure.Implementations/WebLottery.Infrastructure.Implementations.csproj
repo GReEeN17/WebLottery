@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WebLottery.Application.Abstractions\WebLottery.Application.Abstractions.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="EntityFrameworkCore.SqlServer.Seeding" Version="5.0.12" />
       <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.2.2" />
       <PackageReference Include="EntityFrameworkCore.Triggered.Abstractions" Version="3.2.2" />
@@ -26,6 +22,10 @@
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
       <PackageReference Include="System.Linq" Version="4.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WebLottery.Infrastructure.Entities\WebLottery.Infrastructure.Entities.csproj" />
     </ItemGroup>
 
 </Project>

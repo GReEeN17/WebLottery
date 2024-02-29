@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebLottery.Infrastructure.Migrations")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8143f463075707098778f49874617bb670f37a98")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfd6e12e7a27b4e0c0f5ec839ec5688cb1d5aef1")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebLottery.Infrastructure.Migrations")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebLottery.Infrastructure.Migrations")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

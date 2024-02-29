@@ -2524,32 +2524,6 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "WebLottery.Application.Abstractions/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "WebLottery.Application.Models": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/WebLottery.Application.Abstractions.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/WebLottery.Application.Abstractions.dll": {}
-        }
-      },
-      "WebLottery.Application.Models/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "WebLottery.Infrastructure.Entities": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/WebLottery.Application.Models.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/WebLottery.Application.Models.dll": {}
-        }
-      },
       "WebLottery.Infrastructure.Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -2571,7 +2545,7 @@
           "Microsoft.Extensions.Configuration": "8.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.0",
           "System.Linq": "4.3.0",
-          "WebLottery.Application.Abstractions": "1.0.0"
+          "WebLottery.Infrastructure.Entities": "1.0.0"
         },
         "compile": {
           "bin/placeholder/WebLottery.Infrastructure.Implementations.dll": {}
@@ -7970,16 +7944,6 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "WebLottery.Application.Abstractions/1.0.0": {
-      "type": "project",
-      "path": "../WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj",
-      "msbuildProject": "../WebLottery.Application.Abstractions/WebLottery.Application.Abstractions.csproj"
-    },
-    "WebLottery.Application.Models/1.0.0": {
-      "type": "project",
-      "path": "../WebLottery.Application.Models/WebLottery.Application.Models.csproj",
-      "msbuildProject": "../WebLottery.Application.Models/WebLottery.Application.Models.csproj"
-    },
     "WebLottery.Infrastructure.Entities/1.0.0": {
       "type": "project",
       "path": "../WebLottery.Infrastructure.Entities/WebLottery.Infrastructure.Entities.csproj",
@@ -8033,11 +7997,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
