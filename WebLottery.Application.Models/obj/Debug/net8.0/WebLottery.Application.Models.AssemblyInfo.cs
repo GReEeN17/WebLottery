@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebLottery.Application.Models")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfd6e12e7a27b4e0c0f5ec839ec5688cb1d5aef1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd3743b114fccae30ae4d9dacc422fbce4a8302b")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebLottery.Application.Models")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebLottery.Application.Models")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

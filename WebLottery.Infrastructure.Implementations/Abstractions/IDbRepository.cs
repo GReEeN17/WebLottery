@@ -9,7 +9,7 @@ public interface IDbRepository
     IQueryable<T> Get<T>() where T: class, IEntity;
     IQueryable<T> GetAll<T>() where T : class, IEntity;
 
-    Task<int> Add<T>(T newEntity) where T: class, IEntity;
+    Task<T> Add<T>(T newEntity) where T: class, IEntity;
     Task AddRange<T>(IEnumerable<T> newEntities) where T: class, IEntity;
 
     Task Delete<T>(int entity) where T : class, IEntity;

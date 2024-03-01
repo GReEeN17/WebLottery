@@ -80,7 +80,6 @@ public class Startup
         services.AddScoped<IDbRepository, DbRepository>();
         services.AddScoped<CurrentUserManager>();
         services.AddSingleton(new UserEntity { Id = 0 });
-        //services.AddSingleton<IConfiguration>(_configuration);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)

@@ -4,8 +4,8 @@ namespace WebLottery.Application.Contracts.WalletCurrency;
 
 public interface IWalletCurrencyService
 { 
-    Task<int> CreateWalletCurrency(int walletId, int currencyId);
-    Task<WalletCurrencyModel> GetWalletCurrency(int walletCurrencyId);
-    Task UpdateWalletCurrency(int walletCurrencyId, int? walletId, int? currencyId);
+    Task<int> CreateWalletCurrency(WalletCurrencyModel walletCurrencyModel);
+    string GetWalletCurrency(int walletCurrencyId);
+    Task UpdateWalletCurrency(WalletCurrencyModel walletCurrencyModel);
     Task DeleteWalletCurrency(int walletCurrencyId);
 }

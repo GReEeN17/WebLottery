@@ -4,8 +4,8 @@ namespace WebLottery.Application.Contracts.Currency;
 
 public interface ICurrencyService
 {
-    Task<string> CreateCurrency(string name, string abbreviation);
-    Task<string> GetCurrency(int currencyId);
-    Task UpdateCurrency(int currencyId, string? name, string? abbreviation);
+    Task<string> CreateCurrency(CurrencyModel currencyModel);
+    string GetCurrency(int currencyId);
+    Task UpdateCurrency(CurrencyModel currencyModel);
     Task DeleteCurrency(int currencyId);
 }

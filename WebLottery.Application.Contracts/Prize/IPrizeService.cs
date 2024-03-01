@@ -4,8 +4,8 @@ namespace WebLottery.Application.Contracts.Prize;
 
 public interface IPrizeService
 {
-    Task<Guid> CreatePrize(string name, string? description, int? currencyId);
-    Task<string> GetPrize(int prizeId);
-    Task UpdatePrize(int prizeId, string? name, string? description, int? currencyId);
+    Task<Guid> CreatePrize(PrizeModel prizeModel);
+    string GetPrize(int prizeId);
+    Task UpdatePrize(PrizeModel prizeModel);
     Task DeletePrize(int prizeId);
 }

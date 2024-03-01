@@ -4,8 +4,8 @@ namespace WebLottery.Application.Contracts.Pocket;
 
 public interface IPocketService
 {
-    Task<string> CreatePocket(int userId);
-    Task<string> GetPocket(int pocketId);
-    Task UpdatePocket(int pocketId, int? userId);
+    Task<string> CreatePocket(PocketModel pocketModel);
+    string GetPocket(int pocketId);
+    Task UpdatePocket(PocketModel pocketModel);
     Task DeletePocket(int pocketId);
 }
