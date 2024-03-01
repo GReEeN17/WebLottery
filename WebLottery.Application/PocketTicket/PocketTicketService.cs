@@ -1,41 +1,27 @@
-using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.PocketTicket;
-using WebLottery.Application.Contracts.Ticket;
-using WebLottery.Application.Models.Draw;
 using WebLottery.Application.Models.PocketTicket;
 
 namespace WebLottery.Application.PocketTicket;
 
 public class PocketTicketService : IPocketTicketService
 {
-    private readonly IPocketTicketRepository _pocketTicketRepository;
-    private readonly ITicketService _ticketService;
-
-    public PocketTicketService(
-        IPocketTicketRepository pocketTicketRepository,
-        ITicketService ticketService)
+    public Task<string> CreatePocketTicket(PocketTicketModel pocketTicketModel)
     {
-        _pocketTicketRepository = pocketTicketRepository;
-        _ticketService = ticketService;
-    }
-    
-    public void CreatePocketTicket(int pocketId, int ticketId)
-    {
-        _pocketTicketRepository.CreatePocketTicket(pocketId, ticketId);
+        throw new NotImplementedException();
     }
 
-    public IEnumerable<DrawModel> GetAllUserDraws(int pocketId)
+    public string GetPocketTicket(int pocketTicketId)
     {
-        IEnumerable<PocketTicketModel> tickets =
-            _pocketTicketRepository.GetPocketTickets(pocketId).ToBlockingEnumerable();
+        throw new NotImplementedException();
+    }
 
-        HashSet<DrawModel> draws = new HashSet<DrawModel>();
+    public Task UpdatePocketTicket(PocketTicketModel pocketTicketModel)
+    {
+        throw new NotImplementedException();
+    }
 
-        foreach (PocketTicketModel ticket in tickets)
-        {
-            draws.Add(_ticketService.GetUserDraw(ticket.Id));
-        }
-
-        return draws.ToList();
+    public Task DeletePocketTicket(int pocketTicketId)
+    {
+        throw new NotImplementedException();
     }
 }

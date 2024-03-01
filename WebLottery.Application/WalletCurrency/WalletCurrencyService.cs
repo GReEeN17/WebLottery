@@ -1,44 +1,27 @@
-using AutoMapper;
 using WebLottery.Application.Contracts.WalletCurrency;
 using WebLottery.Application.Models.WalletCurrency;
-using WebLottery.Infrastructure.Entities.WalletCurrency;
-using WebLottery.Infrastructure.Implementations.Abstractions;
 
 namespace WebLottery.Application.WalletCurrency;
 
 public class WalletCurrencyService : IWalletCurrencyService
 {
-    private readonly IDbRepository _walletCurrencyRepository;
-    private readonly IMapper _mapper;
-
-    public WalletCurrencyService(
-        IDbRepository walletCurrencyRepository,
-        IMapper mapper)
+    public Task<int> CreateWalletCurrency(WalletCurrencyModel walletCurrencyModel)
     {
-        _walletCurrencyRepository = walletCurrencyRepository;
-        _mapper = mapper;
-    }
-    
-    public void CreateWalletCurrency(int walletId, int currencyId)
-    {
-        WalletCurrencyModel walletCurrency = new WalletCurrencyModel
-        {
-            WalletId = walletId,
-            CurrencyId = currencyId
-        };
-
-        WalletCurrencyEntity walletCurrencyEntity = _mapper.Map<WalletCurrencyEntity>(walletCurrency);
-        
-        int walletCurrencyId = _walletCurrencyRepository.Add(walletCurrencyEntity).Result;
+        throw new NotImplementedException();
     }
 
-    public WalletCurrencyModel GetUserCurrency(int walletId, int currencyId)
+    public string GetWalletCurrency(int walletCurrencyId)
     {
-        return _walletCurrencyRepository.GetUserCurrency(walletId, currencyId).Result;
+        throw new NotImplementedException();
     }
 
-    public IEnumerable<WalletCurrencyModel> GetAllUserCurrencies(int walletId)
+    public Task UpdateWalletCurrency(WalletCurrencyModel walletCurrencyModel)
     {
-        return _walletCurrencyRepository.GetAllUserCurrency(walletId).ToBlockingEnumerable();
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteWalletCurrency(int walletCurrencyId)
+    {
+        throw new NotImplementedException();
     }
 }

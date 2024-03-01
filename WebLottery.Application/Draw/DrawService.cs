@@ -1,42 +1,27 @@
-using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Draw;
 using WebLottery.Application.Models.Draw;
-using WebLottery.Application.Models.Ticket;
 
 namespace WebLottery.Application.Draw;
 
 public class DrawService : IDrawService
 {
-    private readonly IDrawRepository _drawRepository;
-
-    public DrawService(
-        IDrawRepository drawRepository)
+    public Task<string> CreateDraw(DrawModel drawModel)
     {
-        _drawRepository = drawRepository;
-    }
-    
-    public void CreateDraw(int ticketPrice, int maxAmountPlayers)
-    {
-        _drawRepository.CreateDraw(ticketPrice, maxAmountPlayers);
+        throw new NotImplementedException();
     }
 
-    public void EndDraw(int drawId)
+    public string GetDraw(int drawId)
     {
-        _drawRepository.EndDraw(drawId);
+        throw new NotImplementedException();
     }
 
-    public DrawModel GetDraw(int drawId)
+    public Task UpdateDraw(DrawModel drawModel)
     {
-        return _drawRepository.GetDraw(drawId).Result;
+        throw new NotImplementedException();
     }
 
-    public IEnumerable<TicketModel> GetNotBoughtTickets(int drawId)
+    public Task DeleteDraw(int drawId)
     {
-        return _drawRepository.GetNotBoughtTickets(drawId).ToBlockingEnumerable();
-    }
-
-    public IEnumerable<DrawModel> GetCurrentDraws()
-    {
-        return _drawRepository.GetCurrentDraws().ToBlockingEnumerable();
+        throw new NotImplementedException();
     }
 }

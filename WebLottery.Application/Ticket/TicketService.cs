@@ -1,32 +1,27 @@
-using WebLottery.Application.Abstractions.Repositories;
 using WebLottery.Application.Contracts.Ticket;
-using WebLottery.Application.Models.Draw;
 using WebLottery.Application.Models.Ticket;
 
 namespace WebLottery.Application.Ticket;
 
 public class TicketService : ITicketService
 {
-    private readonly ITicketRepository _ticketRepository;
-
-    public TicketService(
-        ITicketRepository ticketRepository)
+    public Task<string> CreateTicket(TicketModel ticketModel)
     {
-        _ticketRepository = ticketRepository;
-    }
-    
-    public void CreateTicket(int drawId, int luckyNumber)
-    {
-        _ticketRepository.CreateTicket(drawId, luckyNumber);
+        throw new NotImplementedException();
     }
 
-    public TicketModel UpdateTicket(int ticketId)
+    public string GetTicket(int ticketId)
     {
-        return _ticketRepository.UpdateTicket(ticketId).Result;
+        throw new NotImplementedException();
     }
 
-    public DrawModel GetUserDraw(int ticketId)
+    public Task UpdateTicket(TicketModel ticketModel)
     {
-        return _ticketRepository.GetTicket(ticketId).Result.Draw;
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteTicket(int ticketId)
+    {
+        throw new NotImplementedException();
     }
 }

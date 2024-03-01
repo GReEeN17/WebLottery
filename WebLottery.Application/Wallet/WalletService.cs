@@ -1,36 +1,27 @@
-using WebLottery.Application.Abstractions.Repositories;
-using WebLottery.Application.Contracts.WalletCurrency;
 using WebLottery.Application.Contracts.Wallet;
-using WebLottery.Application.Models.WalletCurrency;
+using WebLottery.Application.Models.Wallet;
 
 namespace WebLottery.Application.Wallet;
 
 public class WalletService : IWalletService
 {
-    private readonly IWalletRepository _walletRepository;
-    private readonly IWalletCurrencyService _walletCurrencyService;
-
-    public WalletService(
-        IWalletRepository walletRepository,
-        IWalletCurrencyService walletCurrencyService)
+    public Task<int> CreateWallet(WalletModel walletModel)
     {
-        _walletRepository = walletRepository;
-        _walletCurrencyService = walletCurrencyService;
-    }
-    
-    public void CreateWallet(int userId)
-    {
-        _walletRepository.CreateWallet(userId);
+        throw new NotImplementedException();
     }
 
-    public WalletCurrencyModel GetUserCurrency(int userId, int currencyId)
+    public string GetWallet(int walletId)
     {
-        int walletId = _walletRepository.GetWallet(userId).Result.Id;
-        return _walletCurrencyService.GetUserCurrency(walletId, currencyId);
+        throw new NotImplementedException();
     }
 
-    public IEnumerable<WalletCurrencyModel> GetAllUserCurrencies(int userId)
+    public Task UpdateWallet(WalletModel walletModel)
     {
-        return _walletCurrencyService.GetAllUserCurrencies(userId);
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteWallet(int walletId)
+    {
+        throw new NotImplementedException();
     }
 }

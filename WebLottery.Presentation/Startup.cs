@@ -78,7 +78,6 @@ public class Startup
         services.AddTransient<IWalletService, WalletService>();
         services.AddTransient<IWalletCurrencyService, WalletCurrencyService>();
         services.AddScoped<IDbRepository, DbRepository>();
-        services.AddScoped<CurrentUserManager>();
         services.AddSingleton(new UserEntity { Id = 0 });
     }
 
