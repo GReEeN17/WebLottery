@@ -15,15 +15,8 @@ public class WalletConfiguration : IEntityTypeConfiguration<WalletEntity>
             .HasKey(wallet => wallet.Id);
 
         builder
-            .Property(wallet => wallet.UserId)
-            .IsRequired()
-            .HasColumnName("user_id");
-
-        builder
             .HasMany<WalletCurrencyEntity>(wallet => wallet.WalletCurrencies)
             .WithOne(walletCurrency => walletCurrency.Wallet)
             .HasForeignKey(walletCurrency => walletCurrency.WalletId);
-
-        builder.Ignore(wallet => wallet.User);
     }
 }

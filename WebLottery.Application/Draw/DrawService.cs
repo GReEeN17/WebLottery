@@ -1,27 +1,62 @@
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.Draw;
 using WebLottery.Application.Models.Draw;
+using WebLottery.Infrastructure.Entities.Draw;
+using WebLottery.Infrastructure.Implementations.Abstractions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace WebLottery.Application.Draw;
 
 public class DrawService : IDrawService
 {
-    public Task<string> CreateDraw(DrawModel drawModel)
+    private readonly IDbRepository _dbRepository;
+    private readonly IMapper _mapper;
+
+    public DrawService(
+        IDbRepository dbRepository,
+        IMapper mapper)
     {
-        throw new NotImplementedException();
+        _dbRepository = dbRepository;
+        _mapper = mapper;
+    }
+    public async Task<string> CreateDraw(DrawModel drawModel)
+    {
+        var drawEntity = _mapper.Map<DrawEntity>(drawModel);
+        
+        var result = await _dbRepository.Add(drawEntity);
+        await _dbRepository.SaveChangesAsync();
+        
+        return JsonSerializer.Serialize(result);
     }
 
     public string GetDraw(int drawId)
     {
-        throw new NotImplementedException();
+        var drawEntity = _dbRepository.Get<DrawEntity>().Include(x => x.Prize).FirstOrDefault(x => x.Id == drawId);
+        var drawModel = _mapper.Map<DrawModel>(drawEntity);
+
+        return JsonSerializer.Serialize(drawModel);
     }
 
-    public Task UpdateDraw(DrawModel drawModel)
+    public string GetALlDraws()
     {
-        throw new NotImplementedException();
+        var drawEntities = _dbRepository.GetAll<DrawEntity>().Include(x => x.Prize).ToList();
+        var drawModels = _mapper.Map<List<DrawModel>>(drawEntities);
+
+        return JsonSerializer.Serialize(drawModels);
     }
 
-    public Task DeleteDraw(int drawId)
+    public async Task UpdateDraw(DrawModel drawModel)
     {
-        throw new NotImplementedException();
+        var drawEntity = _mapper.Map<DrawEntity>(drawModel);
+
+        await _dbRepository.Update(drawEntity);
+        await _dbRepository.SaveChangesAsync();
+    }
+
+    public async Task DeleteDraw(int drawId)
+    {
+        await _dbRepository.Delete<DrawEntity>(drawId);
+        await _dbRepository.SaveChangesAsync();
     }
 }

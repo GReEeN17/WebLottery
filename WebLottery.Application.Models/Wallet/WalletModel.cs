@@ -7,6 +7,5 @@ public class WalletModel
 {
     public int Id { get; set; }
     public int UserId { get; set; }
-    public UserModel User { get; set; }
-    private List<WalletCurrencyModel> WalletCurrencies { get; set; }
+    public UserModel? User { get; set; }
 }

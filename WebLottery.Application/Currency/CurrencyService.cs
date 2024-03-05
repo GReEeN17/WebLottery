@@ -22,9 +22,9 @@ public class CurrencyService : ICurrencyService
     
      public async Task<string> CreateCurrency(CurrencyModel currencyModel)
      {
-         var currency = _mapper.Map<CurrencyEntity>(currencyModel);
+         var currencyEntity = _mapper.Map<CurrencyEntity>(currencyModel);
          
-         var result = await _dbRepository.Add(currency);
+         var result = await _dbRepository.Add(currencyEntity);
          await _dbRepository.SaveChangesAsync();
 
          return JsonSerializer.Serialize(result);
@@ -36,6 +36,14 @@ public class CurrencyService : ICurrencyService
         var currencyModel = _mapper.Map<CurrencyModel>(currencyEntity);
 
         return JsonSerializer.Serialize(currencyModel);
+    }
+
+    public string GetAllCurrencies()
+    {
+        var currencies = _dbRepository.GetAll<CurrencyEntity>().ToList();
+        var currencyModels = _mapper.Map<List<CurrencyModel>>(currencies);
+
+        return JsonSerializer.Serialize(currencyModels);
     }
 
     public async Task UpdateCurrency(CurrencyModel currencyModel)

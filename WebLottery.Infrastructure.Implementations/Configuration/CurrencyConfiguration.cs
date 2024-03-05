@@ -25,9 +25,5 @@ public class CurrencyConfiguration : IEntityTypeConfiguration<CurrencyEntity>
             .IsRequired()
             .HasMaxLength(20)
             .HasColumnName("name");
-        
-        builder.Ignore(currency => currency.WalletCurrencies);
-        
-        builder.Ignore(currency => currency.Prizes);
     }
 }

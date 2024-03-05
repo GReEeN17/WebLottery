@@ -20,16 +20,8 @@ public class TicketConfiguration : IEntityTypeConfiguration<TicketEntity>
             .HasColumnName("lucky_number");
 
         builder
-            .Property(ticket => ticket.DrawId)
-            .IsRequired()
-            .HasColumnName("draw_id");
-
-        builder
             .HasOne<DrawEntity>(ticket => ticket.Draw)
             .WithMany(draw => draw.Tickets)
             .HasForeignKey(ticket => ticket.DrawId);
-
-        builder.Ignore(ticket => ticket.Draw);
-        builder.Ignore(ticket => ticket.PocketTicket);
     }
 }

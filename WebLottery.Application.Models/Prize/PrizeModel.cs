@@ -10,5 +10,4 @@ public class PrizeModel
     public string Description { get; set; }
     public int? CurrencyId { get; set; }
     public CurrencyModel? Currency { get; set; }
-    public List<DrawModel> Draws { get; set; }
 }

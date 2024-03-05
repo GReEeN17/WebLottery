@@ -11,6 +11,5 @@ public class DrawModel
     public int MaxAmountPlayers { get; set; }
     public bool IsEnded { get; set; }
     public int PrizeId { get; set; }
-    public PrizeModel Prize { get; set; }
-    public List<TicketModel> Tickets { get; set; }
+    public PrizeModel? Prize { get; set; }
 }

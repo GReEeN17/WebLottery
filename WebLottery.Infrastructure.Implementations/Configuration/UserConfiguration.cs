@@ -41,13 +41,5 @@ public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
             .HasOne<PocketEntity>(user => user.Pocket)
             .WithOne(pocket => pocket.User)
             .HasForeignKey<PocketEntity>(pocket => pocket.UserId);
-        
-        builder.Ignore(user => user.WalletId);
-        
-        builder.Ignore(user => user.Wallet);
-        
-        builder.Ignore(user => user.PocketId);
-        
-        builder.Ignore(user => user.Pocket);
     }
 }

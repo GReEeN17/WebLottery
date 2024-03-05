@@ -12,7 +12,7 @@ public class UserModel
     public string Password { get; set; }
     public UserRole UserRole { get; set; }
     public int WalletId { get; set; }
-    public WalletModel Wallet { get; set; }
+    public WalletModel? Wallet { get; set; }
     public int PocketId { get; set; }
-    public PocketModel Pocket { get; set; }
+    public PocketModel? Pocket { get; set; }
 }

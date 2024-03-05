@@ -14,15 +14,6 @@ public class WalletCurrencyConfiguration : IEntityTypeConfiguration<WalletCurren
             .ToTable("wallet_currency")
             .HasKey(walletCurrency => walletCurrency.Id);
 
-        builder
-            .Property(walletCurrency => walletCurrency.CurrencyId)
-            .IsRequired()
-            .HasColumnName("column_id");
-
-        builder.Property(walletCurrency => walletCurrency.WalletId)
-            .IsRequired()
-            .HasColumnName("wallet_id");
-
         builder.Property(walletCurrency => walletCurrency.Amount)
             .IsRequired()
             .HasColumnName("amount");
@@ -31,10 +22,6 @@ public class WalletCurrencyConfiguration : IEntityTypeConfiguration<WalletCurren
             .HasOne<CurrencyEntity>(walletCurrency => walletCurrency.Currency)
             .WithMany(currency => currency.WalletCurrencies)
             .HasForeignKey(walletCurrency => walletCurrency.CurrencyId);
-
-        builder.Ignore(walletCurrency => walletCurrency.Currency);
-
-        builder.Ignore(walletCurrency => walletCurrency.Wallet);
 
     }
 }

@@ -15,22 +15,8 @@ public class PocketTicketConfiguration : IEntityTypeConfiguration<PocketTicketEn
             .HasKey(pocketTicket => pocketTicket.Id);
 
         builder
-            .Property(pocketTicket => pocketTicket.PocketId)
-            .IsRequired()
-            .HasColumnName("pocket_id");
-
-        builder
-            .Property(pocketTicket => pocketTicket.TicketId)
-            .IsRequired()
-            .HasColumnName("ticket_id");
-
-        builder
             .HasOne<TicketEntity>(pocketTicket => pocketTicket.Ticket)
             .WithOne(ticket => ticket.PocketTicket)
             .HasForeignKey<PocketTicketEntity>(pocketTicket => pocketTicket.TicketId);
-
-        builder.Ignore(pocketTicket => pocketTicket.Pocket);
-
-        builder.Ignore(pocketTicket => pocketTicket.Ticket);
     }
 }

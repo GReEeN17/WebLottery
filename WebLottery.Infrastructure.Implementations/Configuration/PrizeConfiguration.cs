@@ -26,16 +26,8 @@ public class PrizeConfiguration : IEntityTypeConfiguration<PrizeEntity>
             .HasColumnName("description");
 
         builder
-            .Property(prize => prize.CurrencyId)
-            .HasColumnName("currency_id");
-
-        builder
             .HasOne<CurrencyEntity>(prize => prize.Currency)
             .WithMany(currency => currency.Prizes)
             .HasForeignKey(prize => prize.CurrencyId);
-
-        builder.Ignore(prize => prize.Currency);
-        
-        builder.Ignore(prize => prize.Draws);
     }
 }

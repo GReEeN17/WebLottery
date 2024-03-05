@@ -19,6 +19,19 @@ public class CurrencyController(ICurrencyService currencyService) : BaseControll
         
         return Ok(jsonCurrency);
     }
+    
+    [HttpGet]
+    public ActionResult<string> GetAll()
+    {
+        var jsonCurrencies = currencyService.GetAllCurrencies();
+
+        if (String.IsNullOrEmpty(jsonCurrencies))
+        {
+            return BadRequest("Currencies were not found");
+        }
+        
+        return Ok(jsonCurrencies);
+    }
 
     [HttpPost("create")]
     public async Task<ActionResult<string>> Create([FromBody] CurrencyModel currencyModel)
@@ -31,5 +44,21 @@ public class CurrencyController(ICurrencyService currencyService) : BaseControll
         }
 
         return Ok(jsonCurrency);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] CurrencyModel currencyModel)
+    {
+        await currencyService.UpdateCurrency(currencyModel);
+
+        return Ok();
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> delete(int id)
+    {
+        await currencyService.DeleteCurrency(id);
+
+        return Ok();
     }
 }

@@ -7,6 +7,7 @@ public interface IDrawService
 {
     Task<string> CreateDraw(DrawModel drawModel);
     string GetDraw(int drawId);
+    string GetALlDraws();
     Task UpdateDraw(DrawModel drawModel);
     Task DeleteDraw(int drawId);
 }

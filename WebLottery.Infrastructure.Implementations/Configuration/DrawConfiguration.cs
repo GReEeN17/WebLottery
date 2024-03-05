@@ -30,17 +30,8 @@ public class DrawConfiguration : IEntityTypeConfiguration<DrawEntity>
             .HasColumnName("cur_am_players");
 
         builder
-            .Property(draw => draw.PrizeId)
-            .IsRequired()
-            .HasColumnName("prize_id");
-
-        builder
             .HasOne<PrizeEntity>(draw => draw.Prize)
             .WithMany(prize => prize.Draws)
             .HasForeignKey(draw => draw.PrizeId);
-
-        builder.Ignore(draw => draw.Prize);
-
-        builder.Ignore(draw => draw.Tickets);
     }
 }
