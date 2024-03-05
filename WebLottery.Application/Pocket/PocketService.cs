@@ -1,27 +1,52 @@
+using System.Text.Json;
+using AutoMapper;
 using WebLottery.Application.Contracts.Pocket;
 using WebLottery.Application.Models.Pocket;
+using WebLottery.Infrastructure.Entities.Pocket;
+using WebLottery.Infrastructure.Implementations.Abstractions;
 
 namespace WebLottery.Application.Pocket;
 
 public class PocketService : IPocketService
 {
-    public Task<string> CreatePocket(PocketModel pocketModel)
+    private readonly IDbRepository _dbRepository;
+    private readonly IMapper _mapper;
+
+    public PocketService(IDbRepository dbRepository, IMapper mapper)
     {
-        throw new NotImplementedException();
+        _dbRepository = dbRepository;
+        _mapper = mapper;
+    }
+    
+    public async Task<string> CreatePocket(PocketModel pocketModel)
+    {
+        var pocketEntity = _mapper.Map<PocketEntity>(pocketModel);
+        
+        var result = await _dbRepository.Add(pocketEntity);
+        await _dbRepository.SaveChangesAsync();
+
+        return JsonSerializer.Serialize(result);
     }
 
     public string GetPocket(int pocketId)
     {
-        throw new NotImplementedException();
+        var pocketEntity = _dbRepository.Get<PocketEntity>().FirstOrDefault(x => x.Id == pocketId);
+        var pocketModel = _mapper.Map<PocketModel>(pocketEntity);
+
+        return JsonSerializer.Serialize(pocketModel);
     }
 
-    public Task UpdatePocket(PocketModel pocketModel)
+    public async Task UpdatePocket(PocketModel pocketModel)
     {
-        throw new NotImplementedException();
+        var pocketEntity = _mapper.Map<PocketEntity>(pocketModel);
+
+        await _dbRepository.Update(pocketEntity);
+        await _dbRepository.SaveChangesAsync();
     }
 
-    public Task DeletePocket(int pocketId)
+    public async Task DeletePocket(int pocketId)
     {
-        throw new NotImplementedException();
+        await _dbRepository.Delete<PocketEntity>(pocketId);
+        await _dbRepository.SaveChangesAsync();
     }
 }

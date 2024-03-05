@@ -1,27 +1,53 @@
+using AutoMapper;
+using Newtonsoft.Json;
 using WebLottery.Application.Contracts.PocketTicket;
 using WebLottery.Application.Models.PocketTicket;
+using WebLottery.Infrastructure.Entities.PocketTicket;
+using WebLottery.Infrastructure.Implementations.Abstractions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace WebLottery.Application.PocketTicket;
 
 public class PocketTicketService : IPocketTicketService
 {
-    public Task<string> CreatePocketTicket(PocketTicketModel pocketTicketModel)
+    private readonly IDbRepository _dbRepository;
+    private readonly IMapper _mapper;
+
+    public PocketTicketService(IDbRepository dbRepository, IMapper mapper)
     {
-        throw new NotImplementedException();
+        _dbRepository = dbRepository;
+        _mapper = mapper;
+    }
+
+    public async Task<string> CreatePocketTicket(PocketTicketModel pocketTicketModel)
+    {
+        var pocketTicketEntity = _mapper.Map<PocketTicketEntity>(pocketTicketModel);
+
+        var result = await _dbRepository.Add(pocketTicketEntity);
+        await _dbRepository.SaveChangesAsync();
+
+        return JsonSerializer.Serialize(result);
     }
 
     public string GetPocketTicket(int pocketTicketId)
     {
-        throw new NotImplementedException();
+        var pocketTicketEntity = _dbRepository.Get<PocketTicketEntity>().FirstOrDefault(x => x.Id == pocketTicketId);
+        var pocketTicketModel = _mapper.Map<PocketTicketModel>(pocketTicketEntity);
+
+        return JsonSerializer.Serialize(pocketTicketModel);
     }
 
-    public Task UpdatePocketTicket(PocketTicketModel pocketTicketModel)
+    public async Task UpdatePocketTicket(PocketTicketModel pocketTicketModel)
     {
-        throw new NotImplementedException();
+        var pocketTicketEntity = _mapper.Map<PocketTicketEntity>(pocketTicketModel);
+
+        await _dbRepository.Update(pocketTicketEntity);
+        await _dbRepository.SaveChangesAsync();
     }
 
-    public Task DeletePocketTicket(int pocketTicketId)
+    public async Task DeletePocketTicket(int pocketTicketId)
     {
-        throw new NotImplementedException();
+        await _dbRepository.Delete<PocketTicketEntity>(pocketTicketId);
+        await _dbRepository.SaveChangesAsync();
     }
 }

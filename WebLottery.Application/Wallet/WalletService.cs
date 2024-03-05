@@ -1,27 +1,52 @@
+using System.Text.Json;
+using AutoMapper;
 using WebLottery.Application.Contracts.Wallet;
 using WebLottery.Application.Models.Wallet;
+using WebLottery.Infrastructure.Entities.Wallet;
+using WebLottery.Infrastructure.Implementations.Abstractions;
 
 namespace WebLottery.Application.Wallet;
 
 public class WalletService : IWalletService
 {
-    public Task<int> CreateWallet(WalletModel walletModel)
+    private readonly IDbRepository _dbRepository;
+    private readonly IMapper _mapper;
+
+    public WalletService(IDbRepository dbRepository, IMapper mapper)
     {
-        throw new NotImplementedException();
+        _dbRepository = dbRepository;
+        _mapper = mapper;
+    }
+    
+    public async Task<string> CreateWallet(WalletModel walletModel)
+    {
+        var walletEntity = _mapper.Map<WalletEntity>(walletModel);
+
+        var result = await _dbRepository.Add(walletEntity);
+        await _dbRepository.SaveChangesAsync();
+
+        return JsonSerializer.Serialize(result);
     }
 
     public string GetWallet(int walletId)
     {
-        throw new NotImplementedException();
+        var walletEntity = _dbRepository.Get<WalletEntity>().FirstOrDefault(x => x.Id == walletId);
+        var walletModel = _mapper.Map<WalletModel>(walletEntity);
+
+        return JsonSerializer.Serialize(walletModel);
     }
 
-    public Task UpdateWallet(WalletModel walletModel)
+    public async Task UpdateWallet(WalletModel walletModel)
     {
-        throw new NotImplementedException();
+        var walletEntity = _mapper.Map<WalletEntity>(walletModel);
+
+        await _dbRepository.Update(walletEntity);
+        await _dbRepository.SaveChangesAsync();
     }
 
-    public Task DeleteWallet(int walletId)
+    public async Task DeleteWallet(int walletId)
     {
-        throw new NotImplementedException();
+        await _dbRepository.Delete<WalletEntity>(walletId);
+        await _dbRepository.SaveChangesAsync();
     }
 }

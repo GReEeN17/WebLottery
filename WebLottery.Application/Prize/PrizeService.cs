@@ -46,16 +46,17 @@ public class PrizeService : IPrizeService
         return JsonSerializer.Serialize(prizeModel);
     }
 
-    public Task UpdatePrize(PrizeModel prizeModel)
+    public async Task UpdatePrize(PrizeModel prizeModel)
     {
         var prizeEntity = _mapper.Map<PrizeEntity>(prizeModel);
         
-        var result = _dbRepository.Update(prizeEntity);
-        return _dbRepository.SaveChangesAsync();
+        await _dbRepository.Update(prizeEntity);
+        await _dbRepository.SaveChangesAsync();
     }
 
-    public Task DeletePrize(int prizeId)
+    public async Task DeletePrize(int prizeId)
     {
-        throw new NotImplementedException();
+        await _dbRepository.Delete<PrizeEntity>(prizeId);
+        await _dbRepository.SaveChangesAsync();
     }
 }

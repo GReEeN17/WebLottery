@@ -46,6 +46,14 @@ public class DrawService : IDrawService
         return JsonSerializer.Serialize(drawModels);
     }
 
+    public string GetSomeDraws(int count)
+    {
+        var drawEntities = _dbRepository.Get<DrawEntity>().Include(x => x.Prize).Take(count).ToList();
+        var drawModels = _mapper.Map<List<DrawModel>>(drawEntities);
+        
+        return JsonSerializer.Serialize(drawModels);
+    }
+
     public async Task UpdateDraw(DrawModel drawModel)
     {
         var drawEntity = _mapper.Map<DrawEntity>(drawModel);

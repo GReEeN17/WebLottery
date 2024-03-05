@@ -42,7 +42,7 @@ public class PrizeController(IPrizeService prizeService) : BaseController
     }
     
     [HttpDelete("{id}")]
-    public async Task<IActionResult> delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         await prizeService.DeletePrize(id);
 

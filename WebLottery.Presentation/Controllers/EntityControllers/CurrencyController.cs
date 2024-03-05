@@ -55,7 +55,7 @@ public class CurrencyController(ICurrencyService currencyService) : BaseControll
     }
     
     [HttpDelete("{id}")]
-    public async Task<IActionResult> delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         await currencyService.DeleteCurrency(id);
 
