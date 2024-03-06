@@ -1,10 +1,12 @@
 using WebLottery.Application.Models.Draw;
 using WebLottery.Application.Models.Prize;
+using WebLottery.Application.Models.User;
 
 namespace WebLottery.Application.Contracts.User;
 
 public interface IUserService
 {
+    Task<string> Register(UserModel userModel);
     Task<string> LoginWithUsername(string username, string password);
     Task<string> LoginWithEmail(string email, string password);
     Task<string> UpdateUser(string? email, string? username, string? password);

@@ -37,7 +37,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<CurrencyEntity>().Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"currency_sequence\"')");
@@ -52,7 +52,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<DrawEntity>()
             .Property(pm => pm.Id)
@@ -68,7 +68,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(9999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<PocketEntity>()
             .Property(pm => pm.Id)
@@ -84,7 +84,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<PocketTicketEntity>()
             .Property(pm => pm.Id)
@@ -100,7 +100,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<PrizeEntity>()
             .Property(pm => pm.Id)
@@ -116,7 +116,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(9999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<TicketEntity>()
             .Property(pm => pm.Id)
@@ -132,7 +132,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<UserEntity>()
             .Property(pm => pm.Id)
@@ -148,7 +148,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<WalletEntity>()
             .Property(pm => pm.Id)
@@ -164,7 +164,7 @@ public class DataContext : DbContext
             .StartsAt(1)
             .IncrementsBy(1)
             .HasMin(1)
-            .HasMax(999999);
+            .HasMax(999999999);
 
         modelBuilder.Entity<WalletCurrencyEntity>().Property(pm => pm.Id)
             .HasDefaultValueSql("nextval('\"wallet_currency_sequence\"')");

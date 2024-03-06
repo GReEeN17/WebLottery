@@ -27,6 +27,7 @@ using WebLottery.Application.WalletCurrency;
 using WebLottery.Infrastructure.Entities.User;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using WebLottery.Infrastructure.Implementations.DataContext;
+using WebLottery.Infrastructure.Implementations.Jwt;
 using WebLottery.Presentation.ProjectMapper;
 
 namespace WebLottery.Presentation;
@@ -79,6 +80,8 @@ public class Startup
         services.AddTransient<IWalletService, WalletService>();
         services.AddTransient<IWalletCurrencyService, WalletCurrencyService>();
         services.AddScoped<IDbRepository, DbRepository>();
+        services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddSingleton(new UserEntity { Id = 0 });
     }
 

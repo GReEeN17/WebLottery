@@ -1,5 +1,4 @@
 using AutoMapper;
-using Newtonsoft.Json;
 using WebLottery.Application.Contracts.PocketTicket;
 using WebLottery.Application.Models.PocketTicket;
 using WebLottery.Infrastructure.Entities.PocketTicket;

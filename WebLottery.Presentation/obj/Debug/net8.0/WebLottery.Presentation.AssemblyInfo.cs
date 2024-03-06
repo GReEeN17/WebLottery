@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebLottery.Presentation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fff1135a7e86eb90caa7f20c2427e047ea1b2203")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e586c67d5cc8ec7dc890f0d00cae8a8c2de4b4fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebLottery.Presentation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebLottery.Presentation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
