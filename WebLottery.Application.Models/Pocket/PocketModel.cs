@@ -7,5 +7,5 @@ public class PocketModel
 {
     public int Id { get; set; }
     public int UserId { get; set; }
-    public UserModel? User { get; set; }
+    //public UserModel? User { get; set; }
 }

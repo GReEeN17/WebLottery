@@ -9,9 +9,9 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class UserController(IUserService userService) : BaseController
 {
     [HttpPost("register")]
-    public ActionResult<string> Register([FromBody] UserModel userModel)
+    public async Task<ActionResult<string>> Register([FromBody] UserModel userModel)
     {
-        var jsonUser = userService.Register(userModel).Result;
+        var jsonUser = await userService.Register(userModel);
         
         if (String.IsNullOrEmpty(jsonUser))
         {
@@ -22,10 +22,12 @@ public class UserController(IUserService userService) : BaseController
     }
 
     [HttpPost("loginEmail")]
-    public ActionResult<string> Login([FromBody] UserEmailLoginRequest userEmailLoginRequest)
+    public ActionResult<string> Login([FromBody] UserEmailLoginRequest userEmailLoginRequest, HttpContext context)
     {
-        var jsonResponse = userService.LoginWithEmail(userEmailLoginRequest.Email, userEmailLoginRequest.Password).Result;
+        var token = userService.LoginWithEmail(userEmailLoginRequest.Email, userEmailLoginRequest.Password);
+        
+        context.Response.Cookies.Append("tasty-cookies", token);
 
-        return Ok(jsonResponse);
+        return Ok(token);
     }
 }

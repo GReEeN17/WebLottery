@@ -7,8 +7,8 @@ namespace WebLottery.Application.Contracts.User;
 public interface IUserService
 {
     Task<string> Register(UserModel userModel);
-    Task<string> LoginWithUsername(string username, string password);
-    Task<string> LoginWithEmail(string email, string password);
+    string LoginWithUsername(string username, string password);
+    string LoginWithEmail(string email, string password);
     Task<string> UpdateUser(string? email, string? username, string? password);
     Task<string> ShowWallet();
     Task<string> ShowJoinedDraws();

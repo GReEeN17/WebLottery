@@ -2,6 +2,7 @@ using System.Net;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ using WebLottery.Infrastructure.Entities.User;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using WebLottery.Infrastructure.Implementations.DataContext;
 using WebLottery.Infrastructure.Implementations.Jwt;
+using WebLottery.Presentation.Extensions;
 using WebLottery.Presentation.ProjectMapper;
 
 namespace WebLottery.Presentation;
@@ -51,6 +53,9 @@ public class Startup
             options.Filters.Add(new ErrorFilter());
         });
 
+        services.Configure<JwtOptions>(_configuration.GetSection(nameof(JwtOptions)));
+        services.AddOptions();
+
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebLottery API", Version = "v1" });
@@ -69,6 +74,8 @@ public class Startup
         });
 
         services.AddAutoMapper(typeof(AppMappingProfile));
+        
+        services.AddApiAuthentication(_configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>());
 
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IDrawService, DrawService>();
@@ -88,7 +95,6 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
     {
         app.UseRouting();
-        app.UseAuthorization();
 
         app.UseSwagger();
         app.UseSwaggerUI(x =>
@@ -96,6 +102,17 @@ public class Startup
             x.SwaggerEndpoint("/swagger/v1/swagger.json", "WebLottery API v1");
             x.RoutePrefix = "swagger";
         });
+
+        app.UseCookiePolicy(new CookiePolicyOptions
+        {
+            MinimumSameSitePolicy = SameSiteMode.Strict,
+            HttpOnly = HttpOnlyPolicy.Always,
+            Secure = CookieSecurePolicy.Always
+        });
+        
+        app.UseAuthentication();
+        app.UseAuthorization();
+        
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 

@@ -22,8 +22,14 @@ public class PocketService : IPocketService
     {
         var pocketEntity = _mapper.Map<PocketEntity>(pocketModel);
         
-        var result = await _dbRepository.Add(pocketEntity);
+        var pocketEntityResult = await _dbRepository.Add(pocketEntity);
         await _dbRepository.SaveChangesAsync();
+
+        var result = new
+        {
+            Id = pocketEntityResult.Id,
+            UserId = pocketEntityResult.UserId
+        };
 
         return JsonSerializer.Serialize(result);
     }

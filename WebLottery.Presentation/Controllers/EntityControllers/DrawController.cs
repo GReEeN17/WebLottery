@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.Draw;
 using WebLottery.Application.Models.Draw;
@@ -19,7 +20,8 @@ public class DrawController(IDrawService drawService) : BaseController
         
         return Ok(jsonDraw);
     }
-
+    
+    [Authorize]
     [HttpGet]
     public ActionResult<string> GetAll()
     {

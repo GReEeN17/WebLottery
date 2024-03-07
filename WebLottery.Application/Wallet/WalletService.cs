@@ -22,8 +22,14 @@ public class WalletService : IWalletService
     {
         var walletEntity = _mapper.Map<WalletEntity>(walletModel);
 
-        var result = await _dbRepository.Add(walletEntity);
+        var walletEntityResult = await _dbRepository.Add(walletEntity);
         await _dbRepository.SaveChangesAsync();
+
+        var result = new
+        {
+            Id = walletEntityResult.Id,
+            UserId = walletEntityResult.UserId
+        };
 
         return JsonSerializer.Serialize(result);
     }

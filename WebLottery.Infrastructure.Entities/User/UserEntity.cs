@@ -12,10 +12,6 @@ public class UserEntity : Entity
     public string EMail { get; set; }
     public string Password { get; set; }
     public UserRole UserRole { get; set; }
-    [ForeignKey("Wallet")]
-    public int WalletId { get; set; }
     public WalletEntity Wallet { get; set; }
-    [ForeignKey("Pocket")]
-    public int PocketId { get; set; }
     public PocketEntity Pocket { get; set; }
 }
