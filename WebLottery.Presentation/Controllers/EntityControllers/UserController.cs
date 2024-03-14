@@ -6,7 +6,7 @@ using WebLottery.Presentation.Controllers.Requests;
 
 namespace WebLottery.Presentation.Controllers.EntityControllers;
 
-public class UserController(IUserService userService) : BaseController
+public class UserController(IUserService userService, IHttpContextAccessor httpContextAccessor) : BaseController
 {
     [HttpPost("register")]
     public async Task<ActionResult<string>> Register([FromBody] UserModel userModel)
@@ -22,11 +22,16 @@ public class UserController(IUserService userService) : BaseController
     }
 
     [HttpPost("loginEmail")]
-    public ActionResult<string> Login([FromBody] UserEmailLoginRequest userEmailLoginRequest, HttpContext context)
+    public ActionResult<string> Login([FromBody]UserEmailLoginRequest userEmailLoginRequest)
     {
         var token = userService.LoginWithEmail(userEmailLoginRequest.Email, userEmailLoginRequest.Password);
+
+        if (httpContextAccessor.HttpContext is null)
+        {
+            return BadRequest("Internal server error");
+        }
         
-        context.Response.Cookies.Append("tasty-cookies", token);
+        httpContextAccessor.HttpContext.Response.Cookies.Append("tasty-cookies", token);
 
         return Ok(token);
     }

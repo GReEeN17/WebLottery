@@ -53,6 +53,8 @@ public class Startup
             options.Filters.Add(new ErrorFilter());
         });
 
+        services.AddHttpContextAccessor();
+
         services.Configure<JwtOptions>(_configuration.GetSection(nameof(JwtOptions)));
         services.AddOptions();
 
