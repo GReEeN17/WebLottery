@@ -7,46 +7,37 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace WebLottery.Application.Services;
 
-public class PocketTicketService : IPocketTicketService
+public class PocketTicketService(IDbRepository dbRepository, IMapper mapper) : IPocketTicketService
 {
-    private readonly IDbRepository _dbRepository;
-    private readonly IMapper _mapper;
-
-    public PocketTicketService(IDbRepository dbRepository, IMapper mapper)
-    {
-        _dbRepository = dbRepository;
-        _mapper = mapper;
-    }
-
     public async Task<string> CreatePocketTicket(PocketTicketModel pocketTicketModel)
     {
-        var pocketTicketEntity = _mapper.Map<PocketTicketEntity>(pocketTicketModel);
+        var pocketTicketEntity = mapper.Map<PocketTicketEntity>(pocketTicketModel);
 
-        var result = await _dbRepository.Add(pocketTicketEntity);
-        await _dbRepository.SaveChangesAsync();
+        var result = await dbRepository.Add(pocketTicketEntity);
+        await dbRepository.SaveChangesAsync();
 
         return JsonSerializer.Serialize(result);
     }
 
     public string GetPocketTicket(int pocketTicketId)
     {
-        var pocketTicketEntity = _dbRepository.Get<PocketTicketEntity>().FirstOrDefault(x => x.Id == pocketTicketId);
-        var pocketTicketModel = _mapper.Map<PocketTicketModel>(pocketTicketEntity);
+        var pocketTicketEntity = dbRepository.Get<PocketTicketEntity>().FirstOrDefault(x => x.Id == pocketTicketId);
+        var pocketTicketModel = mapper.Map<PocketTicketModel>(pocketTicketEntity);
 
         return JsonSerializer.Serialize(pocketTicketModel);
     }
 
     public async Task UpdatePocketTicket(PocketTicketModel pocketTicketModel)
     {
-        var pocketTicketEntity = _mapper.Map<PocketTicketEntity>(pocketTicketModel);
+        var pocketTicketEntity = mapper.Map<PocketTicketEntity>(pocketTicketModel);
 
-        await _dbRepository.Update(pocketTicketEntity);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Update(pocketTicketEntity);
+        await dbRepository.SaveChangesAsync();
     }
 
     public async Task DeletePocketTicket(int pocketTicketId)
     {
-        await _dbRepository.Delete<PocketTicketEntity>(pocketTicketId);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Delete<PocketTicketEntity>(pocketTicketId);
+        await dbRepository.SaveChangesAsync();
     }
 }

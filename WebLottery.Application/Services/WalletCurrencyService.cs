@@ -7,46 +7,37 @@ using WebLottery.Infrastructure.Implementations.Abstractions;
 
 namespace WebLottery.Application.Services;
 
-public class WalletCurrencyService : IWalletCurrencyService
+public class WalletCurrencyService(IDbRepository dbRepository, IMapper mapper) : IWalletCurrencyService
 {
-    private readonly IDbRepository _dbRepository;
-    private readonly IMapper _mapper;
-
-    public WalletCurrencyService(IDbRepository dbRepository, IMapper mapper)
-    {
-        _dbRepository = dbRepository;
-        _mapper = mapper;
-    }
-    
     public async Task<string> CreateWalletCurrency(WalletCurrencyModel walletCurrencyModel)
     {
-        var walletCurrencyEntity = _mapper.Map<WalletCurrencyEntity>(walletCurrencyModel);
+        var walletCurrencyEntity = mapper.Map<WalletCurrencyEntity>(walletCurrencyModel);
         
-        var result = await _dbRepository.Add(walletCurrencyEntity);
-        await _dbRepository.SaveChangesAsync();
+        var result = await dbRepository.Add(walletCurrencyEntity);
+        await dbRepository.SaveChangesAsync();
 
         return JsonSerializer.Serialize(result);
     }
 
     public string GetWalletCurrency(int walletCurrencyId)
     {
-        var walletCurrencyEntity = _dbRepository.Get<WalletCurrencyEntity>().FirstOrDefault(x => x.Id == walletCurrencyId);
-        var walletCurrencyModel = _mapper.Map<WalletCurrencyModel>(walletCurrencyEntity);
+        var walletCurrencyEntity = dbRepository.Get<WalletCurrencyEntity>().FirstOrDefault(x => x.Id == walletCurrencyId);
+        var walletCurrencyModel = mapper.Map<WalletCurrencyModel>(walletCurrencyEntity);
 
         return JsonSerializer.Serialize(walletCurrencyModel);
     }
 
     public async Task UpdateWalletCurrency(WalletCurrencyModel walletCurrencyModel)
     {
-        var walletCurrencyEntity = _mapper.Map<WalletCurrencyEntity>(walletCurrencyModel);
+        var walletCurrencyEntity = mapper.Map<WalletCurrencyEntity>(walletCurrencyModel);
 
-        await _dbRepository.Update(walletCurrencyEntity);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Update(walletCurrencyEntity);
+        await dbRepository.SaveChangesAsync();
     }
 
     public async Task DeleteWalletCurrency(int walletCurrencyId)
     {
-        await _dbRepository.Delete<WalletCurrencyEntity>(walletCurrencyId);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Delete<WalletCurrencyEntity>(walletCurrencyId);
+        await dbRepository.SaveChangesAsync();
     }
 }

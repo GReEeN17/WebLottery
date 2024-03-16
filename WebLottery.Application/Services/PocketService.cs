@@ -7,23 +7,14 @@ using WebLottery.Infrastructure.Implementations.Abstractions;
 
 namespace WebLottery.Application.Services;
 
-public class PocketService : IPocketService
+public class PocketService(IDbRepository dbRepository, IMapper mapper) : IPocketService
 {
-    private readonly IDbRepository _dbRepository;
-    private readonly IMapper _mapper;
-
-    public PocketService(IDbRepository dbRepository, IMapper mapper)
-    {
-        _dbRepository = dbRepository;
-        _mapper = mapper;
-    }
-    
     public async Task<string> CreatePocket(PocketModel pocketModel)
     {
-        var pocketEntity = _mapper.Map<PocketEntity>(pocketModel);
+        var pocketEntity = mapper.Map<PocketEntity>(pocketModel);
         
-        var pocketEntityResult = await _dbRepository.Add(pocketEntity);
-        await _dbRepository.SaveChangesAsync();
+        var pocketEntityResult = await dbRepository.Add(pocketEntity);
+        await dbRepository.SaveChangesAsync();
 
         var result = new
         {
@@ -36,23 +27,23 @@ public class PocketService : IPocketService
 
     public string GetPocket(int pocketId)
     {
-        var pocketEntity = _dbRepository.Get<PocketEntity>().FirstOrDefault(x => x.Id == pocketId);
-        var pocketModel = _mapper.Map<PocketModel>(pocketEntity);
+        var pocketEntity = dbRepository.Get<PocketEntity>().FirstOrDefault(x => x.Id == pocketId);
+        var pocketModel = mapper.Map<PocketModel>(pocketEntity);
 
         return JsonSerializer.Serialize(pocketModel);
     }
 
     public async Task UpdatePocket(PocketModel pocketModel)
     {
-        var pocketEntity = _mapper.Map<PocketEntity>(pocketModel);
+        var pocketEntity = mapper.Map<PocketEntity>(pocketModel);
 
-        await _dbRepository.Update(pocketEntity);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Update(pocketEntity);
+        await dbRepository.SaveChangesAsync();
     }
 
     public async Task DeletePocket(int pocketId)
     {
-        await _dbRepository.Delete<PocketEntity>(pocketId);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Delete<PocketEntity>(pocketId);
+        await dbRepository.SaveChangesAsync();
     }
 }

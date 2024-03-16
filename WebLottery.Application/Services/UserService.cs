@@ -6,59 +6,41 @@ using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
 using WebLottery.Application.Models.Models;
 using WebLottery.Application.ServiceExtensions;
 using WebLottery.Infrastructure.Entities.Entities;
-using WebLottery.Infrastructure.Entities.User;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using WebLottery.Infrastructure.Implementations.Jwt;
 
 namespace WebLottery.Application.Services;
 
-public class UserService : IUserService
+public class UserService(
+    IDbRepository dbRepository,
+    IMapper mapper,
+    IPasswordHasher passwordHasher,
+    IJwtProvider jwtProvider,
+    IWalletService walletService,
+    IPocketService pocketService)
+    : IUserService
 {
-    private readonly IDbRepository _dbRepository;
-    private readonly IMapper _mapper;
-    private readonly IPasswordHasher _passwordHasher;
-    private readonly IJwtProvider _jwtProvider;
-    private readonly IWalletService _walletService;
-    private readonly IPocketService _pocketService;
-
-    public UserService(
-        IDbRepository dbRepository,
-        IMapper mapper, 
-        IPasswordHasher passwordHasher,
-        IJwtProvider jwtProvider,
-        IWalletService walletService,
-        IPocketService pocketService
-        )
-    {
-        _dbRepository = dbRepository;
-        _mapper = mapper;
-        _passwordHasher = passwordHasher;
-        _jwtProvider = jwtProvider;
-        _walletService = walletService;
-        _pocketService = pocketService;
-    }
-    
     public async Task<string> Register(UserModel userModel)
     {
-        userModel.Password = _passwordHasher.Generate(userModel.Password);
-        var userEntity = _mapper.Map<UserEntity>(userModel);
+        userModel.Password = passwordHasher.Generate(userModel.Password);
+        var userEntity = mapper.Map<UserEntity>(userModel);
         
-        var userEntityResult = await _dbRepository.Add(userEntity);
-        await _dbRepository.SaveChangesAsync();
+        var userEntityResult = await dbRepository.Add(userEntity);
+        await dbRepository.SaveChangesAsync();
 
         var userWallet = new WalletModel()
         {
             UserId = userEntityResult.Id
         };
 
-        await _walletService.CreateWallet(userWallet);
+        await walletService.CreateWallet(userWallet);
 
         var userPocket = new PocketModel()
         {
             UserId = userEntityResult.Id
         };
 
-        await _pocketService.CreatePocket(userPocket);
+        await pocketService.CreatePocket(userPocket);
 
         var result = new
         {
@@ -73,25 +55,25 @@ public class UserService : IUserService
 
     public UserEntity? GetUser(int userId)
     {
-        return _dbRepository.Get<UserEntity>().FirstOrDefault(x => x.Id == userId);
+        return dbRepository.Get<UserEntity>().FirstOrDefault(x => x.Id == userId);
     }
 
     public async Task UpdateUser(UserEntity userEntity)
     { 
-        await _dbRepository.Update(userEntity);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Update(userEntity);
+        await dbRepository.SaveChangesAsync();
     }
 
     public async Task<AuthenticatedResponse?> LoginWithUsername(string username, string password)
     {
-        var userEntity = _dbRepository.Get<UserEntity>().FirstOrDefault(x => x.UserName == username);
+        var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(x => x.UserName == username);
         
         return await Login(userEntity, password);
     }
 
     public async Task<AuthenticatedResponse?> LoginWithEmail(string email, string password)
     {
-        var userEntity = _dbRepository.Get<UserEntity>().FirstOrDefault(x => x.EMail == email);
+        var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(x => x.EMail == email);
 
         return await Login(userEntity, password);
     }
@@ -138,7 +120,7 @@ public class UserService : IUserService
             return null;
         }
 
-        var result = _passwordHasher.Verify(password, userEntity.Password);
+        var result = passwordHasher.Verify(password, userEntity.Password);
 
         if (result is false)
         {
@@ -150,14 +132,14 @@ public class UserService : IUserService
             new Claim(ClaimTypes.Name, userEntity.UserName)
         ];
         
-        var accessToken = _jwtProvider.GenerateAccessToken(claims);
-        var refreshToken = _jwtProvider.GenerateRefreshToken();
+        var accessToken = jwtProvider.GenerateAccessToken(claims);
+        var refreshToken = jwtProvider.GenerateRefreshToken();
         
         userEntity.RefreshToken = refreshToken;
-        userEntity.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_jwtProvider.GetRefreshTokenExpiryDays());
+        userEntity.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(jwtProvider.GetRefreshTokenExpiryDays());
 
-        await _dbRepository.Update(userEntity);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Update(userEntity);
+        await dbRepository.SaveChangesAsync();
 
         return new AuthenticatedResponse 
         {

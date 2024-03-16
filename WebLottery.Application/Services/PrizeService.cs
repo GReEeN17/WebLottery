@@ -8,54 +8,45 @@ using WebLottery.Infrastructure.Implementations.Abstractions;
 
 namespace WebLottery.Application.Services;
 
-public class PrizeService : IPrizeService
+public class PrizeService(
+    IDbRepository dbRepository,
+    IMapper mapper) : IPrizeService
 {
-    private readonly IDbRepository _dbRepository;
-    private readonly IMapper _mapper;
-
-    public PrizeService(
-        IDbRepository dbRepository,
-        IMapper mapper)
-    {
-        _dbRepository = dbRepository;
-        _mapper = mapper;
-    }
-    
     public async Task<string> CreatePrize(PrizeModel prizeModel)
     {
-        var prizeEntity = _mapper.Map<PrizeEntity>(prizeModel);
+        var prizeEntity = mapper.Map<PrizeEntity>(prizeModel);
         
-        var result = await _dbRepository.Add(prizeEntity);
-        await _dbRepository.SaveChangesAsync();
+        var result = await dbRepository.Add(prizeEntity);
+        await dbRepository.SaveChangesAsync();
         
         return JsonSerializer.Serialize(result);
     }
 
     public string GetPrize(int prizeId)
     {
-        var prizeEntity = _dbRepository.Get<PrizeEntity>().Include(x => x.Currency).FirstOrDefault(x => x.Id == prizeId);
+        var prizeEntity = dbRepository.Get<PrizeEntity>().Include(x => x.Currency).FirstOrDefault(x => x.Id == prizeId);
         
         if (prizeEntity == null)
         {
             return String.Empty;
         }
         
-        var prizeModel = _mapper.Map<PrizeModel>(prizeEntity);
+        var prizeModel = mapper.Map<PrizeModel>(prizeEntity);
         
         return JsonSerializer.Serialize(prizeModel);
     }
 
     public async Task UpdatePrize(PrizeModel prizeModel)
     {
-        var prizeEntity = _mapper.Map<PrizeEntity>(prizeModel);
+        var prizeEntity = mapper.Map<PrizeEntity>(prizeModel);
         
-        await _dbRepository.Update(prizeEntity);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Update(prizeEntity);
+        await dbRepository.SaveChangesAsync();
     }
 
     public async Task DeletePrize(int prizeId)
     {
-        await _dbRepository.Delete<PrizeEntity>(prizeId);
-        await _dbRepository.SaveChangesAsync();
+        await dbRepository.Delete<PrizeEntity>(prizeId);
+        await dbRepository.SaveChangesAsync();
     }
 }
