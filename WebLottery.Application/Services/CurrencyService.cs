@@ -1,11 +1,11 @@
 using AutoMapper;
-using WebLottery.Application.Contracts.Currency;
-using WebLottery.Application.Models.Currency;
-using WebLottery.Infrastructure.Entities.Currency;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace WebLottery.Application.Currency;
+namespace WebLottery.Application.Services;
 
 public class CurrencyService : ICurrencyService
 {

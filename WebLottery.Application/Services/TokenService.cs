@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using WebLottery.Application.Contracts.ServiceAbstractions;
-using WebLottery.Application.Contracts.User;
-using WebLottery.Application.Responses;
+using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
 using WebLottery.Infrastructure.Implementations.Jwt;
 
 namespace WebLottery.Application.Services;

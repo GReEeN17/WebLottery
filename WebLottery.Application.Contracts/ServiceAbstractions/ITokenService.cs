@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using WebLottery.Application.Responses;
+using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
 
 namespace WebLottery.Application.Contracts.ServiceAbstractions;
 

@@ -1,11 +1,11 @@
 using System.Text.Json;
 using AutoMapper;
-using WebLottery.Application.Contracts.Pocket;
-using WebLottery.Application.Models.Pocket;
-using WebLottery.Infrastructure.Entities.Pocket;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 
-namespace WebLottery.Application.Pocket;
+namespace WebLottery.Application.Services;
 
 public class PocketService : IPocketService
 {

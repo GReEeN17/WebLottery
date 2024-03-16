@@ -1,13 +1,12 @@
 using System.Text.Json;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WebLottery.Application.Contracts.Ticket;
-using WebLottery.Application.Models.Ticket;
-using WebLottery.Infrastructure.Entities.Prize;
-using WebLottery.Infrastructure.Entities.Ticket;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 
-namespace WebLottery.Application.Ticket;
+namespace WebLottery.Application.Services;
 
 public class TicketService : ITicketService
 {

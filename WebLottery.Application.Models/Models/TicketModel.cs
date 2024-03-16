@@ -1,7 +1,4 @@
-using WebLottery.Application.Models.Draw;
-using WebLottery.Application.Models.PocketTicket;
-
-namespace WebLottery.Application.Models.Ticket;
+namespace WebLottery.Application.Models.Models;
 
 public class TicketModel
 {

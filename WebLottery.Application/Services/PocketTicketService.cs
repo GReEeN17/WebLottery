@@ -1,11 +1,11 @@
 using AutoMapper;
-using WebLottery.Application.Contracts.PocketTicket;
-using WebLottery.Application.Models.PocketTicket;
-using WebLottery.Infrastructure.Entities.PocketTicket;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace WebLottery.Application.PocketTicket;
+namespace WebLottery.Application.Services;
 
 public class PocketTicketService : IPocketTicketService
 {

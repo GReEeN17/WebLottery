@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.ServiceAbstractions;
-using WebLottery.Application.Responses;
+using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
 using WebLottery.Presentation.Controllers.Astractions;
 using WebLottery.Presentation.Controllers.Requests;
 

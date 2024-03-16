@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WebLottery.Infrastructure.Entities.Abstractions;
-using WebLottery.Infrastructure.Entities.Prize;
-using WebLottery.Infrastructure.Entities.Ticket;
 
-namespace WebLottery.Infrastructure.Entities.Draw;
+namespace WebLottery.Infrastructure.Entities.Entities;
 
 public class DrawEntity : Entity
 {

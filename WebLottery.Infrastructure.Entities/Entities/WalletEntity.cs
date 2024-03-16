@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WebLottery.Infrastructure.Entities.Abstractions;
-using WebLottery.Infrastructure.Entities.User;
 
-namespace WebLottery.Infrastructure.Entities.Wallet;
+namespace WebLottery.Infrastructure.Entities.Entities;
 
 public class WalletEntity : Entity
 {
@@ -10,5 +9,5 @@ public class WalletEntity : Entity
     [ForeignKey("User")]
     public int UserId { get; set; }
     public UserEntity User { get; set; }
-    public List<WalletCurrency.WalletCurrencyEntity> WalletCurrencies { get; set; }
+    public List<WalletCurrencyEntity> WalletCurrencies { get; set; }
 }

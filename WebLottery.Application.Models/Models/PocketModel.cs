@@ -1,7 +1,4 @@
-using WebLottery.Application.Models.PocketTicket;
-using WebLottery.Application.Models.User;
-
-namespace WebLottery.Application.Models.Pocket;
+namespace WebLottery.Application.Models.Models;
 
 public class PocketModel
 {

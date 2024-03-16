@@ -1,7 +1,6 @@
-using WebLottery.Application.Models.Draw;
-using WebLottery.Application.Models.PocketTicket;
+using WebLottery.Application.Models.Models;
 
-namespace WebLottery.Application.Contracts.PocketTicket;
+namespace WebLottery.Application.Contracts.ServiceAbstractions;
 
 public interface IPocketTicketService
 {

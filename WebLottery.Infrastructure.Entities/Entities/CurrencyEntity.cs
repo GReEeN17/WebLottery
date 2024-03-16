@@ -1,8 +1,6 @@
 using WebLottery.Infrastructure.Entities.Abstractions;
-using WebLottery.Infrastructure.Entities.Prize;
-using WebLottery.Infrastructure.Entities.WalletCurrency;
 
-namespace WebLottery.Infrastructure.Entities.Currency;
+namespace WebLottery.Infrastructure.Entities.Entities;
 
 public class CurrencyEntity : Entity
 {

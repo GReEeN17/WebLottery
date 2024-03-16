@@ -1,8 +1,9 @@
-using WebLottery.Application.Models.User;
-using WebLottery.Application.Responses;
+using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Entities.User;
 
-namespace WebLottery.Application.Contracts.User;
+namespace WebLottery.Application.Contracts.ServiceAbstractions;
 
 public interface IUserService
 {

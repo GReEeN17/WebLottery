@@ -1,12 +1,12 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WebLottery.Application.Contracts.Draw;
-using WebLottery.Application.Models.Draw;
-using WebLottery.Infrastructure.Entities.Draw;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace WebLottery.Application.Draw;
+namespace WebLottery.Application.Services;
 
 public class DrawService : IDrawService
 {

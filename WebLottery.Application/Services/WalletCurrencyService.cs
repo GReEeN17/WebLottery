@@ -1,11 +1,11 @@
 using System.Text.Json;
 using AutoMapper;
-using WebLottery.Application.Contracts.WalletCurrency;
-using WebLottery.Application.Models.WalletCurrency;
-using WebLottery.Infrastructure.Entities.WalletCurrency;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 
-namespace WebLottery.Application.WalletCurrency;
+namespace WebLottery.Application.Services;
 
 public class WalletCurrencyService : IWalletCurrencyService
 {

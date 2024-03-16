@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebLottery.Application.Contracts.Draw;
-using WebLottery.Application.Models.Draw;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
 using WebLottery.Presentation.Controllers.Astractions;
 
 namespace WebLottery.Presentation.Controllers.EntityControllers;

@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WebLottery.Infrastructure.Entities.Pocket;
-using WebLottery.Infrastructure.Entities.PocketTicket;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Entities.User;
-using WebLottery.Infrastructure.Entities.Wallet;
 
 namespace WebLottery.Infrastructure.Implementations.Configuration;
 

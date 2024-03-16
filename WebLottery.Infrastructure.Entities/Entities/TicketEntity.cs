@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WebLottery.Infrastructure.Entities.Abstractions;
-using WebLottery.Infrastructure.Entities.Draw;
-using WebLottery.Infrastructure.Entities.PocketTicket;
 
-namespace WebLottery.Infrastructure.Entities.Ticket;
+namespace WebLottery.Infrastructure.Entities.Entities;
 
 public class TicketEntity : Entity
 {

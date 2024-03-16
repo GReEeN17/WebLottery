@@ -1,7 +1,4 @@
-using WebLottery.Application.Models.Currency;
-using WebLottery.Application.Models.Draw;
-
-namespace WebLottery.Application.Models.Prize;
+namespace WebLottery.Application.Models.Models;
 
 public class PrizeModel
 {

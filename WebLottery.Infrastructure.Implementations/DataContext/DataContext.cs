@@ -1,14 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using WebLottery.Infrastructure.Entities.Currency;
-using WebLottery.Infrastructure.Entities.Draw;
-using WebLottery.Infrastructure.Entities.Pocket;
-using WebLottery.Infrastructure.Entities.PocketTicket;
-using WebLottery.Infrastructure.Entities.Prize;
-using WebLottery.Infrastructure.Entities.Ticket;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Entities.User;
-using WebLottery.Infrastructure.Entities.Wallet;
-using WebLottery.Infrastructure.Entities.WalletCurrency;
 using WebLottery.Infrastructure.Implementations.Configuration;
 
 namespace WebLottery.Infrastructure.Implementations.DataContext;

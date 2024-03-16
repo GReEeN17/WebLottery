@@ -1,13 +1,12 @@
 using System.Text.Json;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WebLottery.Application.Contracts.Prize;
-using WebLottery.Application.Models.Prize;
-using WebLottery.Infrastructure.Entities.Currency;
-using WebLottery.Infrastructure.Entities.Prize;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 
-namespace WebLottery.Application.Prize;
+namespace WebLottery.Application.Services;
 
 public class PrizeService : IPrizeService
 {

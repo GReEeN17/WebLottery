@@ -1,19 +1,16 @@
 using System.Security.Claims;
 using System.Text.Json;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using WebLottery.Application.Contracts.Pocket;
-using WebLottery.Application.Contracts.User;
-using WebLottery.Application.Contracts.Wallet;
-using WebLottery.Application.Models.Pocket;
-using WebLottery.Application.Models.User;
-using WebLottery.Application.Models.Wallet;
-using WebLottery.Application.Responses;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
+using WebLottery.Application.Models.Models;
+using WebLottery.Application.ServiceExtensions;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Entities.User;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using WebLottery.Infrastructure.Implementations.Jwt;
 
-namespace WebLottery.Application.User;
+namespace WebLottery.Application.Services;
 
 public class UserService : IUserService
 {

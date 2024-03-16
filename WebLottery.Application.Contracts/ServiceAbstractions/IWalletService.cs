@@ -1,7 +1,6 @@
-using WebLottery.Application.Models.Wallet;
-using WebLottery.Application.Models.WalletCurrency;
+using WebLottery.Application.Models.Models;
 
-namespace WebLottery.Application.Contracts.Wallet;
+namespace WebLottery.Application.Contracts.ServiceAbstractions;
 
 public interface IWalletService
 {

@@ -1,7 +1,4 @@
-using WebLottery.Application.Models.Currency;
-using WebLottery.Application.Models.Wallet;
-
-namespace WebLottery.Application.Models.WalletCurrency;
+namespace WebLottery.Application.Models.Models;
 
 public class WalletCurrencyModel
 {

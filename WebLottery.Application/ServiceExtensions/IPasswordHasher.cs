@@ -1,4 +1,4 @@
-namespace WebLottery.Application.User;
+namespace WebLottery.Application.ServiceExtensions;
 
 public interface IPasswordHasher
 {

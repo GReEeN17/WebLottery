@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using WebLottery.Application.Contracts.Ticket;
-using WebLottery.Application.Models.Ticket;
+using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Models.Models;
 using WebLottery.Presentation.Controllers.Astractions;
 
 namespace WebLottery.Presentation.Controllers.EntityControllers;

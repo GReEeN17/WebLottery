@@ -1,4 +1,4 @@
-namespace WebLottery.Application.Responses;
+namespace WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
 
 public class AuthenticatedResponse
 {
