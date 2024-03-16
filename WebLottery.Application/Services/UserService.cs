@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using System.Text.Json;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.Pocket;
 using WebLottery.Application.Contracts.User;
 using WebLottery.Application.Contracts.Wallet;
@@ -72,6 +74,17 @@ public class UserService : IUserService
         return JsonSerializer.Serialize(result);
     }
 
+    public UserEntity? GetUser(int userId)
+    {
+        return _dbRepository.Get<UserEntity>().FirstOrDefault(x => x.Id == userId);
+    }
+
+    public async Task UpdateUser(UserEntity userEntity)
+    { 
+        await _dbRepository.Update(userEntity);
+        await _dbRepository.SaveChangesAsync();
+    }
+
     public string LoginWithUsername(string username, string password)
     {
         var userEntity = _dbRepository.Get<UserEntity>().FirstOrDefault(x => x.UserName == username);
@@ -88,7 +101,12 @@ public class UserService : IUserService
             return JsonSerializer.Serialize("Error, password or email is invalid");
         }
 
-        var token = _jwtProvider.GenerateAccessToken(userEntity);
+        Claim[] claims = [
+            new Claim(ClaimTypes.Sid, userEntity.Id.ToString()),
+            new Claim(ClaimTypes.Name, userEntity.UserName)
+        ];
+        
+        var token = _jwtProvider.GenerateAccessToken(claims);
 
         return JsonSerializer.Serialize(token);
     }
@@ -108,8 +126,13 @@ public class UserService : IUserService
         {
             return null;
         }
-
-        var accessToken = _jwtProvider.GenerateAccessToken(userEntity);
+        
+        Claim[] claims = [
+            new Claim(ClaimTypes.Sid, userEntity.Id.ToString()),
+            new Claim(ClaimTypes.Name, userEntity.UserName)
+        ];
+        
+        var accessToken = _jwtProvider.GenerateAccessToken(claims);
         var refreshToken = _jwtProvider.GenerateRefreshToken();
         
         userEntity.RefreshToken = refreshToken;

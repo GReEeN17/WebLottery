@@ -12,9 +12,8 @@ public class JwtProvider(IOptions<JwtOptions> jwtOptions) : IJwtProvider
 {
     private readonly JwtOptions _jwtOptions = jwtOptions.Value;
 
-    public string GenerateAccessToken(UserEntity userEntity)
+    public string GenerateAccessToken(IEnumerable<Claim> claims)
     {
-        Claim[] claims = [new("userId", userEntity.Id.ToString())];
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
             SecurityAlgorithms.HmacSha256);

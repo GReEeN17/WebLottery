@@ -5,7 +5,7 @@ namespace WebLottery.Infrastructure.Implementations.Jwt;
 
 public interface IJwtProvider
 {
-    string GenerateAccessToken(UserEntity userEntity);
+    string GenerateAccessToken(IEnumerable<Claim> claims);
     string GenerateRefreshToken();
     ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     int GetRefreshTokenExpiryDays();
