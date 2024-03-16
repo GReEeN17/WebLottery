@@ -3,12 +3,11 @@ using AutoMapper;
 using WebLottery.Application.Contracts.Pocket;
 using WebLottery.Application.Contracts.User;
 using WebLottery.Application.Contracts.Wallet;
-using WebLottery.Application.Contracts.WalletCurrency;
 using WebLottery.Application.Models.Pocket;
 using WebLottery.Application.Models.User;
 using WebLottery.Application.Models.Wallet;
+using WebLottery.Application.Responses;
 using WebLottery.Infrastructure.Entities.User;
-using WebLottery.Infrastructure.Entities.Wallet;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using WebLottery.Infrastructure.Implementations.Jwt;
 
@@ -89,30 +88,43 @@ public class UserService : IUserService
             return JsonSerializer.Serialize("Error, password or email is invalid");
         }
 
-        var token = _jwtProvider.GenerateToken(userEntity);
+        var token = _jwtProvider.GenerateAccessToken(userEntity);
 
         return JsonSerializer.Serialize(token);
     }
 
-    public string LoginWithEmail(string email, string password)
+    public async Task<AuthenticatedResponse?> LoginWithEmail(string email, string password)
     {
         var userEntity = _dbRepository.Get<UserEntity>().FirstOrDefault(x => x.EMail == email);
 
         if (userEntity is null)
         {
-            return JsonSerializer.Serialize("Error, user was not found");
+            return null;
         }
 
         var result = _passwordHasher.Verify(password, userEntity.Password);
 
         if (result is false)
         {
-            return JsonSerializer.Serialize("Error, password or email is invalid");
+            return null;
         }
 
-        var token = _jwtProvider.GenerateToken(userEntity);
+        var accessToken = _jwtProvider.GenerateAccessToken(userEntity);
+        var refreshToken = _jwtProvider.GenerateRefreshToken();
+        
+        userEntity.RefreshToken = refreshToken;
+        userEntity.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_jwtProvider.GetRefreshTokenExpiryDays());
 
-        return token;
+        await _dbRepository.Update(userEntity);
+        await _dbRepository.SaveChangesAsync();
+
+        AuthenticatedResponse authenticatedResponse = new AuthenticatedResponse
+        {
+            Token = accessToken,
+            RefreshToken = refreshToken
+        };
+
+        return authenticatedResponse;
     }
 
     public Task<string> UpdateUser(string? email, string? username, string? password)

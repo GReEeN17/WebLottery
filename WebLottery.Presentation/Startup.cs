@@ -34,16 +34,8 @@ using WebLottery.Presentation.ProjectMapper;
 
 namespace WebLottery.Presentation;
 
-public class Startup
+public class Startup(IConfiguration configuration)
 {
-    private readonly IConfiguration _configuration;
-
-    public Startup(
-        IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers(options =>
@@ -55,7 +47,7 @@ public class Startup
 
         services.AddHttpContextAccessor();
 
-        services.Configure<JwtOptions>(_configuration.GetSection(nameof(JwtOptions)));
+        services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
         services.AddOptions();
 
         services.AddSwaggerGen(c =>
@@ -66,7 +58,7 @@ public class Startup
         services.AddDbContext<DataContext>(options =>
         {
             options
-                .UseNpgsql(_configuration.GetConnectionString("DefaultConnection"),
+                .UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
                     assembly =>
                         assembly.MigrationsAssembly("WebLottery.Infrastructure.Migrations"));
             options.UseTriggers(triggerOptions =>
@@ -77,7 +69,7 @@ public class Startup
 
         services.AddAutoMapper(typeof(AppMappingProfile));
         
-        services.AddApiAuthentication(_configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>());
+        services.AddApiAuthentication(configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>());
 
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IDrawService, DrawService>();
@@ -118,13 +110,13 @@ public class Startup
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 
-    public class SlugifyParameterTransformer : IOutboundParameterTransformer
+    private class SlugifyParameterTransformer : IOutboundParameterTransformer
     {
         public string TransformOutbound(object value) =>
             value is null ? null : Regex.Replace(value.ToString(), "([a-z])([A-Z])", "$1-$2").ToLower();
     }
 
-    public class ErrorFilter : ExceptionFilterAttribute
+    private class ErrorFilter : ExceptionFilterAttribute
     {
         public override async Task OnExceptionAsync(ExceptionContext context)
         {

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.User;
 using WebLottery.Application.Models.User;
+using WebLottery.Application.Responses;
 using WebLottery.Presentation.Controllers.Astractions;
 using WebLottery.Presentation.Controllers.Requests;
 
@@ -22,17 +23,32 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
     }
 
     [HttpPost("loginEmail")]
-    public ActionResult<string> Login([FromBody]UserEmailLoginRequest userEmailLoginRequest)
+    public async Task<ActionResult<AuthenticatedResponse>> Login([FromBody]UserEmailLoginRequest userEmailLoginRequest)
     {
-        var token = userService.LoginWithEmail(userEmailLoginRequest.Email, userEmailLoginRequest.Password);
+        if (userEmailLoginRequest is null)
+        {
+            return BadRequest("invalid client request");
+        }
+        
+        var authenticatedResponse = await userService.LoginWithEmail(userEmailLoginRequest.Email, userEmailLoginRequest.Password);
+
+        if (authenticatedResponse is null)
+        {
+            return BadRequest("Password or email is wrong");
+        }
+
+        if (authenticatedResponse.Token is null || authenticatedResponse.RefreshToken is null)
+        {
+            return BadRequest("Internal server error");
+        }
 
         if (httpContextAccessor.HttpContext is null)
         {
             return BadRequest("Internal server error");
         }
         
-        httpContextAccessor.HttpContext.Response.Cookies.Append("tasty-cookies", token);
+        httpContextAccessor.HttpContext.Response.Cookies.Append("tasty-cookies", authenticatedResponse.Token);
 
-        return Ok(token);
+        return Ok(authenticatedResponse);
     }
 }
