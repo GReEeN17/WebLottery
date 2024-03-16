@@ -1,5 +1,3 @@
-using WebLottery.Application.Models.Draw;
-using WebLottery.Application.Models.Prize;
 using WebLottery.Application.Models.User;
 using WebLottery.Application.Responses;
 using WebLottery.Infrastructure.Entities.User;
@@ -11,9 +9,8 @@ public interface IUserService
     Task<string> Register(UserModel userModel);
     UserEntity? GetUser(int userId);
     Task UpdateUser(UserEntity userEntity);
-    string LoginWithUsername(string username, string password);
+    Task<AuthenticatedResponse?> LoginWithUsername(string username, string password);
     Task<AuthenticatedResponse?> LoginWithEmail(string email, string password);
-    Task<string> UpdateUser(string? email, string? username, string? password);
     Task<string> ShowWallet();
     Task<string> ShowJoinedDraws();
     Task<string> CreateDraw(int ticketPrice, int maxAmountPlayers);

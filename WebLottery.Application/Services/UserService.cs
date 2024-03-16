@@ -85,74 +85,18 @@ public class UserService : IUserService
         await _dbRepository.SaveChangesAsync();
     }
 
-    public string LoginWithUsername(string username, string password)
+    public async Task<AuthenticatedResponse?> LoginWithUsername(string username, string password)
     {
         var userEntity = _dbRepository.Get<UserEntity>().FirstOrDefault(x => x.UserName == username);
-
-        if (userEntity is null)
-        {
-            return JsonSerializer.Serialize("Error, user was not found");
-        }
-
-        var result = _passwordHasher.Verify(password, userEntity.Password);
-
-        if (result is false)
-        {
-            return JsonSerializer.Serialize("Error, password or email is invalid");
-        }
-
-        Claim[] claims = [
-            new Claim(ClaimTypes.Sid, userEntity.Id.ToString()),
-            new Claim(ClaimTypes.Name, userEntity.UserName)
-        ];
         
-        var token = _jwtProvider.GenerateAccessToken(claims);
-
-        return JsonSerializer.Serialize(token);
+        return await Login(userEntity, password);
     }
 
     public async Task<AuthenticatedResponse?> LoginWithEmail(string email, string password)
     {
         var userEntity = _dbRepository.Get<UserEntity>().FirstOrDefault(x => x.EMail == email);
 
-        if (userEntity is null)
-        {
-            return null;
-        }
-
-        var result = _passwordHasher.Verify(password, userEntity.Password);
-
-        if (result is false)
-        {
-            return null;
-        }
-        
-        Claim[] claims = [
-            new Claim(ClaimTypes.Sid, userEntity.Id.ToString()),
-            new Claim(ClaimTypes.Name, userEntity.UserName)
-        ];
-        
-        var accessToken = _jwtProvider.GenerateAccessToken(claims);
-        var refreshToken = _jwtProvider.GenerateRefreshToken();
-        
-        userEntity.RefreshToken = refreshToken;
-        userEntity.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_jwtProvider.GetRefreshTokenExpiryDays());
-
-        await _dbRepository.Update(userEntity);
-        await _dbRepository.SaveChangesAsync();
-
-        AuthenticatedResponse authenticatedResponse = new AuthenticatedResponse
-        {
-            Token = accessToken,
-            RefreshToken = refreshToken
-        };
-
-        return authenticatedResponse;
-    }
-
-    public Task<string> UpdateUser(string? email, string? username, string? password)
-    {
-        throw new NotImplementedException();
+        return await Login(userEntity, password);
     }
 
     public Task<string> ShowWallet()
@@ -188,5 +132,40 @@ public class UserService : IUserService
     public Task<string> CreatePrize(string name, string? description, int? currencyId)
     {
         throw new NotImplementedException();
+    }
+
+    private async Task<AuthenticatedResponse?> Login(UserEntity? userEntity, String password)
+    {
+        if (userEntity is null)
+        {
+            return null;
+        }
+
+        var result = _passwordHasher.Verify(password, userEntity.Password);
+
+        if (result is false)
+        {
+            return null;
+        }
+        
+        Claim[] claims = [
+            new Claim(ClaimTypes.Sid, userEntity.Id.ToString()),
+            new Claim(ClaimTypes.Name, userEntity.UserName)
+        ];
+        
+        var accessToken = _jwtProvider.GenerateAccessToken(claims);
+        var refreshToken = _jwtProvider.GenerateRefreshToken();
+        
+        userEntity.RefreshToken = refreshToken;
+        userEntity.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_jwtProvider.GetRefreshTokenExpiryDays());
+
+        await _dbRepository.Update(userEntity);
+        await _dbRepository.SaveChangesAsync();
+
+        return new AuthenticatedResponse 
+        {
+            Token = accessToken,
+            RefreshToken = refreshToken
+        };
     }
 }

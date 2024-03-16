@@ -51,4 +51,34 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
 
         return Ok(authenticatedResponse);
     }
+    
+    [HttpPost("loginUsername")]
+    public async Task<ActionResult<AuthenticatedResponse>> Login([FromBody]UserUsernameLoginRequest userUsernameLoginRequest)
+    {
+        if (userUsernameLoginRequest is null)
+        {
+            return BadRequest("invalid client request");
+        }
+        
+        var authenticatedResponse = await userService.LoginWithUsername(userUsernameLoginRequest.Username, userUsernameLoginRequest.Password);
+
+        if (authenticatedResponse is null)
+        {
+            return BadRequest("Password or username is wrong");
+        }
+
+        if (authenticatedResponse.Token is null || authenticatedResponse.RefreshToken is null)
+        {
+            return BadRequest("Internal server error");
+        }
+
+        if (httpContextAccessor.HttpContext is null)
+        {
+            return BadRequest("Internal server error");
+        }
+        
+        httpContextAccessor.HttpContext.Response.Cookies.Append("tasty-cookies", authenticatedResponse.Token);
+
+        return Ok(authenticatedResponse);
+    }
 }
