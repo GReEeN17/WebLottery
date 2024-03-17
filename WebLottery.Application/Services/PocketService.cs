@@ -25,7 +25,7 @@ public class PocketService(IDbRepository dbRepository, IMapper mapper) : IPocket
         return JsonSerializer.Serialize(result);
     }
 
-    public string GetPocket(int pocketId)
+    public string GetPocket(Guid pocketId)
     {
         var pocketEntity = dbRepository.Get<PocketEntity>().FirstOrDefault(x => x.Id == pocketId);
         var pocketModel = mapper.Map<PocketModel>(pocketEntity);
@@ -41,7 +41,7 @@ public class PocketService(IDbRepository dbRepository, IMapper mapper) : IPocket
         await dbRepository.SaveChangesAsync();
     }
 
-    public async Task DeletePocket(int pocketId)
+    public async Task DeletePocket(Guid pocketId)
     {
         await dbRepository.Delete<PocketEntity>(pocketId);
         await dbRepository.SaveChangesAsync();

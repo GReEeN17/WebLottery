@@ -28,7 +28,7 @@ public class DbRepository(DataContext context) : IDbRepository
         await context.Set<T>().AddRangeAsync(newEntities);
     }
 
-    public async Task Delete<T>(int id) where T : class, IEntity
+    public async Task Delete<T>(Guid id) where T : class, IEntity
     {
         var activeEntity = await context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         activeEntity.IsActive = false;

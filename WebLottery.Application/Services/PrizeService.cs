@@ -22,7 +22,7 @@ public class PrizeService(
         return JsonSerializer.Serialize(result);
     }
 
-    public string GetPrize(int prizeId)
+    public string GetPrize(Guid prizeId)
     {
         var prizeEntity = dbRepository.Get<PrizeEntity>().Include(x => x.Currency).FirstOrDefault(x => x.Id == prizeId);
         
@@ -44,7 +44,7 @@ public class PrizeService(
         await dbRepository.SaveChangesAsync();
     }
 
-    public async Task DeletePrize(int prizeId)
+    public async Task DeletePrize(Guid prizeId)
     {
         await dbRepository.Delete<PrizeEntity>(prizeId);
         await dbRepository.SaveChangesAsync();

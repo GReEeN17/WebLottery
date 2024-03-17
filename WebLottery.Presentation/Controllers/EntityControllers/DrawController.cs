@@ -9,7 +9,7 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class DrawController(IDrawService drawService) : BaseController
 {
     [HttpGet("{id}")]
-    public ActionResult<string> Get(int id)
+    public ActionResult<string> Get(Guid id)
     {
         var jsonDraw = drawService.GetDraw(id);
 
@@ -70,7 +70,7 @@ public class DrawController(IDrawService drawService) : BaseController
     }
     
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await drawService.DeleteDraw(id);
 

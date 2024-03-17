@@ -20,7 +20,7 @@ public class TicketService(IDbRepository dbRepository, IMapper mapper) : ITicket
         return JsonSerializer.Serialize(result);
     }
 
-    public string GetTicket(int ticketId)
+    public string GetTicket(Guid ticketId)
     {
         var ticketEntity = dbRepository.Get<TicketEntity>().Include(x => x.Draw).FirstOrDefault(x => x.Id == ticketId);
         
@@ -34,7 +34,7 @@ public class TicketService(IDbRepository dbRepository, IMapper mapper) : ITicket
         return JsonSerializer.Serialize(ticketModel);
     }
 
-    public string GetDrawTickets(int drawId)
+    public string GetDrawTickets(Guid drawId)
     {
         var ticketEntities = dbRepository.Get<TicketEntity>().Include(x => x.Draw).Where(x => x.DrawId == drawId).ToList();
         var ticketModels = mapper.Map<List<TicketModel>>(ticketEntities);
@@ -50,7 +50,7 @@ public class TicketService(IDbRepository dbRepository, IMapper mapper) : ITicket
         await dbRepository.SaveChangesAsync();
     }
 
-    public async Task DeleteTicket(int ticketId)
+    public async Task DeleteTicket(Guid ticketId)
     {
         await dbRepository.Delete<TicketEntity>(ticketId);
         await dbRepository.SaveChangesAsync();

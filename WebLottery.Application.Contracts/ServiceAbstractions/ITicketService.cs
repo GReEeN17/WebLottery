@@ -5,8 +5,8 @@ namespace WebLottery.Application.Contracts.ServiceAbstractions;
 public interface ITicketService
 {
     Task<string> CreateTicket(TicketModel ticketModel);
-    string GetTicket(int ticketId);
-    string GetDrawTickets(int drawId);
+    string GetTicket(Guid ticketId);
+    string GetDrawTickets(Guid drawId);
     Task UpdateTicket(TicketModel ticketModel);
-    Task DeleteTicket(int ticketId);
+    Task DeleteTicket(Guid ticketId);
 }

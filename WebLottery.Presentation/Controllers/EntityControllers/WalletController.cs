@@ -8,7 +8,7 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class WalletController(IWalletService walletService) : BaseController
 {
     [HttpGet("{id}")]
-    public ActionResult<string> Get(int id)
+    public ActionResult<string> Get(Guid id)
     {
         var jsonWallet = walletService.GetWallet(id);
         
@@ -42,7 +42,7 @@ public class WalletController(IWalletService walletService) : BaseController
     }
     
     [HttpDelete]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await walletService.DeleteWallet(id);
 

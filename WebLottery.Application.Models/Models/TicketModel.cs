@@ -2,7 +2,7 @@ namespace WebLottery.Application.Models.Models;
 
 public class TicketModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int LuckyNumber { get; set; }
     public DateTime PurchaseTime { get; set; }
     public int DrawId { get; set; }

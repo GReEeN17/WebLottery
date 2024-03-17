@@ -8,7 +8,7 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class TicketController(ITicketService ticketService) : BaseController
 {
     [HttpGet("{id}")]
-    public ActionResult<string> Get(int id)
+    public ActionResult<string> Get(Guid id)
     {
         var jsonTicket = ticketService.GetTicket(id);
 
@@ -21,7 +21,7 @@ public class TicketController(ITicketService ticketService) : BaseController
     }
     
     [HttpGet("draw/{drawId}")]
-    public ActionResult<string> GetDrawTickets(int drawId)
+    public ActionResult<string> GetDrawTickets(Guid drawId)
     {
         var jsonTickets = ticketService.GetDrawTickets(drawId);
 
@@ -55,7 +55,7 @@ public class TicketController(ITicketService ticketService) : BaseController
     }
     
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await ticketService.DeleteTicket(id);
 

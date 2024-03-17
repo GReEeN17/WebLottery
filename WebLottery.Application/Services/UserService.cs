@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Text.Json;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
 using WebLottery.Application.Models.Models;
@@ -53,7 +54,7 @@ public class UserService(
         return JsonSerializer.Serialize(result);
     }
 
-    public UserEntity? GetUser(int userId)
+    public UserEntity? GetUser(Guid userId)
     {
         return dbRepository.Get<UserEntity>().FirstOrDefault(x => x.Id == userId);
     }
@@ -83,6 +84,16 @@ public class UserService(
         throw new NotImplementedException();
     }
 
+    public Task<string> ShowWallet(Guid userId)
+    {
+        var userEntity = dbRepository.Get<UserEntity>()
+            .Include(user => user.Wallet)
+            .ThenInclude(wallet => wallet.WalletCurrencies)
+            .ThenInclude(walletCurrency => walletCurrency.Currency)
+            .FirstOrDefault(x => x.Id == userId);
+        return null;
+    }
+
     public Task<string> ShowJoinedDraws()
     {
         throw new NotImplementedException();
@@ -98,7 +109,7 @@ public class UserService(
         throw new NotImplementedException();
     }
 
-    public Task<string> BuyTicket(int drawId)
+    public Task<string> BuyTicket(Guid drawId)
     {
         throw new NotImplementedException();
     }

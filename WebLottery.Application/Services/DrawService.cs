@@ -22,7 +22,7 @@ public class DrawService(
         return JsonSerializer.Serialize(result);
     }
 
-    public string GetDraw(int drawId)
+    public string GetDraw(Guid drawId)
     {
         var drawEntity = dbRepository.Get<DrawEntity>().Include(x => x.Prize).FirstOrDefault(x => x.Id == drawId);
         var drawModel = mapper.Map<DrawModel>(drawEntity);
@@ -54,7 +54,7 @@ public class DrawService(
         await dbRepository.SaveChangesAsync();
     }
 
-    public async Task DeleteDraw(int drawId)
+    public async Task DeleteDraw(Guid drawId)
     {
         await dbRepository.Delete<DrawEntity>(drawId);
         await dbRepository.SaveChangesAsync();

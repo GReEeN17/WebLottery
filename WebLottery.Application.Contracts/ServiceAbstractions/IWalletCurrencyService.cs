@@ -5,7 +5,7 @@ namespace WebLottery.Application.Contracts.ServiceAbstractions;
 public interface IWalletCurrencyService
 { 
     Task<string> CreateWalletCurrency(WalletCurrencyModel walletCurrencyModel);
-    string GetWalletCurrency(int walletCurrencyId);
+    string GetWalletCurrency(Guid walletCurrencyId);
     Task UpdateWalletCurrency(WalletCurrencyModel walletCurrencyModel);
-    Task DeleteWalletCurrency(int walletCurrencyId);
+    Task DeleteWalletCurrency(Guid walletCurrencyId);
 }

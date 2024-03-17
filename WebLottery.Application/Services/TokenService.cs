@@ -17,7 +17,7 @@ public class TokenService(IUserService userService, IJwtProvider jwtProvider) : 
             return null;
         }
         
-        var userId = int.Parse(stringUserId);
+        var userId = Guid.Parse(stringUserId);
 
         var user = userService.GetUser(userId);
         
@@ -50,7 +50,7 @@ public class TokenService(IUserService userService, IJwtProvider jwtProvider) : 
             return false;
         }
         
-        var userId = int.Parse(stringUserId);
+        var userId = Guid.Parse(stringUserId);
         
         var user = userService.GetUser(userId);
         

@@ -21,7 +21,7 @@ public class CurrencyService(
          return JsonSerializer.Serialize(result);
      }
 
-    public string GetCurrency(int currencyId)
+    public string GetCurrency(Guid currencyId)
     {
         var currencyEntity = dbRepository.Get<CurrencyEntity>().FirstOrDefault(x => x.Id == currencyId);
         var currencyModel = mapper.Map<CurrencyModel>(currencyEntity);
@@ -45,7 +45,7 @@ public class CurrencyService(
         await dbRepository.SaveChangesAsync();
     }
 
-    public async Task DeleteCurrency(int currencyId)
+    public async Task DeleteCurrency(Guid currencyId)
     {
         await dbRepository.Delete<CurrencyEntity>(currencyId);
         await dbRepository.SaveChangesAsync();

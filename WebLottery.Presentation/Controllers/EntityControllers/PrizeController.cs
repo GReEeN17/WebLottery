@@ -8,7 +8,7 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class PrizeController(IPrizeService prizeService) : BaseController
 {
     [HttpGet("{id}")]
-    public ActionResult<string> Get(int id)
+    public ActionResult<string> Get(Guid id)
     {
         var jsonPrize = prizeService.GetPrize(id);
         
@@ -42,7 +42,7 @@ public class PrizeController(IPrizeService prizeService) : BaseController
     }
     
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await prizeService.DeletePrize(id);
 

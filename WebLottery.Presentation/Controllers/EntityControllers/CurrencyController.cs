@@ -9,7 +9,7 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class CurrencyController(ICurrencyService currencyService) : BaseController
 {
     [HttpGet("{id}")]
-    public ActionResult<string> Get(int id)
+    public ActionResult<string> Get(Guid id)
     {
         var jsonCurrency = currencyService.GetCurrency(id);
 
@@ -56,7 +56,7 @@ public class CurrencyController(ICurrencyService currencyService) : BaseControll
     }
     
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await currencyService.DeleteCurrency(id);
 

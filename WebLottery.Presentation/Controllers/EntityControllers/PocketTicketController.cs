@@ -8,7 +8,7 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class PocketTicketController(IPocketTicketService pocketTicketService) : BaseController
 {
     [HttpGet("{id}")]
-    public ActionResult<string> Get(int id)
+    public ActionResult<string> Get(Guid id)
     {
         var jsonPocketTicket = pocketTicketService.GetPocketTicket(id);
 
@@ -42,7 +42,7 @@ public class PocketTicketController(IPocketTicketService pocketTicketService) : 
     }
     
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await pocketTicketService.DeletePocketTicket(id);
 

@@ -19,7 +19,7 @@ public class WalletCurrencyService(IDbRepository dbRepository, IMapper mapper) :
         return JsonSerializer.Serialize(result);
     }
 
-    public string GetWalletCurrency(int walletCurrencyId)
+    public string GetWalletCurrency(Guid walletCurrencyId)
     {
         var walletCurrencyEntity = dbRepository.Get<WalletCurrencyEntity>().FirstOrDefault(x => x.Id == walletCurrencyId);
         var walletCurrencyModel = mapper.Map<WalletCurrencyModel>(walletCurrencyEntity);
@@ -35,7 +35,7 @@ public class WalletCurrencyService(IDbRepository dbRepository, IMapper mapper) :
         await dbRepository.SaveChangesAsync();
     }
 
-    public async Task DeleteWalletCurrency(int walletCurrencyId)
+    public async Task DeleteWalletCurrency(Guid walletCurrencyId)
     {
         await dbRepository.Delete<WalletCurrencyEntity>(walletCurrencyId);
         await dbRepository.SaveChangesAsync();

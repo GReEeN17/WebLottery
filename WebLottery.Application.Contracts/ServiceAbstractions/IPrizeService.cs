@@ -5,7 +5,7 @@ namespace WebLottery.Application.Contracts.ServiceAbstractions;
 public interface IPrizeService
 {
     Task<string> CreatePrize(PrizeModel prizeModel);
-    string GetPrize(int prizeId);
+    string GetPrize(Guid prizeId);
     Task UpdatePrize(PrizeModel prizeModel);
-    Task DeletePrize(int prizeId);
+    Task DeletePrize(Guid prizeId);
 }

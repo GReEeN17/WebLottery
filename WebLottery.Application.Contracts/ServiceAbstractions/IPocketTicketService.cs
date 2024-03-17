@@ -5,7 +5,7 @@ namespace WebLottery.Application.Contracts.ServiceAbstractions;
 public interface IPocketTicketService
 {
     Task<string> CreatePocketTicket(PocketTicketModel pocketTicketModel);
-    string GetPocketTicket(int pocketTicketId);
+    string GetPocketTicket(Guid pocketTicketId);
     Task UpdatePocketTicket(PocketTicketModel pocketTicketModel);
-    Task DeletePocketTicket(int pocketTicketId);
+    Task DeletePocketTicket(Guid pocketTicketId);
 }

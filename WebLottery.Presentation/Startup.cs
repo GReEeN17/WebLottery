@@ -68,7 +68,7 @@ public class Startup(IConfiguration configuration)
         services.AddScoped<IDbRepository, DbRepository>();
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
-        services.AddSingleton(new UserEntity { Id = 0 });
+        services.AddSingleton(new UserEntity { Id = Guid.NewGuid() });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
