@@ -84,14 +84,41 @@ public class UserService(
         throw new NotImplementedException();
     }
 
-    public Task<string> ShowWallet(Guid userId)
+    public List<ShowWalletResponse>? ShowWallet(IEnumerable<Claim> claims)
     {
+        var stringUserId = claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
+
+        if (stringUserId is null)
+        {
+            return null;
+        }
+
+        var userId = Guid.Parse(stringUserId);
+        
         var userEntity = dbRepository.Get<UserEntity>()
             .Include(user => user.Wallet)
             .ThenInclude(wallet => wallet.WalletCurrencies)
             .ThenInclude(walletCurrency => walletCurrency.Currency)
             .FirstOrDefault(x => x.Id == userId);
-        return null;
+
+        if (userEntity is null)
+        {
+            return null;
+        }
+
+        var showWalletResponse = new List<ShowWalletResponse>();
+        var userWalletCurrencies = userEntity.Wallet.WalletCurrencies;
+
+        foreach (var userWalletCurrency in userWalletCurrencies)
+        {
+            showWalletResponse.Add(new ShowWalletResponse
+            {
+                CurrencyName = userWalletCurrency.Currency.Name,
+                Amount = userWalletCurrency.Amount
+            });
+        }
+        
+        return showWalletResponse;
     }
 
     public Task<string> ShowJoinedDraws()

@@ -6,6 +6,4 @@ public interface IEntity
     bool IsActive { get; set; }
     DateTime CreatedAt { get; set; }
     DateTime UpdatedAt { get; set; }
-    int UserCreated { get; set; }
-    int UserUpdated { get; set; }
 }

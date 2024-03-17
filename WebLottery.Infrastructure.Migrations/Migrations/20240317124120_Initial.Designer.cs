@@ -12,7 +12,7 @@ using WebLottery.Infrastructure.Implementations.DataContext;
 namespace WebLottery.Infrastructure.Migrations.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240222160640_Initial")]
+    [Migration("20240317124120_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,48 +25,11 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.HasSequence<int>("currency_sequence")
-                .HasMin(1L)
-                .HasMax(999999L);
-
-            modelBuilder.HasSequence<int>("draw_sequence")
-                .HasMin(1L)
-                .HasMax(999999L);
-
-            modelBuilder.HasSequence<int>("pocket_sequence")
-                .HasMin(1L)
-                .HasMax(9999999L);
-
-            modelBuilder.HasSequence<int>("pocket_ticket_sequence")
-                .HasMin(1L)
-                .HasMax(999999L);
-
-            modelBuilder.HasSequence<int>("prize_sequence")
-                .HasMin(1L)
-                .HasMax(999999L);
-
-            modelBuilder.HasSequence<int>("ticket_sequence")
-                .HasMin(1L)
-                .HasMax(9999999L);
-
-            modelBuilder.HasSequence<int>("user_sequence")
-                .HasMin(1L)
-                .HasMax(999999L);
-
-            modelBuilder.HasSequence<int>("wallet_currency_sequence")
-                .HasMin(1L)
-                .HasMax(999999L);
-
-            modelBuilder.HasSequence<int>("wallet_sequence")
-                .HasMin(1L)
-                .HasMax(999999L);
-
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Currency.CurrencyEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.CurrencyEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"currency_sequence\"')");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Abbreviation")
                         .IsRequired()
@@ -100,12 +63,11 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
                     b.ToTable("currency", (string)null);
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Draw.DrawEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.DrawEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"draw_sequence\"')");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -124,9 +86,8 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("max_am_players");
 
-                    b.Property<int>("PrizeId")
-                        .HasColumnType("integer")
-                        .HasColumnName("prize_id");
+                    b.Property<Guid>("PrizeId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("TicketPrice")
                         .HasColumnType("integer")
@@ -143,15 +104,16 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PrizeId");
+
                     b.ToTable("draw", (string)null);
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Pocket.PocketEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.PocketEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"pocket_sequence\"')");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -165,26 +127,25 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
                     b.Property<int>("UserCreated")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
-                        .HasColumnName("user_id");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("UserUpdated")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("pocket", (string)null);
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.PocketTicket.PocketTicketEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.PocketTicketEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"pocket_ticket_sequence\"')");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -192,16 +153,11 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("PocketEntityId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PocketId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("PocketId")
-                        .HasColumnType("integer")
-                        .HasColumnName("pocket_id");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("integer")
-                        .HasColumnName("ticket_id");
+                    b.Property<Guid>("TicketId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -214,27 +170,25 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PocketEntityId");
+                    b.HasIndex("PocketId");
+
+                    b.HasIndex("TicketId")
+                        .IsUnique();
 
                     b.ToTable("pocket_ticket", (string)null);
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Prize.PrizeEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.PrizeEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"prize_sequence\"')");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("CurrencyEntityId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CurrencyId")
-                        .HasColumnType("integer")
-                        .HasColumnName("currency_id");
+                    b.Property<Guid>("CurrencyId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -262,27 +216,22 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrencyEntityId");
+                    b.HasIndex("CurrencyId");
 
                     b.ToTable("prize", (string)null);
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Ticket.TicketEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.TicketEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"ticket_sequence\"')");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("DrawEntityId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DrawId")
-                        .HasColumnType("integer")
-                        .HasColumnName("draw_id");
+                    b.Property<Guid>("DrawId")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
@@ -305,17 +254,16 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DrawEntityId");
+                    b.HasIndex("DrawId");
 
                     b.ToTable("ticket", (string)null);
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.User.UserEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.UserEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"user_sequence\"')");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -334,6 +282,12 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)")
                         .HasColumnName("password");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -358,43 +312,11 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
                     b.ToTable("user", (string)null);
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Wallet.WalletEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.WalletCurrencyEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"wallet_sequence\"')");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("UserCreated")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
-                        .HasColumnName("user_id");
-
-                    b.Property<int>("UserUpdated")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("wallet", (string)null);
-                });
-
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.WalletCurrency.WalletCurrencyEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValueSql("nextval('\"wallet_currency_sequence\"')");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Amount")
                         .HasColumnType("integer")
@@ -403,12 +325,8 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("CurrencyEntityId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CurrencyId")
-                        .HasColumnType("integer")
-                        .HasColumnName("column_id");
+                    b.Property<Guid>("CurrencyId")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
@@ -422,83 +340,181 @@ namespace WebLottery.Infrastructure.Migrations.Migrations
                     b.Property<int>("UserUpdated")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("WalletEntityId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("WalletId")
-                        .HasColumnType("integer")
-                        .HasColumnName("wallet_id");
+                    b.Property<Guid>("WalletId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrencyEntityId");
+                    b.HasIndex("CurrencyId");
 
-                    b.HasIndex("WalletEntityId");
+                    b.HasIndex("WalletId");
 
                     b.ToTable("wallet_currency", (string)null);
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Pocket.PocketEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.WalletEntity", b =>
                 {
-                    b.HasOne("WebLottery.Infrastructure.Entities.User.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("UserCreated")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("UserUpdated")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("wallet", (string)null);
+                });
+
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.DrawEntity", b =>
+                {
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.PrizeEntity", "Prize")
+                        .WithMany("Draws")
+                        .HasForeignKey("PrizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Prize");
+                });
+
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.PocketEntity", b =>
+                {
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.UserEntity", "User")
+                        .WithOne("Pocket")
+                        .HasForeignKey("WebLottery.Infrastructure.Entities.Entities.PocketEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.PocketTicket.PocketTicketEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.PocketTicketEntity", b =>
                 {
-                    b.HasOne("WebLottery.Infrastructure.Entities.Pocket.PocketEntity", null)
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.PocketEntity", "Pocket")
                         .WithMany("PocketTickets")
-                        .HasForeignKey("PocketEntityId");
+                        .HasForeignKey("PocketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.TicketEntity", "Ticket")
+                        .WithOne("PocketTicket")
+                        .HasForeignKey("WebLottery.Infrastructure.Entities.Entities.PocketTicketEntity", "TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pocket");
+
+                    b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Prize.PrizeEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.PrizeEntity", b =>
                 {
-                    b.HasOne("WebLottery.Infrastructure.Entities.Currency.CurrencyEntity", null)
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.CurrencyEntity", "Currency")
                         .WithMany("Prizes")
-                        .HasForeignKey("CurrencyEntityId");
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Ticket.TicketEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.TicketEntity", b =>
                 {
-                    b.HasOne("WebLottery.Infrastructure.Entities.Draw.DrawEntity", null)
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.DrawEntity", "Draw")
                         .WithMany("Tickets")
-                        .HasForeignKey("DrawEntityId");
+                        .HasForeignKey("DrawId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Draw");
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.WalletCurrency.WalletCurrencyEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.WalletCurrencyEntity", b =>
                 {
-                    b.HasOne("WebLottery.Infrastructure.Entities.Currency.CurrencyEntity", null)
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.CurrencyEntity", "Currency")
                         .WithMany("WalletCurrencies")
-                        .HasForeignKey("CurrencyEntityId");
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("WebLottery.Infrastructure.Entities.Wallet.WalletEntity", null)
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.WalletEntity", "Wallet")
                         .WithMany("WalletCurrencies")
-                        .HasForeignKey("WalletEntityId");
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("Wallet");
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Currency.CurrencyEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.WalletEntity", b =>
+                {
+                    b.HasOne("WebLottery.Infrastructure.Entities.Entities.UserEntity", "User")
+                        .WithOne("Wallet")
+                        .HasForeignKey("WebLottery.Infrastructure.Entities.Entities.WalletEntity", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.CurrencyEntity", b =>
                 {
                     b.Navigation("Prizes");
 
                     b.Navigation("WalletCurrencies");
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Draw.DrawEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.DrawEntity", b =>
                 {
                     b.Navigation("Tickets");
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Pocket.PocketEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.PocketEntity", b =>
                 {
                     b.Navigation("PocketTickets");
                 });
 
-            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Wallet.WalletEntity", b =>
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.PrizeEntity", b =>
+                {
+                    b.Navigation("Draws");
+                });
+
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.TicketEntity", b =>
+                {
+                    b.Navigation("PocketTicket")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.UserEntity", b =>
+                {
+                    b.Navigation("Pocket")
+                        .IsRequired();
+
+                    b.Navigation("Wallet")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebLottery.Infrastructure.Entities.Entities.WalletEntity", b =>
                 {
                     b.Navigation("WalletCurrencies");
                 });

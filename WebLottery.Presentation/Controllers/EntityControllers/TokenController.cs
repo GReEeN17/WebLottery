@@ -39,11 +39,6 @@ public class TokenController(ITokenService tokenService, IHttpContextAccessor ht
     [HttpPost("revoke")]
     public async Task<ActionResult> Revoke()
     {
-        if (User.Identity is null)
-        {
-            return BadRequest("Invalid client request");
-        }
-
         var response = await tokenService.Revoke(User.Claims);
         
         if (!response)

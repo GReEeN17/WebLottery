@@ -13,8 +13,13 @@ public class WalletCurrencyService(IDbRepository dbRepository, IMapper mapper) :
     {
         var walletCurrencyEntity = mapper.Map<WalletCurrencyEntity>(walletCurrencyModel);
         
-        var result = await dbRepository.Add(walletCurrencyEntity);
+        var walletCurrencyEntityResult = await dbRepository.Add(walletCurrencyEntity);
         await dbRepository.SaveChangesAsync();
+
+        var result = new
+        {
+            Id = walletCurrencyEntity.Id
+        };
 
         return JsonSerializer.Serialize(result);
     }

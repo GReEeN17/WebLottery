@@ -9,8 +9,6 @@ public class EntityTrigger : IBeforeSaveTrigger<Entity>
     {
         if (context.ChangeType is ChangeType.Added)
         {
-            context.Entity.UserCreated = 0;
-            context.Entity.UserUpdated = 0;
             context.Entity.CreatedAt = DateTime.UtcNow;
             context.Entity.UpdatedAt = DateTime.UtcNow;
             context.Entity.IsActive = true;
@@ -18,7 +16,6 @@ public class EntityTrigger : IBeforeSaveTrigger<Entity>
 
         if (context.ChangeType is ChangeType.Modified)
         {
-            context.Entity.UserUpdated = 0;
             context.Entity.UpdatedAt = DateTime.UtcNow;
         }
         

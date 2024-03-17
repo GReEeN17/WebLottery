@@ -1,13 +1,14 @@
 using System.Text.Json;
 using AutoMapper;
 using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Defaults;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 
 namespace WebLottery.Application.Services;
 
-public class WalletService(IDbRepository dbRepository, IMapper mapper) : IWalletService
+public class WalletService(IDbRepository dbRepository, IMapper mapper, IWalletCurrencyService walletCurrencyService) : IWalletService
 {
     public async Task<string> CreateWallet(WalletModel walletModel)
     {
@@ -21,6 +22,15 @@ public class WalletService(IDbRepository dbRepository, IMapper mapper) : IWallet
             Id = walletEntityResult.Id,
             UserId = walletEntityResult.UserId
         };
+
+        var walletCurrency = new WalletCurrencyModel()
+        {
+            Amount = 0,
+            CurrencyId = ServiceDefaults.DefaultCurrency.GetServiceDefault(),
+            WalletId = walletEntityResult.Id
+        };
+
+        await walletCurrencyService.CreateWalletCurrency(walletCurrency);
 
         return JsonSerializer.Serialize(result);
     }

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;
@@ -12,7 +13,7 @@ public interface IUserService
     Task UpdateUser(UserEntity userEntity);
     Task<AuthenticatedResponse?> LoginWithUsername(string username, string password);
     Task<AuthenticatedResponse?> LoginWithEmail(string email, string password);
-    Task<string> ShowWallet(Guid userId);
+    List<ShowWalletResponse>? ShowWallet(IEnumerable<Claim> claims);
     Task<string> ShowJoinedDraws();
     Task<string> CreateDraw(int ticketPrice, int maxAmountPlayers);
     Task<string> CreateUser(string username, string email, string password);

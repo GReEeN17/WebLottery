@@ -6,6 +6,4 @@ public abstract class Entity : IEntity
     public bool IsActive { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public int UserCreated { get; set; }
-    public int UserUpdated { get; set; }
 }

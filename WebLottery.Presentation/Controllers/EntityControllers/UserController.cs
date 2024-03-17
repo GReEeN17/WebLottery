@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
@@ -80,5 +81,19 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
         httpContextAccessor.HttpContext.Response.Cookies.Append("tasty-cookies", authenticatedResponse.Token);
 
         return Ok(authenticatedResponse);
+    }
+
+    [Authorize]
+    [HttpGet("showWallet")]
+    public ActionResult<ShowWalletResponse> ShowWallet()
+    {
+        var showWalletResponse = userService.ShowWallet(User.Claims);
+
+        if (showWalletResponse is null)
+        {
+            return BadRequest("Invalid client request");
+        }
+
+        return Ok(showWalletResponse);
     }
 }
