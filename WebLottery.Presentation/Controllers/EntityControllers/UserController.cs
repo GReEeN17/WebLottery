@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.DbResponses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
-using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
-using WebLottery.Application.Contracts.ServiceAbstractionsResponsesAbstractions;
 using WebLottery.Application.Models.Models;
-using WebLottery.Infrastructure.Entities.EntitiesExtensions;
 using WebLottery.Presentation.Controllers.Astractions;
 using WebLottery.Presentation.Controllers.Extensions;
 using WebLottery.Presentation.Controllers.Requests;
@@ -16,16 +13,11 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class UserController(IUserService userService, IHttpContextAccessor httpContextAccessor) : BaseController
 {
     [HttpPost("register")]
-    public async Task<ActionResult<string>> Register([FromBody] UserModel userModel)
+    public async Task<ActionResult<RegisterDbResponse?>> Register([FromBody] UserModel userModel)
     {
-        var jsonUser = await userService.Register(userModel);
-        
-        if (String.IsNullOrEmpty(jsonUser))
-        {
-            return BadRequest("id is empty");
-        }
+        var registerResponse = await userService.Register(userModel);
 
-        return Ok(jsonUser);
+        return ResponseExtension<RegisterDbResponse?>.GetResponseResult(registerResponse!);
     }
 
     [HttpPost("loginEmail")]

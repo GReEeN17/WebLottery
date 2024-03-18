@@ -24,8 +24,10 @@ public class UserService(
     IPocketService pocketService)
     : IUserService
 {
-    public async Task<string> Register(UserModel userModel)
+    public async Task<RegisterResponse> Register(UserModel userModel)
     {
+        var registerResponse = new RegisterResponse();
+        
         userModel.UserRole = UserRole.Player;
         userModel.Password = passwordHasher.Generate(userModel.Password);
         var userEntity = mapper.Map<UserEntity>(userModel);
@@ -47,15 +49,17 @@ public class UserService(
 
         await pocketService.CreatePocket(userPocket);
 
-        var result = new
+        var registerDbResponse = new RegisterDbResponse
         {
-            Id = userEntityResult.Id,
             Username = userEntityResult.UserName,
-            Password = userEntityResult.Password,
-            Email = userEntityResult.EMail
+            UserRole = userEntityResult.UserRole
         };
-
-        return JsonSerializer.Serialize(result);
+        
+        registerResponse.Status = HttpStatusCode.OK;
+        registerResponse.Comments = "Ok";
+        registerResponse.Value = registerDbResponse;
+        
+        return registerResponse;
     }
 
     public UserEntity? GetUser(string username)

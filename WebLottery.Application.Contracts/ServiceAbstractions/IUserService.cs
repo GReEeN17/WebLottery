@@ -7,12 +7,12 @@ namespace WebLottery.Application.Contracts.ServiceAbstractions;
 
 public interface IUserService
 {
-    Task<string> Register(UserModel userModel);
+    Task<RegisterResponse> Register(UserModel userModel);
     UserEntity? GetUser(string username);
     Task UpdateUser(UserEntity userEntity);
     Task<AuthenticatedResponse> LoginWithUsername(string username, string password);
     Task<AuthenticatedResponse> LoginWithEmail(string email, string password);
-    ShowWalletResponse? ShowWallet(IEnumerable<Claim> claims);
+    ShowWalletResponse ShowWallet(IEnumerable<Claim> claims);
     Task<string> ShowJoinedDraws();
     Task<string> CreateDraw(int ticketPrice, int maxAmountPlayers);
     Task<CreateAdminResponse> CreateAdmin(IEnumerable<Claim> claims, UserModel adminModel);
