@@ -1,4 +1,4 @@
-using WebLottery.Infrastructure.Entities.User;
+using WebLottery.Infrastructure.Entities.EntitiesExtensions;
 
 namespace WebLottery.Application.Models.Models;
 

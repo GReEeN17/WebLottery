@@ -1,4 +1,4 @@
-namespace WebLottery.Infrastructure.Entities.User;
+namespace WebLottery.Infrastructure.Entities.EntitiesExtensions;
 
 public enum UserRole
 {

@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using Microsoft.Extensions.Configuration;
 using WebLottery.Infrastructure.Entities.Entities;
-using WebLottery.Infrastructure.Entities.User;
 using WebLottery.Infrastructure.Implementations.Configuration;
 
 namespace WebLottery.Infrastructure.Implementations.DataContext;

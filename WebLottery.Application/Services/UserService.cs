@@ -3,10 +3,11 @@ using System.Text.Json;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.ServiceAbstractions;
-using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
+using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
 using WebLottery.Application.Models.Models;
 using WebLottery.Application.ServiceExtensions;
 using WebLottery.Infrastructure.Entities.Entities;
+using WebLottery.Infrastructure.Entities.EntitiesExtensions;
 using WebLottery.Infrastructure.Implementations.Abstractions;
 using WebLottery.Infrastructure.Implementations.Jwt;
 
@@ -23,6 +24,7 @@ public class UserService(
 {
     public async Task<string> Register(UserModel userModel)
     {
+        userModel.UserRole = UserRole.Player;
         userModel.Password = passwordHasher.Generate(userModel.Password);
         var userEntity = mapper.Map<UserEntity>(userModel);
         
@@ -54,9 +56,9 @@ public class UserService(
         return JsonSerializer.Serialize(result);
     }
 
-    public UserEntity? GetUser(Guid userId)
+    public UserEntity? GetUser(string username)
     {
-        return dbRepository.Get<UserEntity>().FirstOrDefault(x => x.Id == userId);
+        return dbRepository.Get<UserEntity>().FirstOrDefault(x => x.UserName == username);
     }
 
     public async Task UpdateUser(UserEntity userEntity)
@@ -79,44 +81,39 @@ public class UserService(
         return await Login(userEntity, password);
     }
 
-    public Task<string> ShowWallet()
+    public ShowWalletResponse? ShowWallet(IEnumerable<Claim> claims)
     {
-        throw new NotImplementedException();
-    }
-
-    public List<ShowWalletResponse>? ShowWallet(IEnumerable<Claim> claims)
-    {
-        var stringUserId = claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
-
-        if (stringUserId is null)
-        {
-            return null;
-        }
-
-        var userId = Guid.Parse(stringUserId);
+        var username = claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
         
         var userEntity = dbRepository.Get<UserEntity>()
             .Include(user => user.Wallet)
             .ThenInclude(wallet => wallet.WalletCurrencies)
             .ThenInclude(walletCurrency => walletCurrency.Currency)
-            .FirstOrDefault(x => x.Id == userId);
+            .FirstOrDefault(x => x.UserName == username);
+        
+        var showWalletResponse = new ShowWalletResponse();
 
         if (userEntity is null)
         {
-            return null;
+            showWalletResponse.Status = 400;
+            showWalletResponse.Comments = "Invalid user request";
+            showWalletResponse.Wallet = null;
+            return showWalletResponse;
         }
-
-        var showWalletResponse = new List<ShowWalletResponse>();
+        
         var userWalletCurrencies = userEntity.Wallet.WalletCurrencies;
 
         foreach (var userWalletCurrency in userWalletCurrencies)
         {
-            showWalletResponse.Add(new ShowWalletResponse
+            showWalletResponse.Wallet!.Add(new ShowWallet
             {
                 CurrencyName = userWalletCurrency.Currency.Name,
                 Amount = userWalletCurrency.Amount
             });
         }
+
+        showWalletResponse.Status = 200;
+        showWalletResponse.Comments = "Ok";
         
         return showWalletResponse;
     }
@@ -131,9 +128,14 @@ public class UserService(
         throw new NotImplementedException();
     }
 
-    public Task<string> CreateUser(string username, string email, string password)
+    public Task<string> CreateAdmin(string username, string email, string password)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task UpgradeUserToAdmin(Guid userId)
+    {
+        
     }
 
     public Task<string> BuyTicket(Guid drawId)
@@ -153,9 +155,15 @@ public class UserService(
 
     private async Task<AuthenticatedResponse?> Login(UserEntity? userEntity, String password)
     {
+        var authenticatedResponse = new AuthenticatedResponse();
+        
         if (userEntity is null)
         {
-            return null;
+            authenticatedResponse.Status = 400;
+            authenticatedResponse.Comments = "Invalid user request";
+            authenticatedResponse.RefreshToken = null;
+            authenticatedResponse.Token = null;
+            return authenticatedResponse;
         }
 
         var result = passwordHasher.Verify(password, userEntity.Password);
@@ -166,8 +174,8 @@ public class UserService(
         }
         
         Claim[] claims = [
-            new Claim(ClaimTypes.Sid, userEntity.Id.ToString()),
-            new Claim(ClaimTypes.Name, userEntity.UserName)
+            new Claim(ClaimTypes.Name, userEntity.UserName),
+            new Claim(ClaimTypes.Role, userEntity.UserRole.GetUserRole())
         ];
         
         var accessToken = jwtProvider.GenerateAccessToken(claims);
@@ -179,10 +187,11 @@ public class UserService(
         await dbRepository.Update(userEntity);
         await dbRepository.SaveChangesAsync();
 
-        return new AuthenticatedResponse 
-        {
-            Token = accessToken,
-            RefreshToken = refreshToken
-        };
+        authenticatedResponse.Status = 200;
+        authenticatedResponse.Comments = "Ok";
+        authenticatedResponse.Token = accessToken;
+        authenticatedResponse.RefreshToken = refreshToken;
+        
+        return authenticatedResponse;
     }
 }

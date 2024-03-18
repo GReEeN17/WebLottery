@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using WebLottery.Application.Contracts.ServiceAbstractions;
-using WebLottery.Application.Contracts.ServiceAbstractionsExtensions;
+using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
 using WebLottery.Infrastructure.Implementations.Jwt;
 
 namespace WebLottery.Application.Services;
@@ -10,16 +10,14 @@ public class TokenService(IUserService userService, IJwtProvider jwtProvider) : 
     public async Task<AuthenticatedResponse?> Refresh(string accessToken, string refreshToken)
     {
         var principal = jwtProvider.GetPrincipalFromExpiredToken(accessToken);
-        var stringUserId = principal.Claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
+        var username = principal.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
 
-        if (stringUserId is null)
+        if (username is null)
         {
             return null;
         }
-        
-        var userId = Guid.Parse(stringUserId);
 
-        var user = userService.GetUser(userId);
+        var user = userService.GetUser(username);
         
         if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
         {
@@ -43,16 +41,14 @@ public class TokenService(IUserService userService, IJwtProvider jwtProvider) : 
 
     public async Task<bool> Revoke(IEnumerable<Claim> claims)
     {
-        var stringUserId = claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
-        
-        if (stringUserId is null)
+        var username = claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+        if (username is null)
         {
             return false;
         }
         
-        var userId = Guid.Parse(stringUserId);
-        
-        var user = userService.GetUser(userId);
+        var user = userService.GetUser(username);
         
         if (user is null)
         {

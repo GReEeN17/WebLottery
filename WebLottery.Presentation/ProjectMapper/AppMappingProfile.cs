@@ -1,7 +1,6 @@
 using AutoMapper;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;
-using WebLottery.Infrastructure.Entities.User;
 
 namespace WebLottery.Presentation.ProjectMapper;
 

@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebLottery.Infrastructure.Entities.Entities;
-using WebLottery.Infrastructure.Entities.User;
 
 namespace WebLottery.Infrastructure.Implementations.Configuration;
 

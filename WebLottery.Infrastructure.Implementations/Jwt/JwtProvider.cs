@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using WebLottery.Infrastructure.Entities.User;
 
 namespace WebLottery.Infrastructure.Implementations.Jwt;
 

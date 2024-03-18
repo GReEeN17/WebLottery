@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WebLottery.Infrastructure.Entities.Abstractions;
-using WebLottery.Infrastructure.Entities.User;
 
 namespace WebLottery.Infrastructure.Entities.Entities;
 
