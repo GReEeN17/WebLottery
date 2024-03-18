@@ -1,7 +1,6 @@
 namespace WebLottery.Application.Contracts.ServiceAbstractionsResponsesAbstractions;
 
-public interface IResponse
+public interface IResponse<T> : IHttpResponse
 {
-    int Status { get; set; }
-    string Comments { get; set; }
+    T? Value { get; set; }
 }

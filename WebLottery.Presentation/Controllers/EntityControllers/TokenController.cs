@@ -20,7 +20,7 @@ public class TokenController(ITokenService tokenService, IHttpContextAccessor ht
         var authenticatedResponse =
             await tokenService.Refresh(tokenRefreshRequest.AccessToken, tokenRefreshRequest.RefreshToken);
 
-        if (authenticatedResponse is null || authenticatedResponse.Token is null || authenticatedResponse.RefreshToken is null)
+        if (authenticatedResponse is not null && authenticatedResponse.Value is not null && (authenticatedResponse.Value.Token is null || authenticatedResponse.Value.RefreshToken is null))
         {
             return BadRequest("Invalid client request");
         }
@@ -30,7 +30,7 @@ public class TokenController(ITokenService tokenService, IHttpContextAccessor ht
             return BadRequest("Internal server error");
         }
         
-        httpContextAccessor.HttpContext.Response.Cookies.Append("tasty-cookies", authenticatedResponse.Token);
+        httpContextAccessor.HttpContext.Response.Cookies.Append("tasty-cookies", authenticatedResponse.Value.Token);
 
         return Ok(authenticatedResponse);
     }

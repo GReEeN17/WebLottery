@@ -1,4 +1,6 @@
+using System.Net;
 using System.Security.Claims;
+using WebLottery.Application.Contracts.DbResponses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
 using WebLottery.Infrastructure.Implementations.Jwt;
@@ -30,10 +32,17 @@ public class TokenService(IUserService userService, IJwtProvider jwtProvider) : 
         user.RefreshToken = newRefreshToken;
         await userService.UpdateUser(user);
         
-        AuthenticatedResponse authenticatedResponse = new AuthenticatedResponse
+        AuthenticatedDbResponse authenticatedDbResponse = new AuthenticatedDbResponse
         {
             Token = newAccessToken,
             RefreshToken = newRefreshToken
+        };
+
+        AuthenticatedResponse authenticatedResponse = new AuthenticatedResponse
+        {
+            Status = HttpStatusCode.OK,
+            Comments = "Ok",
+            Value = authenticatedDbResponse
         };
         
         return authenticatedResponse;

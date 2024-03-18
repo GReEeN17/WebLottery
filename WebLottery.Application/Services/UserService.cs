@@ -1,7 +1,9 @@
+using System.Net;
 using System.Security.Claims;
 using System.Text.Json;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using WebLottery.Application.Contracts.DbResponses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
 using WebLottery.Application.Models.Models;
@@ -95,25 +97,31 @@ public class UserService(
 
         if (userEntity is null)
         {
-            showWalletResponse.Status = 400;
+            showWalletResponse.Status = HttpStatusCode.BadRequest;
             showWalletResponse.Comments = "Invalid user request";
-            showWalletResponse.Wallet = null;
+            showWalletResponse.Value = null;
             return showWalletResponse;
         }
         
         var userWalletCurrencies = userEntity.Wallet.WalletCurrencies;
 
+        var showWalletDbResponse = new ShowWalletDbResponse
+        {
+            Wallet = new List<ShowWallet>()
+        };
+
         foreach (var userWalletCurrency in userWalletCurrencies)
         {
-            showWalletResponse.Wallet!.Add(new ShowWallet
+            showWalletDbResponse.Wallet.Add(new ShowWallet
             {
                 CurrencyName = userWalletCurrency.Currency.Name,
                 Amount = userWalletCurrency.Amount
             });
         }
 
-        showWalletResponse.Status = 200;
+        showWalletResponse.Status = HttpStatusCode.OK;
         showWalletResponse.Comments = "Ok";
+        showWalletResponse.Value = showWalletDbResponse;
         
         return showWalletResponse;
     }
@@ -128,9 +136,39 @@ public class UserService(
         throw new NotImplementedException();
     }
 
-    public Task<string> CreateAdmin(string username, string email, string password)
+    public async Task<CreateAdminResponse> CreateAdmin(IEnumerable<Claim> claims, UserModel adminModel)
     {
-        throw new NotImplementedException();
+        var createAdminResponse = new CreateAdminResponse();
+
+        var userRequestRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).SingleOrDefault();
+
+        if (userRequestRole != UserRole.Admin.GetUserRole())
+        {
+            createAdminResponse.Status = HttpStatusCode.Forbidden;
+            createAdminResponse.Comments = "Forbidden to create admin, you are not admin";
+            createAdminResponse.Value = null;
+            return createAdminResponse;
+        }
+
+        adminModel.Password = passwordHasher.Generate(adminModel.Password);
+        adminModel.UserRole = UserRole.Admin;
+
+        var adminEntity = mapper.Map<UserEntity>(adminModel);
+
+        await dbRepository.Add(adminEntity);
+        await dbRepository.SaveChangesAsync();
+
+        var createAdminDbResponse = new CreateAdminDbResponse
+        {
+            Username = adminEntity.UserName,
+            UserRole = adminEntity.UserRole
+        };
+
+        createAdminResponse.Status = HttpStatusCode.OK;
+        createAdminResponse.Comments = "Ok";
+        createAdminResponse.Value = createAdminDbResponse;
+
+        return createAdminResponse;
     }
 
     public async Task<UpgradeUserToAdminResponse> UpgradeUserToAdmin(IEnumerable<Claim> claims, Guid userId)
@@ -141,9 +179,9 @@ public class UserService(
 
         if (userRequestRole != UserRole.Admin.GetUserRole())
         {
-            upgradeUserToAdminResponse.Status = 403;
+            upgradeUserToAdminResponse.Status = HttpStatusCode.Forbidden;
             upgradeUserToAdminResponse.Comments = "Forbidden to upgrade user, you are not admin";
-            upgradeUserToAdminResponse.UserRole = null;
+            upgradeUserToAdminResponse.Value = null;
             return upgradeUserToAdminResponse;
         }
         
@@ -151,9 +189,9 @@ public class UserService(
 
         if (userEntity is null)
         {
-            upgradeUserToAdminResponse.Status = 400;
+            upgradeUserToAdminResponse.Status = HttpStatusCode.BadRequest;
             upgradeUserToAdminResponse.Comments = "Invalid client request";
-            upgradeUserToAdminResponse.UserRole = null;
+            upgradeUserToAdminResponse.Value = null;
             return upgradeUserToAdminResponse;
         }
 
@@ -162,9 +200,15 @@ public class UserService(
         await dbRepository.Update(userEntity);
         await dbRepository.SaveChangesAsync();
 
-        upgradeUserToAdminResponse.Status = 200;
+        var upgradeUserToAdminDbResponse = new UpgradeUserToAdminDbResponse
+        {
+            Username = userEntity.UserName,
+            UserRole = userEntity.UserRole
+        };
+
+        upgradeUserToAdminResponse.Status = HttpStatusCode.OK;
         upgradeUserToAdminResponse.Comments = "Ok";
-        upgradeUserToAdminResponse.UserRole = UserRole.Admin;
+        upgradeUserToAdminResponse.Value = upgradeUserToAdminDbResponse;
         return upgradeUserToAdminResponse;
     }
 
@@ -189,10 +233,9 @@ public class UserService(
         
         if (userEntity is null)
         {
-            authenticatedResponse.Status = 400;
+            authenticatedResponse.Status = HttpStatusCode.BadRequest;
             authenticatedResponse.Comments = "Invalid user request";
-            authenticatedResponse.RefreshToken = null;
-            authenticatedResponse.Token = null;
+            authenticatedResponse.Value = null;
             return authenticatedResponse;
         }
 
@@ -217,10 +260,15 @@ public class UserService(
         await dbRepository.Update(userEntity);
         await dbRepository.SaveChangesAsync();
 
-        authenticatedResponse.Status = 200;
+        var authenticatedDbResponse = new AuthenticatedDbResponse
+        {
+            Token = accessToken,
+            RefreshToken = refreshToken
+        };
+
+        authenticatedResponse.Status = HttpStatusCode.OK;
         authenticatedResponse.Comments = "Ok";
-        authenticatedResponse.Token = accessToken;
-        authenticatedResponse.RefreshToken = refreshToken;
+        authenticatedResponse.Value = authenticatedDbResponse;
         
         return authenticatedResponse;
     }
