@@ -67,21 +67,21 @@ public class UserService(
         await dbRepository.SaveChangesAsync();
     }
 
-    public async Task<AuthenticatedResponse?> LoginWithUsername(string username, string password)
+    public async Task<AuthenticatedResponse> LoginWithUsername(string username, string password)
     {
         var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(x => x.UserName == username);
         
         return await Login(userEntity, password);
     }
 
-    public async Task<AuthenticatedResponse?> LoginWithEmail(string email, string password)
+    public async Task<AuthenticatedResponse> LoginWithEmail(string email, string password)
     {
         var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(x => x.EMail == email);
 
         return await Login(userEntity, password);
     }
 
-    public ShowWalletResponse? ShowWallet(IEnumerable<Claim> claims)
+    public ShowWalletResponse ShowWallet(IEnumerable<Claim> claims)
     {
         var username = claims.Where(c => c.Type == ClaimTypes.Sid).Select(c => c.Value).SingleOrDefault();
         
@@ -133,9 +133,39 @@ public class UserService(
         throw new NotImplementedException();
     }
 
-    public async Task UpgradeUserToAdmin(Guid userId)
+    public async Task<UpgradeUserToAdminResponse> UpgradeUserToAdmin(IEnumerable<Claim> claims, Guid userId)
     {
+        var upgradeUserToAdminResponse = new UpgradeUserToAdminResponse();
+
+        var userRequestRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).SingleOrDefault();
+
+        if (userRequestRole != UserRole.Admin.GetUserRole())
+        {
+            upgradeUserToAdminResponse.Status = 403;
+            upgradeUserToAdminResponse.Comments = "Forbidden to upgrade user, you are not admin";
+            upgradeUserToAdminResponse.UserRole = null;
+            return upgradeUserToAdminResponse;
+        }
         
+        var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(user => user.Id == userId);
+
+        if (userEntity is null)
+        {
+            upgradeUserToAdminResponse.Status = 400;
+            upgradeUserToAdminResponse.Comments = "Invalid client request";
+            upgradeUserToAdminResponse.UserRole = null;
+            return upgradeUserToAdminResponse;
+        }
+
+        userEntity.UserRole = UserRole.Admin;
+
+        await dbRepository.Update(userEntity);
+        await dbRepository.SaveChangesAsync();
+
+        upgradeUserToAdminResponse.Status = 200;
+        upgradeUserToAdminResponse.Comments = "Ok";
+        upgradeUserToAdminResponse.UserRole = UserRole.Admin;
+        return upgradeUserToAdminResponse;
     }
 
     public Task<string> BuyTicket(Guid drawId)
@@ -153,7 +183,7 @@ public class UserService(
         throw new NotImplementedException();
     }
 
-    private async Task<AuthenticatedResponse?> Login(UserEntity? userEntity, String password)
+    private async Task<AuthenticatedResponse> Login(UserEntity? userEntity, String password)
     {
         var authenticatedResponse = new AuthenticatedResponse();
         

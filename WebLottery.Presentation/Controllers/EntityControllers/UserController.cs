@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
 using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.EntitiesExtensions;
 using WebLottery.Presentation.Controllers.Astractions;
 using WebLottery.Presentation.Controllers.Requests;
 
@@ -95,5 +96,26 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
         }
 
         return Ok(showWalletResponse);
+    }
+
+    [Authorize]
+    [HttpPut("upgradeUserToAdmin")]
+    public async Task<ActionResult<string>> UpgradeUserToAdmin([FromBody] Guid userId)
+    {
+        var upgradeUserToAdminResponse = await userService.UpgradeUserToAdmin(User.Claims, userId);
+
+        var result = string.Empty;
+
+        switch (upgradeUserToAdminResponse.Status)
+        {
+            case 400:
+                return BadRequest(upgradeUserToAdminResponse.Comments);
+            case 403:
+                return Forbid(upgradeUserToAdminResponse.Comments);
+            case 200:
+                break;
+        }
+
+        return Ok(upgradeUserToAdminResponse.UserRole!.Value.GetUserRole());
     }
 }
