@@ -4,6 +4,7 @@ using System.Text.Json;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.DbResponses;
+using WebLottery.Application.Contracts.Requests;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
 using WebLottery.Application.Models.Models;
@@ -73,18 +74,18 @@ public class UserService(
         await dbRepository.SaveChangesAsync();
     }
 
-    public async Task<AuthenticatedResponse> LoginWithUsername(string username, string password)
+    public async Task<AuthenticatedResponse> LoginWithUsername(UserUsernameLoginRequest userUsernameLoginRequest)
     {
-        var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(x => x.UserName == username);
+        var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(x => x.UserName == userUsernameLoginRequest.Username);
         
-        return await Login(userEntity, password);
+        return await Login(userEntity, userUsernameLoginRequest.Password);
     }
 
-    public async Task<AuthenticatedResponse> LoginWithEmail(string email, string password)
+    public async Task<AuthenticatedResponse> LoginWithEmail(UserEmailLoginRequest userEmailLoginRequest)
     {
-        var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(x => x.EMail == email);
+        var userEntity = dbRepository.Get<UserEntity>().FirstOrDefault(x => x.EMail == userEmailLoginRequest.Email);
 
-        return await Login(userEntity, password);
+        return await Login(userEntity, userEmailLoginRequest.Password);
     }
 
     public ShowWalletResponse ShowWallet(IEnumerable<Claim> claims)

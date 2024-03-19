@@ -1,4 +1,4 @@
-namespace WebLottery.Presentation.Controllers.Requests;
+namespace WebLottery.Application.Contracts.Requests;
 
 public class TokenRefreshRequest
 {

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebLottery.Application.Contracts.Requests;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
 using WebLottery.Presentation.Controllers.Astractions;
-using WebLottery.Presentation.Controllers.Requests;
 
 namespace WebLottery.Presentation.Controllers.EntityControllers;
 
@@ -18,7 +18,7 @@ public class TokenController(ITokenService tokenService, IHttpContextAccessor ht
         }
 
         var authenticatedResponse =
-            await tokenService.Refresh(tokenRefreshRequest.AccessToken, tokenRefreshRequest.RefreshToken);
+            await tokenService.Refresh(tokenRefreshRequest);
 
         if (authenticatedResponse is not null && authenticatedResponse.Value is not null && (authenticatedResponse.Value.Token is null || authenticatedResponse.Value.RefreshToken is null))
         {

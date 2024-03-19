@@ -2,11 +2,11 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.DbResponses;
+using WebLottery.Application.Contracts.Requests;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Models.Models;
 using WebLottery.Presentation.Controllers.Astractions;
 using WebLottery.Presentation.Controllers.Extensions;
-using WebLottery.Presentation.Controllers.Requests;
 
 namespace WebLottery.Presentation.Controllers.EntityControllers;
 
@@ -23,7 +23,7 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
     [HttpPost("loginEmail")]
     public async Task<ActionResult<AuthenticatedDbResponse?>> Login([FromBody]UserEmailLoginRequest userEmailLoginRequest)
     {
-        var authenticatedResponse = await userService.LoginWithEmail(userEmailLoginRequest.Email, userEmailLoginRequest.Password);
+        var authenticatedResponse = await userService.LoginWithEmail(userEmailLoginRequest);
 
         if (httpContextAccessor.HttpContext is null)
         {
@@ -48,7 +48,7 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
     [HttpPost("loginUsername")]
     public async Task<ActionResult<AuthenticatedDbResponse?>> Login([FromBody]UserUsernameLoginRequest userUsernameLoginRequest)
     {
-        var authenticatedResponse = await userService.LoginWithUsername(userUsernameLoginRequest.Username, userUsernameLoginRequest.Password);
+        var authenticatedResponse = await userService.LoginWithUsername(userUsernameLoginRequest);
 
         if (httpContextAccessor.HttpContext is null)
         {
