@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace WebLottery.Application.Contracts.ServiceAbstractionsResponsesAbstractions;
+namespace WebLottery.Application.Contracts.ResponsesAbstractions;
 
 public interface IHttpResponse
 {

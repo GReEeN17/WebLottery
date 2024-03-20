@@ -1,8 +1,8 @@
 using System.Net;
 using WebLottery.Application.Contracts.DbResponses;
-using WebLottery.Application.Contracts.ServiceAbstractionsResponsesAbstractions;
+using WebLottery.Application.Contracts.ResponsesAbstractions;
 
-namespace WebLottery.Application.Contracts.ServiceAbstractionsResponses;
+namespace WebLottery.Application.Contracts.Responses;
 
 public class RegisterResponse : IResponse<RegisterDbResponse>
 {

@@ -1,6 +1,4 @@
-using WebLottery.Application.Contracts.ServiceAbstractionsResponsesAbstractions;
-
-namespace WebLottery.Application.Contracts.ServiceAbstractionsResponses;
+namespace WebLottery.Application.Contracts.ServiceAbstractionsModels;
 
 public class ShowWallet
 {

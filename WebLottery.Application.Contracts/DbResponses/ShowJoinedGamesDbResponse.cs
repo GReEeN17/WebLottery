@@ -2,7 +2,7 @@ using WebLottery.Application.Contracts.ServiceAbstractionsModels;
 
 namespace WebLottery.Application.Contracts.DbResponses;
 
-public class ShowWalletDbResponse
+public class ShowJoinedGamesDbResponse
 {
-    public List<ShowWallet>? Wallet { get; set; }
+    public List<ShowJoinedGames>? JoinedGames { get; set; }
 }

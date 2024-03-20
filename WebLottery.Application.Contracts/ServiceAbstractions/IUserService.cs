@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using WebLottery.Application.Contracts.Requests;
-using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
+using WebLottery.Application.Contracts.Responses;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;
 
@@ -14,7 +14,7 @@ public interface IUserService
     Task<AuthenticatedResponse> LoginWithUsername(UserUsernameLoginRequest userUsernameLoginRequest);
     Task<AuthenticatedResponse> LoginWithEmail(UserEmailLoginRequest userEmailLoginRequest);
     ShowWalletResponse ShowWallet(IEnumerable<Claim> claims);
-    Task<string> ShowJoinedDraws();
+    ShowJoinedGamesResponse ShowJoinedDraws();
     Task<string> CreateDraw(int ticketPrice, int maxAmountPlayers);
     Task<CreateAdminResponse> CreateAdmin(IEnumerable<Claim> claims, UserModel adminModel);
     Task<UpgradeUserToAdminResponse> UpgradeUserToAdmin(IEnumerable<Claim> claims, Guid userId);

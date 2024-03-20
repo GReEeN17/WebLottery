@@ -5,8 +5,9 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.DbResponses;
 using WebLottery.Application.Contracts.Requests;
+using WebLottery.Application.Contracts.Responses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
-using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
+using WebLottery.Application.Contracts.ServiceAbstractionsModels;
 using WebLottery.Application.Models.Models;
 using WebLottery.Application.ServiceExtensions;
 using WebLottery.Infrastructure.Entities.Entities;
@@ -131,7 +132,7 @@ public class UserService(
         return showWalletResponse;
     }
 
-    public Task<string> ShowJoinedDraws()
+    public ShowJoinedGamesResponse ShowJoinedDraws()
     {
         throw new NotImplementedException();
     }

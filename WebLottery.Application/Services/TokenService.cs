@@ -2,8 +2,8 @@ using System.Net;
 using System.Security.Claims;
 using WebLottery.Application.Contracts.DbResponses;
 using WebLottery.Application.Contracts.Requests;
+using WebLottery.Application.Contracts.Responses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
-using WebLottery.Application.Contracts.ServiceAbstractionsResponses;
 using WebLottery.Infrastructure.Implementations.Jwt;
 
 namespace WebLottery.Application.Services;
