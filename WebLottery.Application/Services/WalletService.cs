@@ -26,7 +26,7 @@ public class WalletService(IDbRepository dbRepository, IMapper mapper, IWalletCu
         var walletCurrency = new WalletCurrencyModel()
         {
             Amount = 0,
-            CurrencyId = ServiceDefaults.DefaultCurrency.GetServiceDefault(),
+            CurrencyId = ServiceDefaults.DefaultCurrency.GetServiceDefaultCurrencyGuid(),
             WalletId = walletEntityResult.Id
         };
 

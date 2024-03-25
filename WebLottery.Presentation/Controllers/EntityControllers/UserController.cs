@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.DbResponses;
 using WebLottery.Application.Contracts.Requests;
+using WebLottery.Application.Contracts.Responses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Models.Models;
 using WebLottery.Presentation.Controllers.Astractions;
@@ -96,4 +97,13 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
         
         return ResponseExtension<CreateAdminDbResponse?>.GetResponseResult(createAdminResponse!);
     }
+    
+    [Authorize]
+    [HttpPost("createDraw")]
+    public async Task<ActionResult<CreateDrawDbResponse?>> CreateDraw([FromBody] DrawModel drawModel)
+    {
+        var createDrawResponse = await userService.CreateDraw(User.Claims, drawModel);
+
+        return ResponseExtension<CreateDrawDbResponse?>.GetResponseResult(createDrawResponse!);
+    } 
 }

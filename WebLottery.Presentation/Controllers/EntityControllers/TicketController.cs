@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Presentation.Controllers.Astractions;
 
 namespace WebLottery.Presentation.Controllers.EntityControllers;
@@ -34,14 +35,9 @@ public class TicketController(ITicketService ticketService) : BaseController
     }
 
     [HttpPost("create")]
-    public async Task<ActionResult<string>> Create([FromBody] TicketModel ticketModel)
+    public async Task<ActionResult<TicketEntity>> Create([FromBody] TicketModel ticketModel)
     {
         var jsonTicket = await ticketService.CreateTicket(ticketModel);
-        
-        if (String.IsNullOrEmpty(jsonTicket))
-        {
-            return BadRequest("id is empty");
-        }
 
         return Ok(jsonTicket);
     }

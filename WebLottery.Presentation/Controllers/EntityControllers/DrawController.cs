@@ -51,14 +51,9 @@ public class DrawController(IDrawService drawService) : BaseController
     [HttpPost("create")]
     public async Task<ActionResult<string>> Create([FromBody] DrawModel drawModel)
     {
-        var jsonDraw = await drawService.CreateDraw(drawModel);
-        
-        if (String.IsNullOrEmpty(jsonDraw))
-        {
-            return BadRequest("id is empty");
-        }
+        var draw = await drawService.CreateDraw(drawModel);
 
-        return Ok(jsonDraw);
+        return Ok(draw);
     }
 
     [HttpPut]

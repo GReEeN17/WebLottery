@@ -8,6 +8,7 @@ using WebLottery.Application.Contracts.Requests;
 using WebLottery.Application.Contracts.Responses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Contracts.ServiceAbstractionsModels;
+using WebLottery.Application.Defaults;
 using WebLottery.Application.Models.Models;
 using WebLottery.Application.ServiceExtensions;
 using WebLottery.Infrastructure.Entities.Entities;
@@ -23,7 +24,8 @@ public class UserService(
     IPasswordHasher passwordHasher,
     IJwtProvider jwtProvider,
     IWalletService walletService,
-    IPocketService pocketService)
+    IPocketService pocketService,
+    IDrawService drawService)
     : IUserService
 {
     public async Task<RegisterResponse> Register(UserModel userModel)
@@ -132,14 +134,99 @@ public class UserService(
         return showWalletResponse;
     }
 
-    public ShowJoinedGamesResponse ShowJoinedDraws()
+    public ShowJoinedGamesResponse ShowJoinedDraws(IEnumerable<Claim> claims)
     {
-        throw new NotImplementedException();
+        var showJoinedGamesResponse = new ShowJoinedGamesResponse();
+
+        var userUsername = claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+        if (userUsername is null)
+        {
+            showJoinedGamesResponse.Status = HttpStatusCode.BadRequest;
+            showJoinedGamesResponse.Comments = "Invalid client request";
+            showJoinedGamesResponse.Value = null;
+            return showJoinedGamesResponse;
+        }
+
+        var userEntity = dbRepository.Get<UserEntity>()
+            .Include(user => user.Pocket)
+            .ThenInclude(pocket => pocket.PocketTickets)
+            .ThenInclude(ticketList => ticketList.Ticket)
+            .ThenInclude(ticket => ticket.Draw)
+            .FirstOrDefault(user => user.UserName == userUsername);
+
+        if (userEntity is null)
+        {
+            showJoinedGamesResponse.Status = HttpStatusCode.BadRequest;
+            showJoinedGamesResponse.Comments = "Invalid client request";
+            showJoinedGamesResponse.Value = null;
+            return showJoinedGamesResponse;
+        }
+
+        return showJoinedGamesResponse;
     }
 
-    public Task<string> CreateDraw(int ticketPrice, int maxAmountPlayers)
+    public async Task<CreateDrawResponse> CreateDraw(IEnumerable<Claim> claims, DrawModel drawModel)
     {
-        throw new NotImplementedException();
+        var createDrawResponse = new CreateDrawResponse();
+
+        var enumerable = claims.ToList();
+        var userRequestRole = enumerable.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).SingleOrDefault();
+        var userRequestUsername = enumerable.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+        
+        if (userRequestUsername is null || userRequestRole is null)
+        {
+            createDrawResponse.Status = HttpStatusCode.BadRequest;
+            createDrawResponse.Comments = "Invalid client request";
+            createDrawResponse.Value = null;
+            return createDrawResponse;
+        }
+        
+        var userRequest = dbRepository.Get<UserEntity>()
+            .Include(user => user.Wallet)
+            .ThenInclude(wallet => wallet.WalletCurrencies)
+            .ThenInclude(walletCurrency => walletCurrency.Currency)
+            .FirstOrDefault(user => user.UserName == userRequestUsername);
+
+        if (userRequest is null)
+        {
+            createDrawResponse.Status = HttpStatusCode.BadRequest;
+            createDrawResponse.Comments = "Invalid client request";
+            createDrawResponse.Value = null;
+            return createDrawResponse;
+        }
+        
+        var tokenCurrencyAmount = userRequest.Wallet.WalletCurrencies
+            .FirstOrDefault(walletCurrency => walletCurrency.Currency.Id == ServiceDefaults.MakingDrawCurrency.GetServiceDefaultCurrencyGuid())?.Amount;
+        
+        if (userRequestRole == UserRole.Player.GetUserRole() && tokenCurrencyAmount < ServiceDefaults.MinimumAmountToJoinDraw.GetServiceDefaultMinimumAmountToJoinDraw())
+        {
+            createDrawResponse.Status = HttpStatusCode.Forbidden;
+            createDrawResponse.Comments = "Forbidden to create draw, you have not enough tokens";
+            createDrawResponse.Value = null;
+            return createDrawResponse;
+        }
+        
+        if (userRequestRole != UserRole.Admin.GetUserRole())
+        {
+            userRequest.Wallet.WalletCurrencies
+                .FirstOrDefault(walletCurrency => walletCurrency.Currency.Id ==
+                                                  ServiceDefaults.MakingDrawCurrency.GetServiceDefaultCurrencyGuid())!
+                .Amount -= ServiceDefaults.MinimumAmountToJoinDraw.GetServiceDefaultMinimumAmountToJoinDraw(); 
+        }
+
+        var drawEntity = await drawService.CreateDraw(drawModel);
+        
+        createDrawResponse.Status = HttpStatusCode.OK;
+        createDrawResponse.Comments = "Ok";
+        createDrawResponse.Value = new CreateDrawDbResponse
+        {
+            DrawId = drawEntity.Id,
+            TicketPrice = drawEntity.TicketPrice,
+            MaxAmountPlayers = drawEntity.MaxAmountPlayers
+        };
+
+        return createDrawResponse;
     }
 
     public async Task<CreateAdminResponse> CreateAdmin(IEnumerable<Claim> claims, UserModel adminModel)

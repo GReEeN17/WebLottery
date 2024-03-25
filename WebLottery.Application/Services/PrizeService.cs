@@ -35,6 +35,11 @@ public class PrizeService(
         
         return JsonSerializer.Serialize(prizeModel);
     }
+    
+    public IEnumerable<PrizeEntity> GetAllPrizes()
+    {
+        return dbRepository.GetAll<PrizeEntity>().Include(x => x.Currency).ToList();
+    }
 
     public async Task UpdatePrize(PrizeModel prizeModel)
     {

@@ -2,5 +2,8 @@ namespace WebLottery.Application.Defaults;
 
 public enum ServiceDefaults
 {
-    DefaultCurrency
+    DefaultCurrency,
+    MakingDrawCurrency,
+    MinimumAmountToJoinDraw,
+    MaxPlayersAmount
 }

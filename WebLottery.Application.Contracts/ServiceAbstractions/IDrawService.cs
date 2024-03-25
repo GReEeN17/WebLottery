@@ -1,10 +1,11 @@
 using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 
 namespace WebLottery.Application.Contracts.ServiceAbstractions;
 
 public interface IDrawService
 {
-    Task<string> CreateDraw(DrawModel drawModel);
+    Task<DrawEntity> CreateDraw(DrawModel drawModel);
     string GetDraw(Guid drawId);
     string GetALlDraws();
     string GetSomeDraws(int count);

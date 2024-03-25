@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Defaults;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Infrastructure.Implementations.Abstractions;
@@ -10,16 +11,40 @@ namespace WebLottery.Application.Services;
 
 public class DrawService(
     IDbRepository dbRepository,
+    ITicketService ticketService,
+    IPrizeService prizeService,
     IMapper mapper) : IDrawService
 {
-    public async Task<string> CreateDraw(DrawModel drawModel)
+    public async Task<DrawEntity> CreateDraw(DrawModel drawModel)
     {
         var drawEntity = mapper.Map<DrawEntity>(drawModel);
         
-        var result = await dbRepository.Add(drawEntity);
+        Random random = new Random();
+
+        var prizes = prizeService.GetAllPrizes().ToList();
+        drawEntity.PrizeId = prizes.ElementAt(random.Next(0, prizes.Count)).Id;
+        
+        var drawEntityResult = await dbRepository.Add(drawEntity);
         await dbRepository.SaveChangesAsync();
         
-        return JsonSerializer.Serialize(result);
+        HashSet<int> uniqueNumbers = new HashSet<int>();
+        
+        while (uniqueNumbers.Count < drawEntityResult.MaxAmountPlayers)
+        {
+            uniqueNumbers.Add(random.Next(1, ServiceDefaults.MaxPlayersAmount.GetServiceDefaultMaxPlayersAmount()));
+        }
+        
+        foreach (var ticketModel in uniqueNumbers.Select(number => new TicketModel
+                 {
+                     DrawId = drawEntityResult.Id,
+                     LuckyNumber = number,
+                     PurchaseTime = null
+                 }))
+        {
+            await ticketService.CreateTicket(ticketModel);
+        }
+        
+        return drawEntity;
     }
 
     public string GetDraw(Guid drawId)

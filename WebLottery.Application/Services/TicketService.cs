@@ -10,14 +10,14 @@ namespace WebLottery.Application.Services;
 
 public class TicketService(IDbRepository dbRepository, IMapper mapper) : ITicketService
 {
-    public async Task<string> CreateTicket(TicketModel ticketModel)
+    public async Task<TicketEntity> CreateTicket(TicketModel ticketModel)
     {
         var ticketEntity = mapper.Map<TicketEntity>(ticketModel);
 
         var result = await dbRepository.Add(ticketEntity);
         await dbRepository.SaveChangesAsync();
 
-        return JsonSerializer.Serialize(result);
+        return result;
     }
 
     public string GetTicket(Guid ticketId)

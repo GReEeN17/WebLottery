@@ -14,8 +14,8 @@ public interface IUserService
     Task<AuthenticatedResponse> LoginWithUsername(UserUsernameLoginRequest userUsernameLoginRequest);
     Task<AuthenticatedResponse> LoginWithEmail(UserEmailLoginRequest userEmailLoginRequest);
     ShowWalletResponse ShowWallet(IEnumerable<Claim> claims);
-    ShowJoinedGamesResponse ShowJoinedDraws();
-    Task<string> CreateDraw(int ticketPrice, int maxAmountPlayers);
+    ShowJoinedGamesResponse ShowJoinedDraws(IEnumerable<Claim> claims);
+    Task<CreateDrawResponse> CreateDraw(IEnumerable<Claim> claims, DrawModel drawModel);
     Task<CreateAdminResponse> CreateAdmin(IEnumerable<Claim> claims, UserModel adminModel);
     Task<UpgradeUserToAdminResponse> UpgradeUserToAdmin(IEnumerable<Claim> claims, Guid userId);
     Task<string> BuyTicket(Guid drawId);
