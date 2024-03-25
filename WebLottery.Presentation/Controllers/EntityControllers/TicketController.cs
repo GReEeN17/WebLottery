@@ -22,16 +22,11 @@ public class TicketController(ITicketService ticketService) : BaseController
     }
     
     [HttpGet("draw/{drawId}")]
-    public ActionResult<string> GetDrawTickets(Guid drawId)
+    public ActionResult<IEnumerable<TicketModel>> GetDrawTickets(Guid drawId)
     {
-        var jsonTickets = ticketService.GetDrawTickets(drawId);
-
-        if (String.IsNullOrEmpty(jsonTickets))
-        {
-            return BadRequest("Tickets were not found");
-        }
+        var tickets = ticketService.GetDrawTickets(drawId);
         
-        return Ok(jsonTickets);
+        return Ok(tickets);
     }
 
     [HttpPost("create")]

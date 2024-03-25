@@ -8,29 +8,19 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class PocketTicketController(IPocketTicketService pocketTicketService) : BaseController
 {
     [HttpGet("{id}")]
-    public ActionResult<string> Get(Guid id)
+    public ActionResult<PocketTicketModel> Get(Guid id)
     {
-        var jsonPocketTicket = pocketTicketService.GetPocketTicket(id);
-
-        if (String.IsNullOrEmpty(jsonPocketTicket))
-        {
-            return BadRequest("PocketTicket was not found");
-        }
+        var pocketTicket = pocketTicketService.GetPocketTicket(id);
         
-        return Ok(jsonPocketTicket);
+        return Ok(pocketTicket);
     }
 
     [HttpPost("create")]
-    public async Task<ActionResult<string>> Create([FromBody] PocketTicketModel pocketTicketModel)
+    public async Task<ActionResult<PocketTicketModel>> Create([FromBody] PocketTicketModel pocketTicketModel)
     {
-        var jsonPocketTicket = await pocketTicketService.CreatePocketTicket(pocketTicketModel);
-        
-        if (String.IsNullOrEmpty(jsonPocketTicket))
-        {
-            return BadRequest("id is empty");
-        }
+        var pocketTicket = await pocketTicketService.CreatePocketTicket(pocketTicketModel);
 
-        return Ok(jsonPocketTicket);
+        return Ok(pocketTicket);
     }
 
     [HttpPut]

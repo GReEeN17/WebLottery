@@ -25,7 +25,9 @@ public class UserService(
     IJwtProvider jwtProvider,
     IWalletService walletService,
     IPocketService pocketService,
-    IDrawService drawService)
+    IDrawService drawService,
+    ITicketService ticketService,
+    IPocketTicketService pocketTicketService)
     : IUserService
 {
     public async Task<RegisterResponse> Register(UserModel userModel)
@@ -305,9 +307,84 @@ public class UserService(
         return upgradeUserToAdminResponse;
     }
 
-    public Task<string> BuyTicket(Guid drawId)
+    public async Task<BuyTicketResponse> BuyTicket(IEnumerable<Claim> claims, Guid drawId)
     {
-        throw new NotImplementedException();
+        var buyTicketResponse = new BuyTicketResponse();
+        
+        var userRequestUsername = claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+        if (userRequestUsername is null)
+        {
+            buyTicketResponse.Status = HttpStatusCode.BadRequest;
+            buyTicketResponse.Comments = "Invalid client request";
+            buyTicketResponse.Value = null;
+            return buyTicketResponse;
+        }
+        
+        var userEntity = dbRepository.Get<UserEntity>()
+            .Include(user => user.Wallet)
+            .ThenInclude(wallet => wallet.WalletCurrencies)
+            .ThenInclude(walletCurrency => walletCurrency.Currency)
+            .Include(user => user.Pocket)
+            .ThenInclude(pocket => pocket.PocketTickets)
+            .FirstOrDefault(user => user.UserName == userRequestUsername);
+
+        if (userEntity is null)
+        {
+            buyTicketResponse.Status = HttpStatusCode.BadRequest;
+            buyTicketResponse.Comments = "Invalid client request";
+            buyTicketResponse.Value = null;
+            return buyTicketResponse;
+        }
+        
+        var drawEntity = drawService.GetDraw(drawId);
+        
+        if (drawEntity is null)
+        {
+            buyTicketResponse.Status = HttpStatusCode.BadRequest;
+            buyTicketResponse.Comments = "Invalid client request";
+            buyTicketResponse.Value = null;
+            return buyTicketResponse;
+        }
+        
+        var userMoneyAmount = userEntity.Wallet.WalletCurrencies
+            .FirstOrDefault(walletCurrency => walletCurrency.Currency.Id == ServiceDefaults.DefaultCurrency.GetServiceDefaultCurrencyGuid())?.Amount;
+
+        if (userMoneyAmount < drawEntity.TicketPrice)
+        {
+            buyTicketResponse.Status = HttpStatusCode.Forbidden;
+            buyTicketResponse.Comments = "Forbidden to buy ticket, you have not enough money";
+            buyTicketResponse.Value = null;
+            return buyTicketResponse;
+        }
+        
+        userEntity.Wallet.WalletCurrencies
+            .FirstOrDefault(walletCurrency => walletCurrency.Currency.Id == ServiceDefaults.DefaultCurrency.GetServiceDefaultCurrencyGuid())!
+            .Amount -= drawEntity.TicketPrice;
+        
+        var drawTickets = ticketService.GetDrawTickets(drawId).ToList();
+        
+        var randomTicket = drawTickets.ElementAt(new Random().Next(0, drawTickets.Count));
+
+        await ticketService.BuyTicket(randomTicket.Id);
+        
+        var pocketTicket = new PocketTicketModel
+        {
+            PocketId = userEntity.Pocket.Id,
+            TicketId = randomTicket.Id
+        };
+        
+        await pocketTicketService.CreatePocketTicket(pocketTicket);
+        
+        buyTicketResponse.Status = HttpStatusCode.OK;
+        buyTicketResponse.Comments = "Ok";
+        buyTicketResponse.Value = new BuyTicketDbResponse
+        {
+            DrawId = drawId,
+            LuckyNumber = randomTicket.LuckyNumber
+        };
+
+        return buyTicketResponse;
     }
 
     public Task<string> CreateCurrency(string name, string abbreviation)

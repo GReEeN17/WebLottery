@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Models.Models;
+using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Presentation.Controllers.Astractions;
 
 namespace WebLottery.Presentation.Controllers.EntityControllers;
@@ -9,16 +10,11 @@ namespace WebLottery.Presentation.Controllers.EntityControllers;
 public class DrawController(IDrawService drawService) : BaseController
 {
     [HttpGet("{id}")]
-    public ActionResult<string> Get(Guid id)
+    public ActionResult<DrawEntity> Get(Guid id)
     {
-        var jsonDraw = drawService.GetDraw(id);
-
-        if (String.IsNullOrEmpty(jsonDraw))
-        {
-            return BadRequest("Draw was not found");
-        }
+        var draw = drawService.GetDraw(id);
         
-        return Ok(jsonDraw);
+        return Ok(draw);
     }
     
     [Authorize]

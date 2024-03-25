@@ -18,7 +18,7 @@ public interface IUserService
     Task<CreateDrawResponse> CreateDraw(IEnumerable<Claim> claims, DrawModel drawModel);
     Task<CreateAdminResponse> CreateAdmin(IEnumerable<Claim> claims, UserModel adminModel);
     Task<UpgradeUserToAdminResponse> UpgradeUserToAdmin(IEnumerable<Claim> claims, Guid userId);
-    Task<string> BuyTicket(Guid drawId);
+    Task<BuyTicketResponse> BuyTicket(IEnumerable<Claim> claims, Guid drawId);
     Task<string> CreateCurrency(string name, string abbreviation);
     Task<string> CreatePrize(string name, string? description, int? currencyId);
 }

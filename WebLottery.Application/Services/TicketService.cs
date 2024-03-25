@@ -34,12 +34,21 @@ public class TicketService(IDbRepository dbRepository, IMapper mapper) : ITicket
         return JsonSerializer.Serialize(ticketModel);
     }
 
-    public string GetDrawTickets(Guid drawId)
+    public async Task BuyTicket(Guid ticketId)
     {
-        var ticketEntities = dbRepository.Get<TicketEntity>().Include(x => x.Draw).Where(x => x.DrawId == drawId).ToList();
+        var ticketEntity = dbRepository.Get<TicketEntity>().First(x => x.Id == ticketId);
+        ticketEntity.PurchaseTime = DateTime.UtcNow;
+        
+        await dbRepository.Update(ticketEntity);
+        await dbRepository.SaveChangesAsync();
+    }
+
+    public IEnumerable<TicketModel> GetDrawTickets(Guid drawId)
+    {
+        var ticketEntities = dbRepository.Get<TicketEntity>().Include(x => x.Draw).Where(x => x.DrawId == drawId && x.PurchaseTime == DateTime.Parse("0001-01-01T00:00:00")).ToList();
         var ticketModels = mapper.Map<List<TicketModel>>(ticketEntities);
         
-        return JsonSerializer.Serialize(ticketModels);
+        return ticketModels;
     }
 
     public async Task UpdateTicket(TicketModel ticketModel)

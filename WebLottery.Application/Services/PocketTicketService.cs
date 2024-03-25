@@ -9,22 +9,22 @@ namespace WebLottery.Application.Services;
 
 public class PocketTicketService(IDbRepository dbRepository, IMapper mapper) : IPocketTicketService
 {
-    public async Task<string> CreatePocketTicket(PocketTicketModel pocketTicketModel)
+    public async Task<PocketTicketModel> CreatePocketTicket(PocketTicketModel pocketTicketModel)
     {
         var pocketTicketEntity = mapper.Map<PocketTicketEntity>(pocketTicketModel);
 
         var result = await dbRepository.Add(pocketTicketEntity);
         await dbRepository.SaveChangesAsync();
-
-        return JsonSerializer.Serialize(result);
+        
+        return mapper.Map<PocketTicketModel>(result);
     }
 
-    public string GetPocketTicket(Guid pocketTicketId)
+    public PocketTicketModel GetPocketTicket(Guid pocketTicketId)
     {
         var pocketTicketEntity = dbRepository.Get<PocketTicketEntity>().FirstOrDefault(x => x.Id == pocketTicketId);
         var pocketTicketModel = mapper.Map<PocketTicketModel>(pocketTicketEntity);
 
-        return JsonSerializer.Serialize(pocketTicketModel);
+        return pocketTicketModel;
     }
 
     public async Task UpdatePocketTicket(PocketTicketModel pocketTicketModel)

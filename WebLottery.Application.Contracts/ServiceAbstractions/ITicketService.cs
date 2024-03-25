@@ -7,7 +7,8 @@ public interface ITicketService
 {
     Task<TicketEntity> CreateTicket(TicketModel ticketModel);
     string GetTicket(Guid ticketId);
-    string GetDrawTickets(Guid drawId);
+    Task BuyTicket(Guid ticketId);
+    IEnumerable<TicketModel> GetDrawTickets(Guid drawId);
     Task UpdateTicket(TicketModel ticketModel);
     Task DeleteTicket(Guid ticketId);
 }

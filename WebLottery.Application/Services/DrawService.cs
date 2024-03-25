@@ -47,12 +47,9 @@ public class DrawService(
         return drawEntity;
     }
 
-    public string GetDraw(Guid drawId)
+    public DrawEntity? GetDraw(Guid drawId)
     {
-        var drawEntity = dbRepository.Get<DrawEntity>().Include(x => x.Prize).FirstOrDefault(x => x.Id == drawId);
-        var drawModel = mapper.Map<DrawModel>(drawEntity);
-
-        return JsonSerializer.Serialize(drawModel);
+        return dbRepository.Get<DrawEntity>().Include(x => x.Prize).FirstOrDefault(x => x.Id == drawId);
     }
 
     public string GetALlDraws()

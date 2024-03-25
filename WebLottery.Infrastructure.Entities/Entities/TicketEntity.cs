@@ -9,6 +9,6 @@ public class TicketEntity : Entity
     [ForeignKey("Draw")]
     public Guid DrawId { get; set; }
     public DrawEntity Draw { get; set; }
-    public DateTime PurchaseTime { get; set; }
+    public DateTime? PurchaseTime { get; set; }
     public PocketTicketEntity PocketTicket { get; set; }
 }

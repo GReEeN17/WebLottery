@@ -6,7 +6,7 @@ namespace WebLottery.Application.Contracts.ServiceAbstractions;
 public interface IDrawService
 {
     Task<DrawEntity> CreateDraw(DrawModel drawModel);
-    string GetDraw(Guid drawId);
+    DrawEntity? GetDraw(Guid drawId);
     string GetALlDraws();
     string GetSomeDraws(int count);
     Task UpdateDraw(DrawModel drawModel);

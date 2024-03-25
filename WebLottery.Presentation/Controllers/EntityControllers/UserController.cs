@@ -105,5 +105,14 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
         var createDrawResponse = await userService.CreateDraw(User.Claims, drawModel);
 
         return ResponseExtension<CreateDrawDbResponse?>.GetResponseResult(createDrawResponse!);
-    } 
+    }
+    
+    [Authorize]
+    [HttpPost("buyTicket")]
+    public async Task<ActionResult<BuyTicketDbResponse?>> BuyTicket([FromBody] Guid drawId)
+    {
+        var buyTicketResponse = await userService.BuyTicket(User.Claims, drawId);
+
+        return ResponseExtension<BuyTicketDbResponse?>.GetResponseResult(buyTicketResponse!);
+    }
 }
