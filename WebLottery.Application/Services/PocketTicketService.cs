@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;
@@ -39,5 +40,17 @@ public class PocketTicketService(IDbRepository dbRepository, IMapper mapper) : I
     {
         await dbRepository.Delete<PocketTicketEntity>(pocketTicketId);
         await dbRepository.SaveChangesAsync();
+    }
+    
+    public UserModel GetUserFromTicket(Guid ticketId)
+    {
+        var pocketTicket = dbRepository.Get<PocketTicketEntity>()
+            .Include(pocketTicket => pocketTicket.Pocket)
+            .ThenInclude(pocket => pocket.User)
+            .ThenInclude(user => user.Wallet)
+            .ThenInclude(wallet => wallet.WalletCurrencies)
+            .FirstOrDefault(pocketTicket => pocketTicket.Ticket.Id == ticketId);
+
+        return mapper.Map<UserModel>(pocketTicket!.Pocket.User);
     }
 }

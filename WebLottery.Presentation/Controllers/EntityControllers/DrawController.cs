@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebLottery.Application.Contracts.DbResponses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;
 using WebLottery.Presentation.Controllers.Astractions;
+using WebLottery.Presentation.Controllers.Extensions;
 
 namespace WebLottery.Presentation.Controllers.EntityControllers;
 
@@ -67,4 +69,12 @@ public class DrawController(IDrawService drawService) : BaseController
 
         return Ok();
     }
+
+    [HttpPut("endDraw")]
+    public async Task<ActionResult<EndDrawDbResponse?>> EndDraw(Guid drawId)
+    {
+        var endDrawResponse = await drawService.EndDraw(drawId);
+        
+        return ResponseExtension<EndDrawDbResponse?>.GetResponseResult(endDrawResponse!);
+    } 
 }

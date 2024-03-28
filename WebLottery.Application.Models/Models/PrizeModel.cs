@@ -7,4 +7,5 @@ public class PrizeModel
     public string Description { get; set; }
     public Guid? CurrencyId { get; set; }
     public CurrencyModel? Currency { get; set; }
+    public int Amount { get; set; }
 }

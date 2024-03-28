@@ -43,11 +43,23 @@ public class TicketService(IDbRepository dbRepository, IMapper mapper) : ITicket
         await dbRepository.SaveChangesAsync();
     }
 
-    public IEnumerable<TicketModel> GetDrawTickets(Guid drawId)
+    public IEnumerable<TicketModel> GetNotPurchasedDrawTickets(Guid drawId)
     {
         var ticketEntities = dbRepository.Get<TicketEntity>().Include(x => x.Draw).Where(x => x.DrawId == drawId && x.PurchaseTime == DateTime.Parse("0001-01-01T00:00:00")).ToList();
         var ticketModels = mapper.Map<List<TicketModel>>(ticketEntities);
         
+        return ticketModels;
+    }
+
+    public IEnumerable<TicketModel> GetPurchasedDrawTickets(Guid drawId)
+    {
+        var ticketEntities = dbRepository.Get<TicketEntity>()
+            .Include(ticket => ticket.Draw)
+            .ThenInclude(draw => draw.Prize)
+            .ThenInclude(prize => prize.Currency)
+            .Where(ticket => ticket.DrawId == drawId && ticket.PurchaseTime != DateTime.Parse("0001-01-01T00:00:00")).ToList();
+        var ticketModels = mapper.Map<List<TicketModel>>(ticketEntities);
+
         return ticketModels;
     }
 

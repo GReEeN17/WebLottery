@@ -1,5 +1,6 @@
 using System.Text.Json;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;

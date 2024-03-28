@@ -115,4 +115,13 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
 
         return ResponseExtension<BuyTicketDbResponse?>.GetResponseResult(buyTicketResponse!);
     }
+    
+    [Authorize]
+    [HttpGet("showJoinedDraws")]
+    public ActionResult<ShowJoinedGamesDbResponse?> ShowJoinedDraws()
+    {
+        var showJoinedDrawsResponse = userService.ShowJoinedDraws(User.Claims);
+
+        return ResponseExtension<ShowJoinedGamesDbResponse?>.GetResponseResult(showJoinedDrawsResponse!);
+    }
 }

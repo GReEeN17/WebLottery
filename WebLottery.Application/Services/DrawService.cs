@@ -1,5 +1,8 @@
+using System.Net;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using WebLottery.Application.Contracts.DbResponses;
+using WebLottery.Application.Contracts.Responses;
 using WebLottery.Application.Contracts.ServiceAbstractions;
 using WebLottery.Application.Defaults;
 using WebLottery.Application.Models.Models;
@@ -13,6 +16,8 @@ public class DrawService(
     IDbRepository dbRepository,
     ITicketService ticketService,
     IPrizeService prizeService,
+    IPocketTicketService pocketTicketService,
+    IWalletCurrencyService walletCurrencyService,
     IMapper mapper) : IDrawService
 {
     public async Task<DrawEntity> CreateDraw(DrawModel drawModel)
@@ -80,5 +85,43 @@ public class DrawService(
     {
         await dbRepository.Delete<DrawEntity>(drawId);
         await dbRepository.SaveChangesAsync();
+    }
+
+    public async Task<EndDrawResponse> EndDraw(Guid drawId)
+    {
+        var endDrawResponse = new EndDrawResponse();
+        
+        var purchasedTickets = ticketService.GetPurchasedDrawTickets(drawId).ToList();
+
+        var randomTicket = purchasedTickets.ElementAt(new Random().Next(0, purchasedTickets.Count));
+        
+        var ticketUser = pocketTicketService.GetUserFromTicket(randomTicket.Id);
+
+        if (randomTicket.Draw is null || randomTicket.Draw.Prize is null)
+        {
+            endDrawResponse.Status = HttpStatusCode.InternalServerError;
+            endDrawResponse.Comments = "internal server error";
+            endDrawResponse.Value = null;
+            return endDrawResponse;
+        }
+
+        if (randomTicket.Draw.Prize.Currency is not null)
+        {
+            var walletCurrencyUser = ticketUser.Wallet!.WalletCurrencies.First(walletCurrency =>
+                walletCurrency.CurrencyId == randomTicket.Draw.Prize.CurrencyId);
+            walletCurrencyUser.Amount += randomTicket.Draw.Prize.Amount;
+            await walletCurrencyService.UpdateWalletCurrency(walletCurrencyUser);
+        }
+
+        endDrawResponse.Status = HttpStatusCode.OK;
+        endDrawResponse.Comments = "Ok";
+        endDrawResponse.Value = new EndDrawDbResponse
+        {
+            DrawId = randomTicket.DrawId,
+            Prize = randomTicket.Draw.Prize,
+            WinnerId = ticketUser.Id
+        };
+
+        return endDrawResponse;
     }
 }

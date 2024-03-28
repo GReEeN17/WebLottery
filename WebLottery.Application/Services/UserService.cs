@@ -1,6 +1,5 @@
 using System.Net;
 using System.Security.Claims;
-using System.Text.Json;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebLottery.Application.Contracts.DbResponses;
@@ -154,7 +153,6 @@ public class UserService(
             .Include(user => user.Pocket)
             .ThenInclude(pocket => pocket.PocketTickets)
             .ThenInclude(ticketList => ticketList.Ticket)
-            .ThenInclude(ticket => ticket.Draw)
             .FirstOrDefault(user => user.UserName == userUsername);
 
         if (userEntity is null)
@@ -164,6 +162,39 @@ public class UserService(
             showJoinedGamesResponse.Value = null;
             return showJoinedGamesResponse;
         }
+
+        var pocketTickets = userEntity.Pocket.PocketTickets;
+        var showJoinedGamesDbResponse = new ShowJoinedGamesDbResponse
+        {
+            JoinedGames = new List<ShowJoinedGames>()
+        };
+        foreach (PocketTicketEntity pocketTicket in pocketTickets)
+        {
+            var ticket = pocketTicket.Ticket;
+
+            if (showJoinedGamesDbResponse.JoinedGames.SingleOrDefault(draw => draw.DrawId == ticket.DrawId) is null)
+            {
+                showJoinedGamesDbResponse.JoinedGames.Add(new ShowJoinedGames
+                {
+                    DrawId = ticket.DrawId,
+                    BoughtTicketsAmount = 1,
+                    LuckyNumbers = new List<int> { ticket.LuckyNumber }
+                });
+            }
+            else
+            {
+                showJoinedGamesDbResponse.JoinedGames
+                    .SingleOrDefault(draw => draw.DrawId == ticket.DrawId)!
+                    .BoughtTicketsAmount += 1;
+                showJoinedGamesDbResponse.JoinedGames
+                    .SingleOrDefault(draw => draw.DrawId == ticket.DrawId)!
+                    .LuckyNumbers!.Add(ticket.LuckyNumber);
+            }
+        }
+        
+        showJoinedGamesResponse.Status = HttpStatusCode.OK;
+        showJoinedGamesResponse.Comments = "Ok";
+        showJoinedGamesResponse.Value = showJoinedGamesDbResponse;
 
         return showJoinedGamesResponse;
     }
@@ -362,7 +393,7 @@ public class UserService(
             .FirstOrDefault(walletCurrency => walletCurrency.Currency.Id == ServiceDefaults.DefaultCurrency.GetServiceDefaultCurrencyGuid())!
             .Amount -= drawEntity.TicketPrice;
         
-        var drawTickets = ticketService.GetDrawTickets(drawId).ToList();
+        var drawTickets = ticketService.GetNotPurchasedDrawTickets(drawId).ToList();
         
         var randomTicket = drawTickets.ElementAt(new Random().Next(0, drawTickets.Count));
 
@@ -387,16 +418,6 @@ public class UserService(
         return buyTicketResponse;
     }
 
-    public Task<string> CreateCurrency(string name, string abbreviation)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<string> CreatePrize(string name, string? description, int? currencyId)
-    {
-        throw new NotImplementedException();
-    }
-
     private async Task<AuthenticatedResponse> Login(UserEntity? userEntity, String password)
     {
         var authenticatedResponse = new AuthenticatedResponse();
@@ -413,7 +434,10 @@ public class UserService(
 
         if (result is false)
         {
-            return null;
+            authenticatedResponse.Status = HttpStatusCode.BadRequest;
+            authenticatedResponse.Comments = "Invalid user request";
+            authenticatedResponse.Value = null;
+            return authenticatedResponse;
         }
         
         Claim[] claims = [

@@ -8,4 +8,5 @@ public interface IPocketTicketService
     PocketTicketModel GetPocketTicket(Guid pocketTicketId);
     Task UpdatePocketTicket(PocketTicketModel pocketTicketModel);
     Task DeletePocketTicket(Guid pocketTicketId);
+    UserModel GetUserFromTicket(Guid ticketId);
 }

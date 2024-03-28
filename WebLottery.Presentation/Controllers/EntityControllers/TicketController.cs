@@ -24,7 +24,7 @@ public class TicketController(ITicketService ticketService) : BaseController
     [HttpGet("draw/{drawId}")]
     public ActionResult<IEnumerable<TicketModel>> GetDrawTickets(Guid drawId)
     {
-        var tickets = ticketService.GetDrawTickets(drawId);
+        var tickets = ticketService.GetNotPurchasedDrawTickets(drawId);
         
         return Ok(tickets);
     }

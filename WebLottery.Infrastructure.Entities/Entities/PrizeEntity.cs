@@ -11,4 +11,5 @@ public class PrizeEntity : Entity
     public Guid CurrencyId { get; set; }
     public CurrencyEntity? Currency { get; set; }
     public List<DrawEntity> Draws { get; set; }
+    public int Amount { get; set; }
 }

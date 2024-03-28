@@ -1,3 +1,4 @@
+using WebLottery.Application.Contracts.Responses;
 using WebLottery.Application.Models.Models;
 using WebLottery.Infrastructure.Entities.Entities;
 
@@ -11,4 +12,5 @@ public interface IDrawService
     string GetSomeDraws(int count);
     Task UpdateDraw(DrawModel drawModel);
     Task DeleteDraw(Guid drawId);
+    Task<EndDrawResponse> EndDraw(Guid drawId);
 }

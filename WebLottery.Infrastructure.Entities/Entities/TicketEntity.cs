@@ -10,5 +10,6 @@ public class TicketEntity : Entity
     public Guid DrawId { get; set; }
     public DrawEntity Draw { get; set; }
     public DateTime? PurchaseTime { get; set; }
+    public bool Lucky { get; set; }
     public PocketTicketEntity PocketTicket { get; set; }
 }
