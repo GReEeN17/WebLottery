@@ -1,12 +1,14 @@
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using Confluent.Kafka;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using WebLottery.Application.Contracts.ServiceAbstractions;
+using WebLottery.Application.Kafka.Options;
 using WebLottery.Application.ServiceExtensions;
 using WebLottery.Application.Services;
 using WebLottery.Infrastructure.Entities.Entities;
@@ -32,6 +34,8 @@ public class Startup(IConfiguration configuration)
         services.AddHttpContextAccessor();
 
         services.Configure<JwtOptions>(configuration.GetSection(nameof(JwtOptions)));
+        services.Configure<KafkaProducerOptions>(configuration.GetSection(nameof(KafkaProducerOptions)));
+        services.Configure<KafkaConsumerOptions>(configuration.GetSection(nameof(KafkaConsumerOptions)));
         services.AddOptions();
 
         services.AddSwaggerGen(c =>
